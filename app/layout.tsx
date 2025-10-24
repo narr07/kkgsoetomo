@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Bold } from "lucide-react";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const boldOnse = Boldonse({
   weight: "400",
@@ -42,9 +43,16 @@ export default function RootLayout({
       <body
         className={`${bricolageGrotesque.variable} ${ubuntu.variable} ${boldOnse.variable} antialiased`}
       >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         <Navbar />
         {children}
         <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

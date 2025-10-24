@@ -1,9 +1,9 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'motion/react';
 import AnimatedDiv from '@/components/AnimatedDiv';
 import PageTransition from '@/components/PageTransition';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function HomePage() {
   return (
@@ -12,64 +12,23 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="bg-linear-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950 py-20 px-4 overflow-hidden relative">
           <div className="max-w-4xl mx-auto text-center relative z-10">
-            <motion.h1
-              className="text-4xl md:text-5xl font-bold  text-white mb-6"
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
+            <h1 className="text-4xl md:text-5xl font-bold  text-white mb-6">
               Kelompok Kerja Guru
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              className="text-lg text-blue-100 mb-8"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <p className="text-lg text-blue-100 mb-8">
               Bersama membangun pendidikan yang lebih baik untuk generasi masa depan
-            </motion.p>
+            </p>
 
-            <motion.div
-              className="flex gap-4 justify-center flex-wrap"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
+            <div className="flex gap-4 justify-center flex-wrap">
               <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg hover:shadow-xl">
                 Pelajari Lebih Lanjut
               </button>
               <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition shadow-lg hover:shadow-xl">
                 Hubungi Kami
               </button>
-            </motion.div>
+            </div>
           </div>
-
-          {/* Animated background circles */}
-          <motion.div
-            className="absolute top-10 -right-20 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
-            animate={{
-              x: [0, 15, 0],
-              y: [0, 25, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          <motion.div
-            className="absolute bottom-10 -left-20 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
-            animate={{
-              x: [0, -15, 0],
-              y: [0, -25, 0],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
         </section>
 
         {/* Features Section */}
@@ -98,25 +57,25 @@ export default function HomePage() {
                   title: 'Inovasi',
                   description: 'Mengembangkan solusi inovatif untuk tantangan pendidikan modern',
                 },
-              ].map((feature, index) => (
-                <AnimatedDiv
-                  key={index}
-                  animation="scaleIn"
-                  delay={index * 0.15}
-                  duration={0.6}
+              ].map((feature) => (
+                <Card
+                  key={feature.title}
+                  className="hover:shadow-lg transition-shadow border-blue-100/60 dark:border-blue-900/40"
                 >
-                  <motion.div
-                    className="p-6 bg-gray-50 dark:bg-gray-900 rounded-lg hover:shadow-lg transition-shadow"
-                    whileHover={{ y: -5 }}
-                  >
-                    <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                      {feature.icon} {feature.title}
-                    </h3>
+                  <CardHeader className="flex flex-col gap-3">
+                    <span className="text-3xl" aria-hidden>
+                      {feature.icon}
+                    </span>
+                    <CardTitle className="text-xl text-gray-900 dark:text-white">
+                      {feature.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
                     <p className="text-gray-700 dark:text-gray-300">
                       {feature.description}
                     </p>
-                  </motion.div>
-                </AnimatedDiv>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -134,20 +93,9 @@ export default function HomePage() {
               </p>
             </AnimatedDiv>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.button
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Daftar Sekarang
-              </motion.button>
-            </motion.div>
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl">
+              Daftar Sekarang
+            </button>
           </div>
         </section>
       </div>

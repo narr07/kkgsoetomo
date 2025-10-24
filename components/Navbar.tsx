@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { usePathname } from 'next/navigation';
+import {DarkMode} from './DarkMode';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { href: '/', label: 'Beranda' },
@@ -15,100 +17,65 @@ export default function Navbar() {
   ];
 
   return (
-    <motion.nav
-      className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.2 }}
-    >
+    <nav className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <motion.div
-              className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform">
               <span className="text-white font-bold text-lg">KKG</span>
-            </motion.div>
+            </div>
             <span className="font-bold text-gray-900 dark:text-white hidden sm:inline">
               KKG Soetomo
             </span>
           </Link>
 
           {/* Desktop Menu */}
-          <motion.div
-            className="hidden md:flex gap-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
+          <div className="hidden md:flex gap-8">
             {navLinks.map((link, index) => (
-              <motion.div key={link.href} initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + index * 0.05 }}>
-                <Link href={link.href} className="text-gray-700 dark:text-gray-300 font-medium transition">
-                  <motion.span
-                    whileHover={{ color: '#2563eb', y: -2 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {link.label}
-                  </motion.span>
+              <div key={link.href}>
+                <Link href={link.href} className={`font-medium transition ${
+                  pathname === link.href
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                }`}>
+                  {link.label}
                 </Link>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-
+          </div>
+<DarkMode />
           {/* Mobile Menu Button */}
-          <motion.button
+          <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
-            whileTap={{ scale: 0.9 }}
+            className="md:hidden flex flex-col gap-1.5 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition"
           >
-            <motion.span
-              className="w-6 h-0.5 bg-gray-900 dark:bg-white"
-              animate={isOpen ? { rotate: 45, translateY: 8 } : { rotate: 0, translateY: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.span
-              className="w-6 h-0.5 bg-gray-900 dark:bg-white"
-              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.span
-              className="w-6 h-0.5 bg-gray-900 dark:bg-white"
-              animate={isOpen ? { rotate: -45, translateY: -8 } : { rotate: 0, translateY: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.button>
+            <span className={`w-6 h-0.5 bg-gray-900 dark:bg-white transition-all ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`w-6 h-0.5 bg-gray-900 dark:bg-white transition-all ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+            <span className={`w-6 h-0.5 bg-gray-900 dark:bg-white transition-all ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
         </div>
 
         {/* Mobile Menu */}
-        <motion.div
-          initial={false}
-          animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="md:hidden overflow-hidden"
-        >
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-56' : 'max-h-0'}`}>
           <div className="pb-4 space-y-2">
             {navLinks.map((link, index) => (
-              <motion.div
+              <Link
                 key={link.href}
-                initial={{ x: -20, opacity: 0 }}
-                animate={isOpen ? { x: 0, opacity: 1 } : { x: -20, opacity: 0 }}
-                transition={{ delay: index * 0.05 }}
+                href={link.href}
+                className={`block px-4 py-2 rounded transition ${
+                  pathname === link.href
+                    ? 'text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
+                onClick={() => setIsOpen(false)}
               >
-                <Link
-                  href={link.href}
-                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
+                {link.label}
+              </Link>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
