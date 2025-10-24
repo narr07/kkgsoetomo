@@ -1,65 +1,156 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React from 'react';
+import { motion } from 'motion/react';
+import AnimatedDiv from '@/components/AnimatedDiv';
+import PageTransition from '@/components/PageTransition';
+
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main>
+      <div className="min-h-screen bg-white dark:bg-black">
+        {/* Hero Section */}
+        <section className="bg-linear-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950 py-20 px-4 overflow-hidden relative">
+          <div className="max-w-4xl mx-auto text-center relative z-10">
+            <motion.h1
+              className="text-4xl md:text-5xl font-bold  text-white mb-6"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Kelompok Kerja Guru
+            </motion.h1>
+
+            <motion.p
+              className="text-lg text-blue-100 mb-8"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              Bersama membangun pendidikan yang lebih baik untuk generasi masa depan
+            </motion.p>
+
+            <motion.div
+              className="flex gap-4 justify-center flex-wrap"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg hover:shadow-xl">
+                Pelajari Lebih Lanjut
+              </button>
+              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition shadow-lg hover:shadow-xl">
+                Hubungi Kami
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Animated background circles */}
+          <motion.div
+            className="absolute top-10 -right-20 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+            animate={{
+              x: [0, 15, 0],
+              y: [0, 25, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <motion.div
+            className="absolute bottom-10 -left-20 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+            animate={{
+              x: [0, -15, 0],
+              y: [0, -25, 0],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </section>
+
+        {/* Features Section */}
+        <section className="py-16 px-4">
+          <div className="max-w-4xl mx-auto">
+            <AnimatedDiv animation="slideUp" duration={0.6}>
+              <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+                Tentang Kami
+              </h2>
+            </AnimatedDiv>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: '📚',
+                  title: 'Edukasi',
+                  description: 'Menyediakan program edukasi dan pelatihan untuk para pendidik',
+                },
+                {
+                  icon: '🤝',
+                  title: 'Kolaborasi',
+                  description: 'Memfasilitasi kolaborasi antar guru dan institusi pendidikan',
+                },
+                {
+                  icon: '🎯',
+                  title: 'Inovasi',
+                  description: 'Mengembangkan solusi inovatif untuk tantangan pendidikan modern',
+                },
+              ].map((feature, index) => (
+                <AnimatedDiv
+                  key={index}
+                  animation="scaleIn"
+                  delay={index * 0.15}
+                  duration={0.6}
+                >
+                  <motion.div
+                    className="p-6 bg-gray-50 dark:bg-gray-900 rounded-lg hover:shadow-lg transition-shadow"
+                    whileHover={{ y: -5 }}
+                  >
+                    <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                      {feature.icon} {feature.title}
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      {feature.description}
+                    </p>
+                  </motion.div>
+                </AnimatedDiv>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="bg-gray-50 dark:bg-gray-900 py-16 px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <AnimatedDiv animation="slideUp" duration={0.6}>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+                Bergabunglah Dengan Kami
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 mb-8">
+                Mari bersama-sama memajukan dunia pendidikan Indonesia
+              </p>
+            </AnimatedDiv>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.button
+                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Daftar Sekarang
+              </motion.button>
+            </motion.div>
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
