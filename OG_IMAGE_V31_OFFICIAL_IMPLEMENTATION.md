@@ -23,7 +23,7 @@
    tw="flex w-full h-full relative"           // Main container
    tw="flex flex-row w-full h-full relative"  // Flex row
    tw="flex-1 flex flex-col items-start justify-center px-16 py-16" // Text area
-   tw="text-7xl tracking-tight leading-none text-white font-bold mb-6" // Title
+   tw="text-7xl tracking-tight leading-none text-secondary-50 font-bold mb-6" // Title
    tw="text-3xl tracking-tight leading-tight text-gray-100" // Description
    tw="flex w-[500px] h-[630px] overflow-hidden flex-shrink-0" // Image container
    tw="w-full h-full object-cover" // Image styling

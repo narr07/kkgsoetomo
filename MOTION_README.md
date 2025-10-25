@@ -147,7 +147,7 @@ export default function InteractiveButton() {
       whileHover={{ scale: 1.05, backgroundColor: '#1d4ed8' }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2 }}
-      className="bg-blue-600 text-white px-8 py-3 rounded-lg"
+      className="bg-blue-600 text-secondary-50 px-8 py-3 rounded-lg"
     >
       Click Me
     </motion.button>

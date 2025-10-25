@@ -96,7 +96,7 @@ createOGImage(
 
 - **Primary Gradient**: `#293466` (dark blue)
 - **Secondary**: `#39488d` (lighter blue)
-- **Text**: `#ffffff` (white)
+- **Text**: `#f6f7de` (white)
 - **Subtitle**: `#f6f7de` (cream)
 
 ## ✅ Testing

@@ -324,7 +324,7 @@ Direction: 135deg (top-left to bottom-right)
 
 Untuk kategori artikel: #667eea (Blue)
 Overlay Gelap: rgba(0, 0, 0, 0.5)
-Text: Putih (#ffffff)
+Text: Putih (#f6f7de)
 Text Secondary: rgba(255, 255, 255, 0.9)
 ```
 

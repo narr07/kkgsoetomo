@@ -16,7 +16,7 @@ export function DarkMode() {
   return (
     <Button
       variant="outline"
-      className="bg-accent dark:bg-foreground text-foreground dark:text-black"
+      className="bg-accent dark:bg-foreground text-foreground dark:text-primary-950"
       size="icon"
       onClick={toggleTheme}
     >

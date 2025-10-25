@@ -55,7 +55,7 @@ export default function Selayang() {
 
   if (isLoading) {
     return (
-      <section className="bg-[#f6f7de] py-16 px-4 transition-colors dark:bg-[#181f25]">
+      <section className="bg-[#f6f7de] py-16 px-4 transition-colors dark:bg-[#141b38]">
         <div className="mx-auto flex max-w-5xl flex-col gap-12">
           <div className="h-40 animate-pulse" />
         </div>
@@ -83,13 +83,13 @@ export default function Selayang() {
   ];
 
   return (
-    <section className="bg-[#f6f7de] py-16 px-4 transition-colors dark:bg-[#181f25]">
+    <section className="bg-[#f6f7de] py-16 px-4 transition-colors dark:bg-[#141b38]">
       <div className="mx-auto flex max-w-5xl flex-col gap-12">
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#293466] dark:text-[#f8ef25]">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#293466] dark:text-secondary-400">
             Selayang Pandang
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-[#181f25] dark:text-[#f6f7de]">
+          <h2 className="mt-3 text-3xl font-bold text-[#141b38] dark:text-[#f6f7de]">
             Sambutan Pimpinan
           </h2>
           <p className="mt-4 text-[#293466] dark:text-[#f6f7de]">
@@ -104,7 +104,7 @@ export default function Selayang() {
               className="border-[#d9dec2] bg-card text-card-foreground transition-colors dark:border-[#232a36]"
             >
               <CardHeader className="items-center gap-3 text-center">
-                <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-[#f8ef25] shadow-lg">
+                <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-[#d4c93b] shadow-lg">
                   <Image
                     src={urlFor(leader.photo).width(112).height(112).url()}
                     alt={leader.name}
@@ -117,7 +117,7 @@ export default function Selayang() {
                   <CardTitle className="text-2xl text-inherit">
                     {leader.name}
                   </CardTitle>
-                  <CardDescription className="mt-1 uppercase tracking-wide text-[#293466] dark:text-[#f8ef25]">
+                  <CardDescription className="mt-1 uppercase tracking-wide text-[#293466] dark:text-secondary-400">
                     {leader.role}
                   </CardDescription>
                 </div>

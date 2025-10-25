@@ -73,11 +73,11 @@ export default function AnggotaPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Daftar Anggota
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -92,7 +92,7 @@ export default function AnggotaPage() {
               placeholder="Cari anggota..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all hover:border-blue-400"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-secondary-50 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all hover:border-blue-400"
             />
           </div>
 
@@ -124,7 +124,7 @@ export default function AnggotaPage() {
                         blurDataURL={getBlurPlaceholder(member.image)}
                       />
                     ) : (
-                      <span className="text-5xl text-white font-bold">
+                      <span className="text-5xl text-secondary-50 font-bold">
                         {member.name.charAt(0).toUpperCase()}
                       </span>
                     )}
@@ -132,7 +132,7 @@ export default function AnggotaPage() {
 
                   {/* Member Info */}
                   <div className="p-3">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-2">
+                    <h3 className="font-semibold text-gray-900 dark:text-secondary-50 text-sm mb-1 line-clamp-2">
                       {member.name}
                     </h3>
                     <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-1 line-clamp-1">

@@ -286,7 +286,7 @@ transition={{ ease: 'circOut' }}     // Circular out
 
 ```tsx
 <motion.button
-  className="bg-blue-600 text-white px-8 py-3 rounded-lg"
+  className="bg-blue-600 text-secondary-50 px-8 py-3 rounded-lg"
   whileHover={{ scale: 1.05, backgroundColor: '#1d4ed8' }}
   whileTap={{ scale: 0.95 }}
   transition={{ duration: 0.2 }}

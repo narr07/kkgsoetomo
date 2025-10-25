@@ -103,7 +103,7 @@ export default function GaleriDetailPage() {
   if (isLoading) {
     return (
       <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+        <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
           <div className="max-w-6xl mx-auto">
             {/* Back Button Skeleton */}
             <Skeleton className="w-32 h-6 mb-8" />
@@ -136,9 +136,9 @@ export default function GaleriDetailPage() {
   if (!gallery) {
     return (
       <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+        <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Galeri tidak ditemukan
             </h1>
             <Link href="/galeri">
@@ -156,7 +156,7 @@ export default function GaleriDetailPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Back Button */}
           <Link href="/galeri">
@@ -167,7 +167,7 @@ export default function GaleriDetailPage() {
 
           {/* Header */}
           <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               {gallery.title}
             </h1>
             <div className="flex flex-col md:flex-row md:items-center gap-4 text-gray-600 dark:text-gray-400">
@@ -187,11 +187,11 @@ export default function GaleriDetailPage() {
 
           {/* Lightbox */}
           {isLightboxOpen && (
-            <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center">
+            <div className="fixed inset-0 z-50 bg-primary-950/95 flex items-center justify-center">
               {/* Close Button */}
               <button
                 onClick={() => setIsLightboxOpen(false)}
-                className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors"
+                className="absolute top-4 right-4 z-10 text-secondary-50 hover:text-gray-300 transition-colors"
                 aria-label="Close"
               >
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,7 +215,7 @@ export default function GaleriDetailPage() {
               {/* Navigation Buttons */}
               <button
                 onClick={handlePrevious}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-colors"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-secondary-50 p-3 rounded-full transition-colors"
                 aria-label="Previous"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -225,7 +225,7 @@ export default function GaleriDetailPage() {
 
               <button
                 onClick={handleNext}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-colors"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-secondary-50 p-3 rounded-full transition-colors"
                 aria-label="Next"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -234,13 +234,13 @@ export default function GaleriDetailPage() {
               </button>
 
               {/* Image Counter */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/20 text-white px-4 py-2 rounded-full text-sm">
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/20 text-secondary-50 px-4 py-2 rounded-full text-sm">
                 {selectedIndex + 1} / {gallery.images.length}
               </div>
 
               {/* Caption */}
               {currentImage.caption && (
-                <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-white/20 text-white px-4 py-2 rounded-lg max-w-xs text-center text-sm">
+                <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-white/20 text-secondary-50 px-4 py-2 rounded-lg max-w-xs text-center text-sm">
                   {currentImage.caption}
                 </div>
               )}
@@ -266,7 +266,7 @@ export default function GaleriDetailPage() {
               />
 
               {/* Image Counter */}
-              <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-md text-sm font-medium">
+              <div className="absolute top-4 right-4 bg-primary-950/70 text-secondary-50 px-3 py-1 rounded-md text-sm font-medium">
                 {selectedIndex + 1} / {gallery.images.length}
               </div>
 
@@ -275,7 +275,7 @@ export default function GaleriDetailPage() {
                 <>
                   <button
                     onClick={handlePrevious}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-2 md:p-3 rounded-full transition-colors opacity-0 group-hover:opacity-100"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-secondary-50 p-2 md:p-3 rounded-full transition-colors opacity-0 group-hover:opacity-100"
                     aria-label="Previous"
                   >
                     <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -285,7 +285,7 @@ export default function GaleriDetailPage() {
 
                   <button
                     onClick={handleNext}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-2 md:p-3 rounded-full transition-colors opacity-0 group-hover:opacity-100"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 text-secondary-50 p-2 md:p-3 rounded-full transition-colors opacity-0 group-hover:opacity-100"
                     aria-label="Next"
                   >
                     <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -298,14 +298,14 @@ export default function GaleriDetailPage() {
               {/* Fullscreen Button */}
               <button
                 onClick={() => setIsLightboxOpen(true)}
-                className="absolute bottom-4 right-4 bg-black/70 hover:bg-black/90 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors"
+                className="absolute bottom-4 right-4 bg-primary-950/70 hover:bg-primary-950/90 text-secondary-50 px-3 py-1 rounded-md text-sm font-medium transition-colors"
               >
                 ⛶ Fullscreen
               </button>
 
               {/* Caption */}
               {gallery.images[selectedIndex].caption && (
-                <div className="absolute bottom-4 left-4 right-12 bg-black/70 text-white px-3 py-1 rounded-md text-sm">
+                <div className="absolute bottom-4 left-4 right-12 bg-primary-950/70 text-secondary-50 px-3 py-1 rounded-md text-sm">
                   {gallery.images[selectedIndex].caption}
                 </div>
               )}
@@ -314,7 +314,7 @@ export default function GaleriDetailPage() {
 
           {/* Thumbnail Grid */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Semua Foto
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">

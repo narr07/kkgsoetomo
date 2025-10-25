@@ -58,7 +58,7 @@ export default function AnggotaPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         {/* ... */}
         
         {/* ❌ No loading state */}
@@ -153,11 +153,11 @@ export default function AnggotaPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Daftar Anggota
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -172,7 +172,7 @@ export default function AnggotaPage() {
               placeholder="Cari anggota..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-secondary-50"
             />
           </div>
 
@@ -217,7 +217,7 @@ export default function AnggotaPage() {
                         blurDataURL={getBlurPlaceholder(member.image)}
                       />
                     ) : (
-                      <span className="text-6xl text-white font-bold">
+                      <span className="text-6xl text-secondary-50 font-bold">
                         {member.name.charAt(0).toUpperCase()}
                       </span>
                     )}
@@ -225,7 +225,7 @@ export default function AnggotaPage() {
 
                   {/* Member Info */}
                   <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2">
+                    <h3 className="font-semibold text-gray-900 dark:text-secondary-50 text-lg mb-2">
                       {member.name}
                     </h3>
                     <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mb-2">

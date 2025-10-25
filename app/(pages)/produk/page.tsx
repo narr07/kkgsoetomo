@@ -98,11 +98,11 @@ export default function ProdukPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Produk & Layanan
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -117,8 +117,8 @@ export default function ProdukPage() {
                 onClick={() => setSelectedCategory('all')}
                 className={`px-4 py-2 rounded-lg transition ${
                   selectedCategory === 'all'
-                    ? 'bg-blue-600 text-white'
-                    : 'border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900'
+                    ? 'bg-blue-600 text-secondary-50'
+                    : 'border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-secondary-50 hover:bg-gray-50 dark:hover:bg-gray-900'
                 }`}
               >
                 Semua
@@ -129,8 +129,8 @@ export default function ProdukPage() {
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-lg transition ${
                     selectedCategory === category
-                      ? 'bg-blue-600 text-white'
-                      : 'border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900'
+                      ? 'bg-blue-600 text-secondary-50'
+                      : 'border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-secondary-50 hover:bg-gray-50 dark:hover:bg-gray-900'
                   }`}
                 >
                   {category}
@@ -146,7 +146,7 @@ export default function ProdukPage() {
               placeholder="Cari produk..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-secondary-50 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -160,7 +160,7 @@ export default function ProdukPage() {
 
           {/* Stats Bar */}
           <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-            Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredProducts.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(products || []).length}</span> produk
+            Menampilkan <span className="font-semibold text-gray-900 dark:text-secondary-50">{filteredProducts.length}</span> dari <span className="font-semibold text-gray-900 dark:text-secondary-50">{(products || []).length}</span> produk
           </div>
 
           {/* Products Grid */}
@@ -185,7 +185,7 @@ export default function ProdukPage() {
                     </div>
                   ) : (
                     <div className="bg-linear-to-br from-purple-400 to-blue-600 h-40 flex items-center justify-center hover:shadow-inner transition-shadow">
-                      <span className="text-white text-sm font-medium">Gambar Produk</span>
+                      <span className="text-secondary-50 text-sm font-medium">Gambar Produk</span>
                     </div>
                   )}
 
@@ -202,7 +202,7 @@ export default function ProdukPage() {
                       )}
                     </div>
 
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-2">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors line-clamp-2">
                       {product.name}
                     </h3>
 
@@ -237,12 +237,12 @@ export default function ProdukPage() {
                     </div>
 
                     <div className="flex gap-2">
-                      <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium transition hover:bg-blue-700 active:scale-95">
+                      <button className="flex-1 bg-blue-600 text-secondary-50 py-2 rounded-lg font-medium transition hover:bg-blue-700 active:scale-95">
                         Lihat Detail
                       </button>
                       <button 
                         onClick={() => handleOrderWhatsApp(product.name)}
-                        className="flex-1 bg-green-600 text-white py-2 rounded-lg font-medium transition hover:bg-green-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        className="flex-1 bg-green-600 text-secondary-50 py-2 rounded-lg font-medium transition hover:bg-green-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         disabled={product.stock === 0}
                         title="Pesan melalui WhatsApp"
                       >

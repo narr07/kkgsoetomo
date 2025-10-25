@@ -59,11 +59,11 @@ export default function GaleriPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Galeri Kegiatan
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -78,7 +78,7 @@ export default function GaleriPage() {
               placeholder="Cari galeri..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-secondary-50 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -92,7 +92,7 @@ export default function GaleriPage() {
 
           {/* Stats Bar */}
           <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-            Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredGalleries.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(galleries || []).length}</span> galeri
+            Menampilkan <span className="font-semibold text-gray-900 dark:text-secondary-50">{filteredGalleries.length}</span> dari <span className="font-semibold text-gray-900 dark:text-secondary-50">{(galleries || []).length}</span> galeri
           </div>
 
           {/* Gallery Grid */}
@@ -120,14 +120,14 @@ export default function GaleriPage() {
                           blurDataURL={gallery.thumbnail.asset?.metadata?.lqip}
                         />
                         {/* Image Count Badge */}
-                        <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded-md text-sm font-medium">
+                        <div className="absolute top-2 right-2 bg-primary-950/70 text-secondary-50 px-2 py-1 rounded-md text-sm font-medium">
                           📷 {gallery.images.length}
                         </div>
                       </div>
 
                       {/* Content */}
                       <CardHeader className="py-3 px-4">
-                        <CardTitle className="line-clamp-2 text-lg text-gray-900 dark:text-white">
+                        <CardTitle className="line-clamp-2 text-lg text-gray-900 dark:text-secondary-50">
                           {gallery.title}
                         </CardTitle>
                         <CardDescription className="line-clamp-2 text-gray-600 dark:text-gray-400">

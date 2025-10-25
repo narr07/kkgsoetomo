@@ -16,7 +16,7 @@
 ║              └─────────────────────────────────┘              ║
 ║                                                                ║
 ║   Background: Black (#000000)                                 ║
-║   Text Color: White (#FFFFFF)                                 ║
+║   Text Color: White (#f6f7de)                                 ║
 ║   Font: Inter                                                 ║
 ║   Size: 1200x630px (Optimal for social media)                 ║
 ║                                                                ║

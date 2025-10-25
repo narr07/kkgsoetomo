@@ -95,7 +95,7 @@ export async function GET(request: Request) {
           {/* Content container */}
           <div tw="flex flex-col w-full h-full items-center justify-center px-16 py-16">
             {/* Text content */}
-            <h1 tw="text-7xl tracking-tight leading-none text-white font-bold mb-6 max-w-3xl text-center break-words">
+            <h1 tw="text-7xl tracking-tight leading-none text-secondary-50 font-bold mb-6 max-w-3xl text-center break-words">
               {truncatedTitle}
             </h1>
             <p tw="text-3xl tracking-tight leading-tight text-gray-100 max-w-3xl text-center break-words">

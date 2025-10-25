@@ -173,7 +173,7 @@ const related = await client.fetch(relatedArticlesQuery, {
 - Grid: `space-y-6` (vertical stack on mobile)
 - Card: Flex layout `md:flex`
 - Image: `w-full md:w-48 h-40 md:h-auto`
-- Dark mode: `dark:bg-gray-900`, `dark:text-white`
+- Dark mode: `dark:bg-gray-900`, `dark:text-secondary-50`
 - Category badge: Dynamic color dari Sanity
 
 ### Detail Page

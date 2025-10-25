@@ -54,7 +54,7 @@ export default function AboutUs() {
     <section className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <AnimatedDiv animation="slideUp" duration={0.6}>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-secondary-50">
             {data.title}
           </h2>
           {data.subtitle && (
@@ -77,7 +77,7 @@ export default function AboutUs() {
                   <span className="text-4xl" aria-hidden>
                     {item.icon}
                   </span>
-                  <CardTitle className="text-xl text-white dark:text-white">
+                  <CardTitle className="text-xl text-secondary-50 dark:text-secondary-50">
                     {item.title}
                   </CardTitle>
                 </CardHeader>

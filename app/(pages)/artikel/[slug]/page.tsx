@@ -101,7 +101,7 @@ export default function ArtikelDetailPage() {
   if (isLoading) {
     return (
       <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+        <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
           <div className="max-w-3xl mx-auto">
             {/* Back Button Skeleton */}
             <Skeleton className="w-32 h-6 mb-8" />
@@ -161,9 +161,9 @@ export default function ArtikelDetailPage() {
   if (!article) {
     return (
       <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+        <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Artikel tidak ditemukan
             </h1>
             <Link href="/artikel">
@@ -179,7 +179,7 @@ export default function ArtikelDetailPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         <div className="max-w-3xl mx-auto">
           {/* Back Button */}
           <Link href="/artikel">
@@ -193,7 +193,7 @@ export default function ArtikelDetailPage() {
             {/* Category Badge */}
             <div className="flex items-center gap-2 mb-4">
               <span
-                className="text-xs px-3 py-1 rounded-full font-medium text-white"
+                className="text-xs px-3 py-1 rounded-full font-medium text-secondary-50"
                 style={{
                   backgroundColor: article.category?.color || '#3b82f6',
                 }}
@@ -203,7 +203,7 @@ export default function ArtikelDetailPage() {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               {article.title}
             </h1>
 
@@ -220,7 +220,7 @@ export default function ArtikelDetailPage() {
                   />
                 )}
                 <div>
-                  <p className="font-semibold text-gray-900 dark:text-white">
+                  <p className="font-semibold text-gray-900 dark:text-secondary-50">
                     {article.author?.name || 'Penulis Tidak Diketahui'}
                   </p>
                 </div>
@@ -297,12 +297,12 @@ export default function ArtikelDetailPage() {
                     },
                     block: {
                       h2: ({ children }) => (
-                        <h2 className="text-2xl font-bold mt-6 mb-3 text-gray-900 dark:text-white">
+                        <h2 className="text-2xl font-bold mt-6 mb-3 text-gray-900 dark:text-secondary-50">
                           {children}
                         </h2>
                       ),
                       h3: ({ children }) => (
-                        <h3 className="text-xl font-bold mt-4 mb-2 text-gray-900 dark:text-white">
+                        <h3 className="text-xl font-bold mt-4 mb-2 text-gray-900 dark:text-secondary-50">
                           {children}
                         </h3>
                       ),
@@ -335,7 +335,7 @@ export default function ArtikelDetailPage() {
           {/* Related Articles */}
           {relatedArticles.length > 0 && (
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-secondary-50 mb-8">
                 Artikel Terkait
               </h2>
 
@@ -356,7 +356,7 @@ export default function ArtikelDetailPage() {
                         </div>
                       )}
                       <div className="p-4">
-                        <h3 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                        <h3 className="font-bold text-gray-900 dark:text-secondary-50 mb-2 line-clamp-2">
                           {related.title}
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">

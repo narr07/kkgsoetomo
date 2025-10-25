@@ -62,11 +62,11 @@ export default function ArtikelPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Artikel & Blog
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -81,13 +81,13 @@ export default function ArtikelPage() {
               placeholder="Cari artikel..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-secondary-50 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Stats Bar */}
           <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-            Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredArticles.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(articles || []).length}</span> artikel
+            Menampilkan <span className="font-semibold text-gray-900 dark:text-secondary-50">{filteredArticles.length}</span> dari <span className="font-semibold text-gray-900 dark:text-secondary-50">{(articles || []).length}</span> artikel
           </div>
 
           {/* Error State */}
@@ -125,7 +125,7 @@ export default function ArtikelPage() {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-400 to-blue-600">
-                            <span className="text-white text-sm font-medium">Gambar Artikel</span>
+                            <span className="text-secondary-50 text-sm font-medium">Gambar Artikel</span>
                           </div>
                         )}
                       </div>
@@ -135,7 +135,7 @@ export default function ArtikelPage() {
                         {/* Category Badge */}
                         <div className="flex items-center gap-2 mb-2">
                           <span
-                            className="text-xs px-3 py-1 rounded-full font-medium text-white"
+                            className="text-xs px-3 py-1 rounded-full font-medium text-secondary-50"
                             style={{
                               backgroundColor: article.category?.color || '#3b82f6',
                             }}
@@ -143,7 +143,7 @@ export default function ArtikelPage() {
                             {article.category?.title || 'Uncategorized'}
                           </span>
                         </div>
-                        <CardTitle className="line-clamp-2 text-lg text-gray-900 dark:text-white">
+                        <CardTitle className="line-clamp-2 text-lg text-gray-900 dark:text-secondary-50">
                           {article.title}
                         </CardTitle>
                         <CardDescription className="line-clamp-2 text-gray-600 dark:text-gray-400">
@@ -155,7 +155,7 @@ export default function ArtikelPage() {
                       <CardContent className="py-3 px-4">
                         <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                           <p>
-                            Oleh: <span className="font-medium text-gray-900 dark:text-white">
+                            Oleh: <span className="font-medium text-gray-900 dark:text-secondary-50">
                               {article.author?.name || 'Penulis Tidak Diketahui'}
                             </span>
                           </p>

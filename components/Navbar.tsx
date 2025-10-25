@@ -19,7 +19,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#293466] text-[#f6f7de] shadow-md transition-colors dark:bg-[#181f25]">
+    <nav className="sticky top-0 z-50 bg-slate-900 text-secondary-50 shadow-md transition-colors dark:bg-slate-950">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -33,8 +33,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`font-medium transition-colors ${
                   pathname === link.href
-                    ? 'text-[#f8ef25]'
-                    : 'text-[#f6f7de] hover:text-[#f8ef25]'
+                    ? 'text-secondary-400'
+                    : 'text-[#f6f7de] hover:text-secondary-400'
                 }`}
               >
                 {link.label}
@@ -49,9 +49,9 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="flex flex-col gap-1.5 rounded p-2 transition hover:bg-[#1f2743] dark:hover:bg-[#232a36]"
             >
-              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#f8ef25] ${isOpen ? 'translate-y-2 rotate-45' : ''}`} />
-              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#f8ef25] ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
-              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#f8ef25] ${isOpen ? '-translate-y-2 -rotate-45' : ''}`} />
+              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#d4c93b] ${isOpen ? 'translate-y-2 rotate-45' : ''}`} />
+              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#d4c93b] ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#d4c93b] ${isOpen ? '-translate-y-2 -rotate-45' : ''}`} />
             </button>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function Navbar() {
                 href={link.href}
                 className={`block rounded px-4 py-2 transition-colors ${
                   pathname === link.href
-                    ? 'bg-[#1f2743] text-[#f8ef25] dark:bg-[#232a36]'
+                    ? 'bg-[#1f2743] text-secondary-400 dark:bg-[#232a36]'
                     : 'text-[#f6f7de] hover:bg-[#1f2743] dark:hover:bg-[#232a36]'
                 }`}
                 onClick={() => setIsOpen(false)}

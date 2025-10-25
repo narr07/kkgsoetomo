@@ -27,7 +27,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white mt-16 py-12 px-4">
+    <footer className="bg-gray-900 dark:bg-slate-950 text-secondary-50 mt-16 py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* About */}
@@ -49,7 +49,7 @@ export default function Footer() {
                 { href: "/produk", label: "Produk" },
               ].map((link) => (
                 <li key={link.href} className="hover:translate-x-1 transition-transform">
-                  <Link href={link.href} className="hover:text-white transition">
+                  <Link href={link.href} className="hover:text-secondary-50 transition">
                     {link.label}
                   </Link>
                 </li>
