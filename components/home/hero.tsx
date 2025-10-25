@@ -23,6 +23,7 @@ export default function Hero() {
           shockStrength={5}
           resistance={750}
           returnDuration={1.5}
+          style={{ width: '100%', height: '100%', position: 'relative' }}
         />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl text-center">
