@@ -38,7 +38,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function GaleriPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { data: galleries, isLoading, error } = useSWR<Gallery[]>(
+  const { data: galleries, error } = useSWR<Gallery[]>(
     '/api/galleries',
     fetcher,
     {
@@ -91,32 +91,12 @@ export default function GaleriPage() {
           )}
 
           {/* Stats Bar */}
-          {!isLoading && (
-            <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-              Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredGalleries.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(galleries || []).length}</span> galeri
-            </div>
-          )}
-
-          {/* Loading State */}
-          {isLoading && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Card key={i} className="h-full overflow-hidden border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 animate-pulse">
-                  <div className="w-full h-48 bg-gray-300 dark:bg-gray-700" />
-                  <CardHeader>
-                    <div className="h-6 bg-gray-300 dark:bg-gray-700 rounded mb-2" />
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-2/3" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2" />
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+          <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
+            Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredGalleries.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(galleries || []).length}</span> galeri
+          </div>
 
           {/* Gallery Grid */}
-          {!isLoading && !error && (
+          {!error && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredGalleries.length > 0 ? (
                 filteredGalleries.map((gallery) => (

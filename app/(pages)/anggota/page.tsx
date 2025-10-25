@@ -36,7 +36,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function AnggotaPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { data: members, isLoading, error } = useSWR<Member[]>(
+  const { data: members, error } = useSWR<Member[]>(
     '/api/members',
     fetcher,
     {
@@ -96,25 +96,6 @@ export default function AnggotaPage() {
             />
           </div>
 
-          {/* Loading State */}
-          {isLoading && (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {[...Array(10)].map((_, i) => (
-                <div
-                  key={i}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden animate-pulse"
-                >
-                  <div className="w-full aspect-3/4 bg-gray-200 dark:bg-gray-800" />
-                  <div className="p-3 space-y-2">
-                    <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded" />
-                    <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded w-2/3" />
-                    <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* Error State */}
           {error && (
             <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400">
@@ -124,7 +105,7 @@ export default function AnggotaPage() {
           )}
 
           {/* Members Grid */}
-          {!isLoading && !error && (
+          {!error && (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredMembers.map((member) => (
                 <div
@@ -167,7 +148,7 @@ export default function AnggotaPage() {
           )}
 
           {/* Empty State */}
-          {!isLoading && filteredMembers.length === 0 && (
+          {!error && filteredMembers.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 dark:text-gray-400 text-lg">
                 {searchQuery
@@ -178,7 +159,7 @@ export default function AnggotaPage() {
           )}
 
           {/* Statistics */}
-          {!isLoading && filteredMembers.length > 0 && (
+          {filteredMembers.length > 0 && (
             <div className="mt-8 text-center">
               <p className="text-gray-600 dark:text-gray-400">
                 Menampilkan {filteredMembers.length} dari {(members || []).length} anggota

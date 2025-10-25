@@ -1,5 +1,4 @@
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import PageTransition from '@/components/PageTransition';
 
 export default function PagesLayout({
   children,
@@ -8,11 +7,11 @@ export default function PagesLayout({
 }) {
   return (
     <>
-     
       <main>
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </main>
-      
     </>
   );
 }

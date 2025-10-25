@@ -22,7 +22,7 @@ export default async function Image({ params }: Props) {
     const { slug } = await params
     
     if (!slug) {
-      return createOGImage(
+      return await createOGImage(
         'Artikel',
         'KKG dr. Soetomo'
       )
@@ -36,7 +36,7 @@ export default async function Image({ params }: Props) {
     }
     
     if (!article) {
-      return createOGImage(
+      return await createOGImage(
         'Artikel Tidak Ditemukan',
         'KKG dr. Soetomo'
       )
@@ -51,14 +51,14 @@ export default async function Image({ params }: Props) {
       console.error('Image URL generation error:', imageError)
     }
 
-    return createOGImage(
+    return await createOGImage(
       article.title || 'Artikel',
-      article.description || 'Insights dan Informasi Terkini dari KKG dr. Soetomo',
+      article.excerpt || 'Insights dan Informasi Terkini dari KKG dr. Soetomo',
       imageUrl
     )
   } catch (error) {
     console.error('Error generating OG image:', error)
-    return createOGImage(
+    return await createOGImage(
       'KKG dr. Soetomo',
       'Artikel'
     )

@@ -65,7 +65,6 @@ export default function ArtikelDetailPage() {
 
   const [article, setArticle] = useState<Article | null>(null);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -90,25 +89,11 @@ export default function ArtikelDetailPage() {
       } catch (err) {
         console.error('Error fetching article:', err);
         setError('Gagal memuat artikel');
-      } finally {
-        setLoading(false);
       }
     }
 
     fetchArticle();
   }, [slug]);
-
-  if (loading) {
-    return (
-      <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-black py-12 px-4 flex items-center justify-center">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 bg-linear-to-r from-blue-500 to-purple-500 rounded-full animate-spin" />
-          </div>
-        </div>
-      </PageTransition>
-    );
-  }
 
   if (error || !article) {
     return (

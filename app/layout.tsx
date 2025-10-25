@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Boldonse, Bricolage_Grotesque, Ubuntu } from "next/font/google";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore - allow importing global css without type declarations
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme-provider"
 import { SWRProvider } from "@/components/swr-provider"
+import { MotionProvider } from "@/components/motion-provider"
 
 const boldOnse = Boldonse({
   weight: "400",
@@ -67,9 +70,11 @@ export default function RootLayout({
             disableTransitionOnChange
           >
           <SWRProvider>
-            <Navbar />
-            {children}
-            <Footer />
+            <MotionProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </MotionProvider>
           </SWRProvider>
         </ThemeProvider>
       </body>

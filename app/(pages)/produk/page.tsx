@@ -44,7 +44,7 @@ export default function ProdukPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const { data: products, isLoading, error } = useSWR<Product[]>(
+  const { data: products, error } = useSWR<Product[]>(
     '/api/products',
     fetcher,
     {
@@ -158,35 +158,13 @@ export default function ProdukPage() {
             </div>
           )}
 
-          {/* Loading State */}
-          {isLoading && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div
-                  key={i}
-                  className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden bg-white dark:bg-gray-900 animate-pulse"
-                >
-                  <div className="bg-gray-300 dark:bg-gray-700 h-40" />
-                  <div className="p-4 space-y-3">
-                    <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-1/3" />
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded" />
-                    <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-2/3" />
-                    <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* Stats Bar */}
-          {!isLoading && (
-            <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-              Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredProducts.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(products || []).length}</span> produk
-            </div>
-          )}
+          <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
+            Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredProducts.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(products || []).length}</span> produk
+          </div>
 
           {/* Products Grid */}
-          {!isLoading && !error && filteredProducts.length > 0 && (
+          {!error && filteredProducts.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
                 <div
@@ -279,7 +257,7 @@ export default function ProdukPage() {
           )}
 
           {/* Empty State */}
-          {!isLoading && !error && filteredProducts.length === 0 && (
+          {!error && filteredProducts.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 dark:text-gray-400 text-lg">
                 {products && products.length > 0

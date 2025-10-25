@@ -40,7 +40,6 @@ export default function GaleriDetailPage() {
   const slug = params.slug as string;
 
   const [gallery, setGallery] = useState<Gallery | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -59,8 +58,6 @@ export default function GaleriDetailPage() {
       } catch (err) {
         console.error('Error fetching gallery:', err);
         setError('Gagal memuat galeri');
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -101,18 +98,6 @@ export default function GaleriDetailPage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isLightboxOpen, handleNext, handlePrevious]);
-
-  if (loading) {
-    return (
-      <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-black py-12 px-4 flex items-center justify-center">
-          <div className="relative w-12 h-12">
-            <div className="absolute inset-0 bg-linear-to-r from-blue-500 to-purple-500 rounded-full animate-spin" />
-          </div>
-        </div>
-      </PageTransition>
-    );
-  }
 
   if (error || !gallery) {
     return (

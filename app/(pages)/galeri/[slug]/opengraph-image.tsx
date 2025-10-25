@@ -22,7 +22,7 @@ export default async function Image({ params }: Props) {
     const { slug } = await params
     
     if (!slug) {
-      return createOGImage(
+      return await createOGImage(
         'Galeri Kegiatan',
         'KKG dr. Soetomo'
       )
@@ -36,7 +36,7 @@ export default async function Image({ params }: Props) {
     }
     
     if (!gallery) {
-      return createOGImage(
+      return await createOGImage(
         'Galeri Tidak Ditemukan',
         'KKG dr. Soetomo'
       )
@@ -55,14 +55,14 @@ export default async function Image({ params }: Props) {
       ? `📷 ${gallery.images.length} foto - Dokumentasi Kegiatan KKG`
       : 'Dokumentasi Momen Berharga KKG dr. Soetomo'
 
-    return createOGImage(
+    return await createOGImage(
       gallery.title || 'Galeri Kegiatan',
       subtitle,
       imageUrl
     )
   } catch (error) {
     console.error('Error generating OG image:', error)
-    return createOGImage(
+    return await createOGImage(
       'KKG dr. Soetomo',
       'Galeri'
     )
