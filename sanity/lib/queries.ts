@@ -609,6 +609,37 @@ export const homepageDataQuery = groq`
   }
 `
 
+// ================================================
+// OG IMAGE QUERIES (untuk dynamic social preview)
+// ================================================
+
+export const ogImageQuery = groq`
+  *[_id == $id][0] {
+    _id,
+    _type,
+    title,
+    name,
+    "image": mainImage.asset-> {
+      url,
+      metadata {
+        palette {
+          vibrant {
+            background
+          }
+          darkVibrant {
+            background
+          }
+        }
+      }
+    } | select(_type == "article" || _type == "product"),
+    excerpt,
+    description,
+    "imageUrl": image.asset->url | select(_type == "gallery"),
+    publishedAt,
+    date
+  }
+`
+
 export const membersWithArticlesQuery = groq`
   *[_type == "member"] | order(name asc) {
     ${memberFields},

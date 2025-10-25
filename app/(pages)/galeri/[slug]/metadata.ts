@@ -22,25 +22,27 @@ export async function generateMetadata(
       }
     }
 
-    const imageUrl = gallery.thumbnail
-      ? urlFor(gallery.thumbnail).width(1200).height(630).url()
-      : null
-
     const imageCount = gallery.images?.length || 0
+    const ogImageUrl = gallery._id
+      ? `/api/og?id=${gallery._id}`
+      : gallery.thumbnail
+        ? urlFor(gallery.thumbnail).width(1200).height(630).url()
+        : undefined
 
     return {
       title: `${gallery.title} - Galeri KKG dr. Soetomo`,
       description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
+      metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
       openGraph: {
         type: 'website',
         locale: 'id_ID',
         url: `/galeri/${gallery.slug.current}`,
         title: `${gallery.title} - Galeri KKG dr. Soetomo`,
         description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
-        images: imageUrl
+        images: ogImageUrl
           ? [
               {
-                url: imageUrl,
+                url: ogImageUrl,
                 width: 1200,
                 height: 630,
                 alt: gallery.title,
@@ -52,7 +54,7 @@ export async function generateMetadata(
         card: 'summary_large_image',
         title: `${gallery.title} - Galeri KKG dr. Soetomo`,
         description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
-        images: imageUrl ? [imageUrl] : [],
+        images: ogImageUrl ? [ogImageUrl] : [],
       },
     }
   } catch (error) {

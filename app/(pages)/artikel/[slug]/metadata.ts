@@ -22,25 +22,30 @@ export async function generateMetadata(
       }
     }
 
-    const imageUrl = article.image
-      ? urlFor(article.image).width(1200).height(630).url()
-      : null
+    // Use OG API with Sanity document ID (primary)
+    // Fall back to static image if available
+    const ogImageUrl = article._id
+      ? `/api/og?id=${article._id}`
+      : (article.image
+          ? urlFor(article.image).width(1200).height(630).url()
+          : undefined)
 
     return {
       title: article.title,
       description: article.excerpt || article.description || 'Baca artikel terbaru dari KKG dr. Soetomo',
       keywords: article.tags || [],
       authors: article.author ? [{ name: article.author.name }] : [],
+      metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
       openGraph: {
         type: 'article',
         locale: 'id_ID',
         url: `/artikel/${article.slug.current}`,
         title: article.title,
         description: article.excerpt || 'Baca artikel dari KKG dr. Soetomo',
-        images: imageUrl
+        images: ogImageUrl
           ? [
               {
-                url: imageUrl,
+                url: ogImageUrl,
                 width: 1200,
                 height: 630,
                 alt: article.title,
@@ -56,7 +61,7 @@ export async function generateMetadata(
         card: 'summary_large_image',
         title: article.title,
         description: article.excerpt || 'Baca artikel dari KKG dr. Soetomo',
-        images: imageUrl ? [imageUrl] : [],
+        images: ogImageUrl ? [ogImageUrl] : [],
       },
     }
   } catch (error) {

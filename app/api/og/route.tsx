@@ -1,104 +1,138 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/og';
-async function loadGoogleFont (font: string, text: string) {
-  const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`
-  const css = await (await fetch(url)).text()
-  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
- 
+import { client } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/image';
+import { ogImageQuery } from '@/sanity/lib/queries';
+import { notFound } from 'next/navigation';
+
+export const runtime = 'edge';
+
+async function loadGoogleFont(font: string, text: string) {
+  const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`;
+  const css = await (await fetch(url)).text();
+  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
+
   if (resource) {
-    const response = await fetch(resource[1])
-    if (response.status == 200) {
-      return await response.arrayBuffer()
+    const response = await fetch(resource[1]);
+    if (response.status === 200) {
+      return await response.arrayBuffer();
     }
   }
- 
-  throw new Error('failed to load font data')
+
+  throw new Error('failed to load font data');
 }
+
+interface SanityOGData {
+  _id: string;
+  _type: string;
+  title?: string;
+  name?: string;
+  image?: {
+    url: string;
+    metadata?: {
+      palette?: {
+        vibrant?: {
+          background?: string;
+        };
+        darkVibrant?: {
+          background?: string;
+        };
+      };
+    };
+  };
+  excerpt?: string;
+  description?: string;
+  imageUrl?: string;
+  publishedAt?: string;
+  date?: string;
+}
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
 
-    // ?title=<title>&description=<description>
-    const hasTitle = searchParams.has('title');
-    const hasDescription = searchParams.has('description');
-    
-    const title = hasTitle
-      ? searchParams.get('title')?.slice(0, 100)
-      : 'KKG dr. Soetomo';
-    
-    const description = hasDescription
-      ? searchParams.get('description')?.slice(0, 200)
-      : 'Kelompok Kerja Guru dr. Soetomo';
+    // Get id or use fallback to query params (title, description)
+    const id = searchParams.get('id');
+    const titleParam = searchParams.get('title');
+    const descriptionParam = searchParams.get('description');
+
+    let title = titleParam || 'KKG dr. Soetomo';
+    let description = descriptionParam || 'Kelompok Kerja Guru dr. Soetomo';
+    let imageUrl: string | null = null;
+    let vibrantBackground = '#3B82F6';
+    let darkVibrantBackground = '#1F2937';
+
+    // If ID is provided, fetch from Sanity
+    if (id) {
+      const data: SanityOGData | null = await client.fetch(ogImageQuery, { id });
+
+      if (!data) {
+        notFound();
+      }
+
+      // Extract data based on document type
+      title = data.title || data.name || 'KKG dr. Soetomo';
+      description = data.excerpt || data.description || 'Kelompok Kerja Guru dr. Soetomo';
+
+      // Get image and colors
+      if (data.image) {
+        imageUrl = data.image.url ? urlFor(data.image).width(500).height(630).url() : null;
+
+        // Extract vibrant colors from image metadata
+        vibrantBackground =
+          data.image.metadata?.palette?.vibrant?.background ?? '#3B82F6';
+        darkVibrantBackground =
+          data.image.metadata?.palette?.darkVibrant?.background ?? '#1F2937';
+      }
+    }
+
+    // Truncate text
+    const truncatedTitle = title.slice(0, 100);
+    const truncatedDescription = description.slice(0, 150);
 
     return new ImageResponse(
       (
         <div
+          tw="flex w-full h-full relative"
           style={{
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            textAlign: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            flexWrap: 'nowrap',
-            backgroundColor: '#293466',
-            backgroundImage: 'radial-gradient(circle at 25px 25px, lightgray 2%, transparent 0%), radial-gradient(circle at 75px 75px, lightgray 2%, transparent 0%)',
-            backgroundSize: '100px 100px',
+            background: `linear-gradient(135deg, ${vibrantBackground} 0%, ${darkVibrantBackground} 100%)`,
           }}
         >
-          {/* Logo */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              justifyItems: 'center',
-              marginBottom: '20px',
-            }}
-          >
-            <img
-              alt="Logo"
-              height={150}
-              src="data:image/svg+xml,%3Csvg width='116' height='100' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M57.5 0L115 100H0L57.5 0z' /%3E%3C/svg%3E"
-              style={{ margin: '0 30px' }}
-              width={180}
-            />
-          </div>
+          {/* Content container */}
+          <div tw="flex flex-row w-full h-full relative">
+            {/* Text content */}
+            <div tw="flex-1 flex flex-col items-start justify-center px-16 py-16">
+              <h1 tw="text-7xl tracking-tight leading-none text-white font-bold mb-6 max-w-2xl break-words">
+                {truncatedTitle}
+              </h1>
+              <p tw="text-3xl tracking-tight leading-tight text-gray-100 max-w-2xl break-words">
+                {truncatedDescription}
+              </p>
+            </div>
 
-          {/* Title */}
-          <div
-            style={{
-              fontSize: 56,
-              fontStyle: 'normal',
-              fontWeight: 700,
-              fontFamily: 'Inter',
-              letterSpacing: '-0.025em',
-              color: 'white',
-              padding: '0 80px',
-              lineHeight: 1.3,
-              whiteSpace: 'pre-wrap',
-              marginBottom: '20px',
-            }}
-          >
-            {title}
-          </div>
+            {/* Image container */}
+            {imageUrl && (
+              <div tw="flex w-[500px] h-[630px] overflow-hidden flex-shrink-0">
+                <img
+                  src={imageUrl}
+                  alt=""
+                  tw="w-full h-full object-cover"
+                />
+              </div>
+            )}
 
-          {/* Description */}
-          <div
-            style={{
-              fontSize: 28,
-              fontStyle: 'normal',
-              fontWeight: 400,
-              fontFamily: 'Inter',
-              color: '#d0d0d0',
-              padding: '0 80px',
-              lineHeight: 1.4,
-              whiteSpace: 'pre-wrap',
-              maxWidth: '1000px',
-            }}
-          >
-            {description}
+            {/* Fallback Logo (if no image) */}
+            {!imageUrl && (
+              <div tw="flex w-[500px] h-[630px] overflow-hidden flex-shrink-0 items-center justify-center opacity-10">
+                <img
+                  alt="Logo"
+                  height={300}
+                  src="data:image/svg+xml,%3Csvg width='116' height='100' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M57.5 0L115 100H0L57.5 0z' /%3E%3C/svg%3E"
+                  width={360}
+                  tw="object-contain"
+                />
+              </div>
+            )}
           </div>
         </div>
       ),
@@ -108,7 +142,7 @@ export async function GET(request: Request) {
         fonts: [
           {
             name: 'Inter',
-            data: await loadGoogleFont('Inter', `${title} ${description}`),
+            data: await loadGoogleFont('Inter', `${truncatedTitle} ${truncatedDescription}`),
             style: 'normal',
           },
         ],
@@ -116,7 +150,7 @@ export async function GET(request: Request) {
     );
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.log(errorMessage);
+    console.log(`OG Image Generation Error: ${errorMessage}`);
     return new Response(`Failed to generate the image`, {
       status: 500,
     });
