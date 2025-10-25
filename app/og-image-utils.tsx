@@ -16,7 +16,7 @@ export const OG_COLORS = {
 export async function getFonts() {
   try {
     const fontData = await fetch(
-      'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&display=swap'
+      'https://fonts.gstatic.com/s/bricolage_grotesque/v1/w8gOH_pnL_p-3dxZ5X5vSdOL_qZg-8P4Rt2C6w.0.woff2'
     ).then((res) => res.arrayBuffer())
 
     return [
