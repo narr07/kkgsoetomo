@@ -9,6 +9,21 @@ export const OG_IMAGE_CONFIG = {
 }
 
 /**
+ * Convert SVG to base64 data URL
+ */
+function getSvgAsDataUrl(svgPath: string): string {
+  try {
+    const fullPath = path.join(process.cwd(), svgPath)
+    const svgContent = fs.readFileSync(fullPath, 'utf-8')
+    const base64 = Buffer.from(svgContent).toString('base64')
+    return `data:image/svg+xml;base64,${base64}`
+  } catch (error) {
+    console.error('Error reading SVG:', error)
+    return ''
+  }
+}
+
+/**
  * Create OG image with logo on left and content on right
  */
 export async function createOGImage(
@@ -16,15 +31,7 @@ export async function createOGImage(
   subtitle: string,
   imageUrl?: string
 ) {
-  // Read the logo SVG file
-  const logoPath = path.join(process.cwd(), 'app', 'logo.svg')
-  let logoSvg = ''
-
-  try {
-    logoSvg = fs.readFileSync(logoPath, 'utf-8')
-  } catch (error) {
-    console.error('Error reading logo:', error)
-  }
+  const logoDataUrl = getSvgAsDataUrl('app/logo.svg')
 
   return new ImageResponse(
     (
@@ -68,17 +75,12 @@ export async function createOGImage(
             height: '280px',
             flexShrink: 0,
             zIndex: 2,
+            backgroundImage: logoDataUrl ? `url('${logoDataUrl}')` : 'none',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
           }}
-        >
-          {logoSvg && (
-            <svg
-              viewBox="0 0 447.68 447.68"
-              width="100%"
-              height="100%"
-              dangerouslySetInnerHTML={{ __html: logoSvg }}
-            />
-          )}
-        </div>
+        />
 
         {/* Right side - Content */}
         <div
