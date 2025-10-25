@@ -5,7 +5,7 @@ import { urlFor } from '@/sanity/lib/image'
 
 export const runtime = 'nodejs'
 
-export const alt = 'Galeri - KKG Soetomo'
+export const alt = 'Galeri - KKG dr. Soetomo'
 export const size = {
   width: 1200,
   height: 630,
@@ -145,7 +145,7 @@ export default async function Image({ params }: Props) {
                 fontSize: '18px',
               }}
             >
-              <div style={{ opacity: 0.9 }}>KKG Soetomo</div>
+              <div style={{ opacity: 0.9 }}>KKG dr. Soetomo</div>
               {gallery.date && (
                 <div style={{ opacity: 0.9 }}>
                   {new Date(gallery.date).toLocaleDateString('id-ID', {
@@ -179,7 +179,7 @@ export default async function Image({ params }: Props) {
             fontSize: '32px',
           }}
         >
-          KKG Soetomo - Galeri
+          KKG dr. Soetomo - Galeri
         </div>
       ),
       {

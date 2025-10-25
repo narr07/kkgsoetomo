@@ -2,7 +2,7 @@
 
 ## Ringkasan
 
-Sistem OG (Open Graph) Images dinamis telah diimplementasikan untuk semua halaman di KKG Soetomo. Images ini akan ditampilkan saat URL dibagikan di social media (Facebook, Twitter, LinkedIn, dll).
+Sistem OG (Open Graph) Images dinamis telah diimplementasikan untuk semua halaman di KKG dr. Soetomo. Images ini akan ditampilkan saat URL dibagikan di social media (Facebook, Twitter, LinkedIn, dll).
 
 ## Struktur File
 
@@ -50,7 +50,7 @@ Setiap halaman list memiliki OG image statis dengan:
 - Icon emoji yang relevan (📰 artikel, 📷 galeri, 👥 anggota, 🛍️ produk)
 - Gradient purple background
 - Title dan deskripsi halaman
-- Branding KKG Soetomo
+- Branding KKG dr. Soetomo
 
 ### 3. **Metadata Otomatis**
 
@@ -75,7 +75,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
 ### Homepage OG Image
 ```
-Title: KKG Soetomo - Kelompok Kerja Guru
+Title: KKG dr. Soetomo - Kecamatan Rajagaluh
 Description: Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan
 ```
 

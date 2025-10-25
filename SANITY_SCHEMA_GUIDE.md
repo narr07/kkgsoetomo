@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-Kami telah membuat 5 schema Sanity baru yang sesuai dengan struktur frontend website KKG Soetomo:
+Kami telah membuat 5 schema Sanity baru yang sesuai dengan struktur frontend website KKG dr. Soetomo:
 
 ```
 ✅ Member (Anggota KKG)
@@ -261,7 +261,7 @@ Schema untuk kategori produk.
 File `structure.ts` telah diperbarui dengan navigasi yang lebih baik:
 
 ```
-KKG Soetomo
+KKG dr. Soetomo
 ├── 👥 Anggota KKG
 ├── 📝 Artikel
 │   ├── Daftar Artikel

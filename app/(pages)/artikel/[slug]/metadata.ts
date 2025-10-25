@@ -28,7 +28,7 @@ export async function generateMetadata(
 
     return {
       title: article.title,
-      description: article.excerpt || article.description || 'Baca artikel terbaru dari KKG Soetomo',
+      description: article.excerpt || article.description || 'Baca artikel terbaru dari KKG dr. Soetomo',
       keywords: article.tags || [],
       authors: article.author ? [{ name: article.author.name }] : [],
       openGraph: {
@@ -36,7 +36,7 @@ export async function generateMetadata(
         locale: 'id_ID',
         url: `/artikel/${article.slug.current}`,
         title: article.title,
-        description: article.excerpt || 'Baca artikel dari KKG Soetomo',
+        description: article.excerpt || 'Baca artikel dari KKG dr. Soetomo',
         images: imageUrl
           ? [
               {
@@ -55,7 +55,7 @@ export async function generateMetadata(
       twitter: {
         card: 'summary_large_image',
         title: article.title,
-        description: article.excerpt || 'Baca artikel dari KKG Soetomo',
+        description: article.excerpt || 'Baca artikel dari KKG dr. Soetomo',
         images: imageUrl ? [imageUrl] : [],
       },
     }
@@ -63,7 +63,7 @@ export async function generateMetadata(
     console.error('Error generating metadata:', error)
     return {
       title: 'Artikel',
-      description: 'Baca artikel dari KKG Soetomo',
+      description: 'Baca artikel dari KKG dr. Soetomo',
     }
   }
 }

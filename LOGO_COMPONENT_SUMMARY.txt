@@ -73,7 +73,7 @@ Props Interface:
   - size?: 'sm' | 'md' | 'lg' (default: 'md')
   - href?: string (default: '/')
   - className?: string (additional Tailwind classes)
-  - showText?: boolean (display "KKG Soetomo" text)
+  - showText?: boolean (display "KKG dr. Soetomo" text)
 
 Internal Features:
   - SVG inline (no network requests)

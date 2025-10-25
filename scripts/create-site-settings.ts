@@ -13,7 +13,7 @@ async function createSiteSettingsDocument() {
     const doc = {
       _type: 'siteSettings',
       _id: 'siteSettings', // Singleton ID
-      title: 'KKG Soetomo',
+      title: 'KKG dr. Soetomo',
       description: 'Kelompok Kerja Guru Soetomo - Platform kolaborasi untuk meningkatkan kualitas pendidikan',
       email: 'info@kkgsoetomo.com',
       phone: '+62 812 3456 7890',

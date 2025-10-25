@@ -1,6 +1,6 @@
-# 📖 Dokumentasi KKG Soetomo - Motion Animations
+# 📖 Dokumentasi KKG dr. Soetomo - Motion Animations
 
-Panduan lengkap implementasi Motion Animations di website KKG Soetomo.
+Panduan lengkap implementasi Motion Animations di website KKG dr. Soetomo.
 
 ## 🎯 Daftar Isi
 
@@ -338,7 +338,7 @@ Dokumentasi Animasi
 
 ## 🎉 Selesai!
 
-Website KKG Soetomo sekarang memiliki animasi modern yang membuat user experience lebih menyenangkan!
+Website KKG dr. Soetomo sekarang memiliki animasi modern yang membuat user experience lebih menyenangkan!
 
 ---
 

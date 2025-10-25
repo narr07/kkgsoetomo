@@ -14,8 +14,8 @@ async function createAboutUsDocument() {
       _type: 'aboutUs',
       _id: 'aboutUs', // Singleton ID
       title: 'Tentang Kami',
-      subtitle: 'Mengenal lebih dekat KKG Soetomo',
-      description: 'KKG Soetomo adalah komunitas guru yang berdedikasi untuk meningkatkan kualitas pendidikan melalui kolaborasi dan inovasi.',
+      subtitle: 'Mengenal lebih dekat KKG dr. Soetomo',
+      description: 'KKG dr. Soetomo adalah komunitas guru yang berdedikasi untuk meningkatkan kualitas pendidikan melalui kolaborasi dan inovasi.',
       highlights: [
         {
           icon: '📚',

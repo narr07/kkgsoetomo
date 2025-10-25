@@ -1,6 +1,6 @@
 # 🎬 Motion Animation Implementation
 
-Website KKG Soetomo sekarang dilengkapi dengan animasi modern menggunakan **Motion** dari Framer Motion.
+Website KKG dr. Soetomo sekarang dilengkapi dengan animasi modern menggunakan **Motion** dari Framer Motion.
 
 ## 🚀 Fitur Animasi
 
@@ -381,4 +381,4 @@ Dokumentasi lengkap tersedia di:
 **Framework**: Next.js 16.0.0 + React 19.2.0
 **Animation Library**: Motion v12.23.24
 
-Selamat! Website KKG Soetomo sekarang memiliki animasi modern! 🎉
+Selamat! Website KKG dr. Soetomo sekarang memiliki animasi modern! 🎉

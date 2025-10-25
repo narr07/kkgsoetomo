@@ -29,13 +29,13 @@ export async function generateMetadata(
     const imageCount = gallery.images?.length || 0
 
     return {
-      title: `${gallery.title} - Galeri KKG Soetomo`,
+      title: `${gallery.title} - Galeri KKG dr. Soetomo`,
       description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
       openGraph: {
         type: 'website',
         locale: 'id_ID',
         url: `/galeri/${gallery.slug.current}`,
-        title: `${gallery.title} - Galeri KKG Soetomo`,
+        title: `${gallery.title} - Galeri KKG dr. Soetomo`,
         description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
         images: imageUrl
           ? [
@@ -50,7 +50,7 @@ export async function generateMetadata(
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${gallery.title} - Galeri KKG Soetomo`,
+        title: `${gallery.title} - Galeri KKG dr. Soetomo`,
         description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
         images: imageUrl ? [imageUrl] : [],
       },
@@ -59,7 +59,7 @@ export async function generateMetadata(
     console.error('Error generating metadata:', error)
     return {
       title: 'Galeri Kegiatan',
-      description: 'Galeri kegiatan KKG Soetomo',
+      description: 'Galeri kegiatan KKG dr. Soetomo',
     }
   }
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Footer() {
   const footerSections = [
     {
-      title: "KKG Soetomo",
+      title: "KKG dr. Soetomo",
       content: "Kelompok Kerja Guru berdedikasi untuk meningkatkan kualitas pendidikan Indonesia.",
       type: "about",
     },
@@ -32,7 +32,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* About */}
           <div>
-            <h3 className="font-bold text-lg mb-4">KKG Soetomo</h3>
+            <h3 className="font-bold text-lg mb-4">KKG dr. Soetomo</h3>
             <p className="text-gray-400">
               Kelompok Kerja Guru berdedikasi untuk meningkatkan kualitas pendidikan Indonesia.
             </p>
@@ -87,7 +87,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-gray-800 pt-8 mt-8">
           <p className="text-center text-gray-400">
-            © 2025 KKG Soetomo. Semua hak dilindungi.
+            © 2025 KKG dr. Soetomo. Semua hak dilindungi.
           </p>
         </div>
       </div>

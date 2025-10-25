@@ -15,7 +15,7 @@ Kemudian buka: http://localhost:3000/studio
 1. Klik menu **⚙️ Pengaturan Website**
 2. Klik tombol **Create**
 3. Isi field:
-   - **Judul Website**: KKG Soetomo
+   - **Judul Website**: KKG dr. Soetomo
    - **Deskripsi Website**: Kelompok Kerja Guru Soetomo
    - **Email Kontak**: info@kkgsoetomo.com
    - **Nomor Telepon**: +62 812 3456 7890
@@ -41,7 +41,7 @@ Kemudian buka: http://localhost:3000/studio
 2. Akan langsung membuka form untuk edit (karena singleton)
 3. Isi field:
    - **Judul**: Tentang Kami
-   - **Subjudul**: Mengenal lebih dekat KKG Soetomo
+   - **Subjudul**: Mengenal lebih dekat KKG dr. Soetomo
    - **Deskripsi Singkat**: (deskripsi)
    - **Konten Lengkap**: (isi konten)
    - **Gambar**: Upload gambar

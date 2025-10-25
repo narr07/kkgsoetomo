@@ -1,4 +1,4 @@
-# 📋 Struktur Frontend KKG Soetomo
+# 📋 Struktur Frontend KKG dr. Soetomo
 
 Berikut penjelasan struktur folder dan halaman yang telah dibuat untuk website KKG dengan Next.js dan Sanity.
 

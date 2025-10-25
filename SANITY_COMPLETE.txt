@@ -94,7 +94,7 @@
 
 🎨 SANITY STUDIO STRUCTURE
 
-  KKG Soetomo (Main Menu)
+  KKG dr. Soetomo (Main Menu)
   │
   ├── 👥 Anggota KKG
   │   └── List of members with role-based filtering

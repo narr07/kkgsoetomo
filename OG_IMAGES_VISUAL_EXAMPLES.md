@@ -2,7 +2,7 @@
 
 ## Overview
 
-Setiap halaman di KKG Soetomo sekarang memiliki custom Open Graph images yang terlihat profesional saat dibagikan di social media.
+Setiap halaman di KKG dr. Soetomo sekarang memiliki custom Open Graph images yang terlihat profesional saat dibagikan di social media.
 
 ---
 
@@ -17,7 +17,7 @@ Setiap halaman di KKG Soetomo sekarang memiliki custom Open Graph images yang te
 │  ║                                                ║  │
 │  ║           🎓                                   ║  │
 │  ║                                                ║  │
-│  ║    KKG Soetomo                                ║  │
+│  ║    KKG dr. Soetomo                                ║  │
 │  ║                                                ║  │
 │  ║  Kelompok Kerja Guru -                        ║  │
 │  ║  Wadah Kolaborasi Pendidik                    ║  │
@@ -47,7 +47,7 @@ URL: https://kkgsoetomo.com/opengraph-image.png
 │  ║    Artikel & Berita                           ║  │
 │  ║                                                ║  │
 │  ║  Insights dan Informasi Terkini dari           ║  │
-│  ║  KKG Soetomo                                  ║  │
+│  ║  KKG dr. Soetomo                                  ║  │
 │  ║                                                ║  │
 │  ╚════════════════════════════════════════════════╝  │
 │                                                      │
@@ -82,7 +82,7 @@ URL: https://kkgsoetomo.com/artikel/opengraph-image.png
 │  ║ │  │ Strategi Pembelajaran yang          │  │ ║  │
 │  ║ │  │ Efektif di Era Digital              │  │ ║  │
 │  ║ │  │                                     │  │ ║  │
-│  ║ │  │ KKG Soetomo  │  25 Oktober 2025    │  │ ║  │
+│  ║ │  │ KKG dr. Soetomo  │  25 Oktober 2025    │  │ ║  │
 │  ║ │  └─────────────────────────────────────┘  │ ║  │
 │  ║ │                                            │ ║  │
 │  ║ └────────────────────────────────────────────┘ ║  │
@@ -98,7 +98,7 @@ Data yang ditampilkan (dari Sanity):
 ✓ Title: article.title (font besar, bold)
 ✓ Description: article.excerpt
 ✓ Date: article.publishedAt (formatnya: 25 Oktober 2025)
-✓ Branding: KKG Soetomo
+✓ Branding: KKG dr. Soetomo
 ```
 
 **Digunakan untuk:**
@@ -121,7 +121,7 @@ Data yang ditampilkan (dari Sanity):
 │  ║    Galeri Kegiatan                            ║  │
 │  ║                                                ║  │
 │  ║  Dokumentasi Momen Berharga                   ║  │
-│  ║  KKG Soetomo                                  ║  │
+│  ║  KKG dr. Soetomo                                  ║  │
 │  ║                                                ║  │
 │  ╚════════════════════════════════════════════════╝  │
 │                                                      │
@@ -155,7 +155,7 @@ URL: https://kkgsoetomo.com/galeri/opengraph-image.png
 │  ║ │  │                                     │  │ ║  │
 │  ║ │  │ 📷 18 foto                          │  │ ║  │
 │  ║ │  │                                     │  │ ║  │
-│  ║ │  │ KKG Soetomo  │  15 Oktober 2025    │  │ ║  │
+│  ║ │  │ KKG dr. Soetomo  │  15 Oktober 2025    │  │ ║  │
 │  ║ │  └─────────────────────────────────────┘  │ ║  │
 │  ║ │                                            │ ║  │
 │  ║ └────────────────────────────────────────────┘ ║  │
@@ -170,7 +170,7 @@ Data yang ditampilkan (dari Sanity):
 ✓ Title: gallery.title (font besar, bold)
 ✓ Image Count: gallery.images.length (📷 18 foto)
 ✓ Date: gallery.date (formatnya: 15 Oktober 2025)
-✓ Branding: KKG Soetomo
+✓ Branding: KKG dr. Soetomo
 ```
 
 **Digunakan untuk:**
@@ -218,7 +218,7 @@ URL: https://kkgsoetomo.com/anggota/opengraph-image.png
 │  ║                                                ║  │
 │  ║    Produk & Layanan                           ║  │
 │  ║                                                ║  │
-│  ║  Solusi Pendidikan dari KKG Soetomo           ║  │
+│  ║  Solusi Pendidikan dari KKG dr. Soetomo           ║  │
 │  ║                                                ║  │
 │  ╚════════════════════════════════════════════════╝  │
 │                                                      │
@@ -238,7 +238,7 @@ Setiap halaman mengirim metadata dalam format:
 
 ```html
 <!-- Homepage -->
-<meta property="og:title" content="KKG Soetomo - Kelompok Kerja Guru" />
+<meta property="og:title" content="KKG dr. Soetomo - Kecamatan Rajagaluh" />
 <meta property="og:description" content="Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan" />
 <meta property="og:image" content="https://kkgsoetomo.com/opengraph-image.png" />
 <meta property="og:type" content="website" />
@@ -265,7 +265,7 @@ Setiap halaman mengirim metadata dalam format:
 ### Facebook Share
 ```
 ┌─────────────────────────────┐
-│  KKG Soetomo - Kelompok...  │
+│  KKG dr. Soetomo - Kelompok...  │
 │  ┌───────────────────────┐  │
 │  │   OG Image (1200x630) │  │
 │  │   (Dibuat kecil di FB)│  │
@@ -300,7 +300,7 @@ Setiap halaman mengirim metadata dalam format:
 │  └───────────────────────────────┘  │
 │  Pelajari strategi pembelajaran...  │
 │                                     │
-│  KKG Soetomo · 2 minggu lalu        │
+│  KKG dr. Soetomo · 2 minggu lalu        │
 └─────────────────────────────────────┘
 ```
 

@@ -1,4 +1,4 @@
-# 🎬 Panduan Animasi Website KKG Soetomo
+# 🎬 Panduan Animasi Website KKG dr. Soetomo
 
 Dokumentasi lengkap tentang animasi yang telah ditambahkan ke website KKG menggunakan Motion dari Framer Motion.
 

@@ -48,7 +48,7 @@ schemaTypes/
 
 ### Struktur Sanity Studio (Baru):
 ```
-KKG Soetomo
+KKG dr. Soetomo
 ├── 👥 Anggota KKG
 ├── 📝 Artikel
 │   ├── Daftar Artikel

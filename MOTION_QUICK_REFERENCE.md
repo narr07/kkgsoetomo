@@ -1,6 +1,6 @@
 # 🎬 Motion Animations - Quick Reference
 
-Panduan cepat untuk menggunakan animasi di website KKG Soetomo.
+Panduan cepat untuk menggunakan animasi di website KKG dr. Soetomo.
 
 ## 📦 Import
 

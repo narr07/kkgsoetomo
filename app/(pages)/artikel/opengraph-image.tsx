@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
 
-export const alt = 'Artikel - KKG Soetomo'
+export const alt = 'Artikel - KKG dr. Soetomo'
 export const size = {
   width: 1200,
   height: 630,
@@ -34,7 +34,7 @@ export default async function Image() {
           Artikel & Berita
         </div>
         <div style={{ fontSize: '32px', opacity: 0.9 }}>
-          Insights dan Informasi Terkini dari KKG Soetomo
+          Insights dan Informasi Terkini dari KKG dr. Soetomo
         </div>
       </div>
     ),

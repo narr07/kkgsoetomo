@@ -2,7 +2,7 @@
 
 ## 📝 Summary
 
-Implementasi **Dynamic Open Graph (OG) Images** untuk KKG Soetomo website telah selesai. Sistem ini memungkinkan preview yang menarik saat URL dibagikan di media sosial (Facebook, Twitter, LinkedIn, Slack, dll).
+Implementasi **Dynamic Open Graph (OG) Images** untuk KKG dr. Soetomo website telah selesai. Sistem ini memungkinkan preview yang menarik saat URL dibagikan di media sosial (Facebook, Twitter, LinkedIn, Slack, dll).
 
 ---
 
@@ -182,7 +182,7 @@ Real-time dari Sanity:
 
 ### Homepage
 ```
-🎓 KKG Soetomo - Kelompok Kerja Guru
+🎓 KKG dr. Soetomo - Kecamatan Rajagaluh
 Platform Kolaborasi & Edukasi
 (Gradient purple background)
 ```
@@ -193,7 +193,7 @@ Platform Kolaborasi & Edukasi
 PENDIDIKAN (Category - Blue)
 Strategi Pembelajaran Efektif di Era Digital
 Pelajari metode pembelajaran inovatif...
-KKG Soetomo | 25 Oktober 2025
+KKG dr. Soetomo | 25 Oktober 2025
 ```
 
 ### Galeri Detail (Dinamis)
@@ -201,7 +201,7 @@ KKG Soetomo | 25 Oktober 2025
 [Gallery Thumbnail Background]
 Rapat Koordinasi 2025
 📷 18 foto
-KKG Soetomo | 15 Oktober 2025
+KKG dr. Soetomo | 15 Oktober 2025
 ```
 
 ---

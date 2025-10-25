@@ -88,7 +88,7 @@
 🎨 SANITY STUDIO MENU
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  KKG Soetomo
+  KKG dr. Soetomo
   ├── 👥 Anggota KKG
   ├── 📝 Artikel
   │   ├── Daftar Artikel

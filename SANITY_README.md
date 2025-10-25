@@ -2,7 +2,7 @@
 
 ## 🎯 Quick Navigation
 
-Selamat! Schema Sanity untuk website KKG Soetomo telah selesai dibuat! 
+Selamat! Schema Sanity untuk website KKG dr. Soetomo telah selesai dibuat! 
 
 Berikut dokumentasi lengkapnya:
 
@@ -118,7 +118,7 @@ Berikut dokumentasi lengkapnya:
 ## 🎨 Sanity Studio Navigation
 
 ```
-KKG Soetomo (Main)
+KKG dr. Soetomo (Main)
 ├── 👥 Anggota KKG
 ├── 📝 Artikel
 │   ├── Daftar Artikel
@@ -353,5 +353,5 @@ For detailed information about:
 
 ---
 
-Created for: KKG Soetomo Website
+Created for: KKG dr. Soetomo Website
 Framework: Next.js 16 + Sanity 4.11 + React 19

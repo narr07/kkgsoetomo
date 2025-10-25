@@ -2,7 +2,7 @@
 
 ## Ringkasan Implementasi
 
-Saya telah berhasil membuat sistem **Dynamic Open Graph Images** untuk semua halaman di KKG Soetomo website. Ini akan membuat preview yang menarik saat URL dibagikan di media sosial.
+Saya telah berhasil membuat sistem **Dynamic Open Graph Images** untuk semua halaman di KKG dr. Soetomo website. Ini akan membuat preview yang menarik saat URL dibagikan di media sosial.
 
 ---
 
@@ -70,7 +70,7 @@ Artikel dan Galeri detail menggunakan data real-time dari Sanity:
   - Judul artikel (font size besar)
   - Excerpt/description
   - Tanggal publish
-  - Branding KKG Soetomo
+  - Branding KKG dr. Soetomo
 
 **Galeri Detail:**
 - Background: Thumbnail galeri
@@ -79,7 +79,7 @@ Artikel dan Galeri detail menggunakan data real-time dari Sanity:
   - Judul kegiatan
   - Jumlah foto (📷 15 foto)
   - Tanggal event
-  - Branding KKG Soetomo
+  - Branding KKG dr. Soetomo
 
 ### C. **Metadata Otomatis**
 Setiap halaman detail sekarang memiliki:
@@ -97,7 +97,7 @@ Setiap halaman detail sekarang memiliki:
 
 ### 1. **Homepage Share**
 User share `https://kkgsoetomo.com/`
-→ Muncul preview dengan KKG Soetomo branding
+→ Muncul preview dengan KKG dr. Soetomo branding
 
 ### 2. **Artikel Share**
 User share `https://kkgsoetomo.com/artikel/judul-artikel`

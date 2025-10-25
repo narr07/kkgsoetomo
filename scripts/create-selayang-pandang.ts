@@ -20,7 +20,7 @@ async function createSelayangPandangDocument() {
       },
       ketua_gugus: {
         name: 'Nama Ketua Gugus',
-        message: 'Selamat datang di KKG Soetomo. Mari kita terus memperkuat kolaborasi untuk menghadirkan pembelajaran terbaik bagi peserta didik.',
+        message: 'Selamat datang di KKG dr. Soetomo. Mari kita terus memperkuat kolaborasi untuk menghadirkan pembelajaran terbaik bagi peserta didik.',
       },
     }
 

@@ -24,27 +24,27 @@ const bricolageGrotesque = Bricolage_Grotesque({
 })
 
 export const metadata: Metadata = {
-  title: "KKG Soetomo - Kelompok Kerja Guru",
+  title: "KKG dr. Soetomo - Kecamatan Rajagaluh",
   description: "Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan",
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
   openGraph: {
     type: 'website',
     locale: 'id_ID',
     url: '/',
-    title: "KKG Soetomo - Kelompok Kerja Guru",
+    title: "KKG dr. Soetomo - Kecamatan Rajagaluh-Majalengka",
     description: "Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan",
     images: [
       {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'KKG Soetomo',
+        alt: 'KKG dr. Soetomo',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "KKG Soetomo - Kelompok Kerja Guru",
+    title: "KKG dr Soetomo - Kec. Rajagaluh",
     description: "Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan",
     images: ['/opengraph-image.png'],
   },

@@ -2,7 +2,7 @@
 
 ## 📋 Ringkasan Pekerjaan
 
-Saya telah berhasil menambahkan animasi modern ke website KKG Soetomo menggunakan **Motion** dari Framer Motion. Berikut adalah ringkasan lengkap:
+Saya telah berhasil menambahkan animasi modern ke website KKG dr. Soetomo menggunakan **Motion** dari Framer Motion. Berikut adalah ringkasan lengkap:
 
 ## ✨ Apa yang Ditambahkan
 
@@ -308,7 +308,7 @@ import { motion } from 'motion/react';
 
 ## 🎉 Hasil Akhir
 
-Website KKG Soetomo sekarang memiliki:
+Website KKG dr. Soetomo sekarang memiliki:
 
 - ✨ **Animasi smooth** di semua halaman
 - 🎯 **Scroll-triggered effects** yang menarik
@@ -372,4 +372,4 @@ Untuk dokumentasi lengkap, lihat:
 
 **Status**: ✅ SELESAI
 
-Selamat! Website KKG Soetomo sekarang dilengkapi dengan animasi modern yang membuat user experience lebih menyenangkan! 🚀
+Selamat! Website KKG dr. Soetomo sekarang dilengkapi dengan animasi modern yang membuat user experience lebih menyenangkan! 🚀

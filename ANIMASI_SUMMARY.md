@@ -1,6 +1,6 @@
 # 🎬 Ringkasan Implementasi Animasi Motion
 
-Berikut adalah ringkasan lengkap animasi modern yang telah ditambahkan ke website KKG Soetomo menggunakan Motion dari Framer Motion.
+Berikut adalah ringkasan lengkap animasi modern yang telah ditambahkan ke website KKG dr. Soetomo menggunakan Motion dari Framer Motion.
 
 ## 📦 Instalasi & Setup
 
@@ -339,4 +339,4 @@ docs/
 **Motion Version**: v12.23.24
 **Framework**: Next.js 16.0.0 + React 19.2.0 + Tailwind CSS v4
 
-Selamat! Website KKG Soetomo sekarang memiliki animasi modern yang membuat user experience lebih menyenangkan! 🎉
+Selamat! Website KKG dr. Soetomo sekarang memiliki animasi modern yang membuat user experience lebih menyenangkan! 🎉

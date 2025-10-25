@@ -12,7 +12,7 @@ export const siteSettingsType = defineType({
       title: 'Judul Website',
       type: 'string',
       validation: (Rule) => Rule.required(),
-      initialValue: 'KKG Soetomo',
+      initialValue: 'KKG dr. Soetomo',
     }),
     defineField({
       name: 'description',

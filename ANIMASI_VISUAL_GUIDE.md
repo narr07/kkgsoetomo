@@ -1,6 +1,6 @@
 # 🎬 Motion Animations - Visual Guide
 
-Panduan visual untuk animasi yang telah ditambahkan ke website KKG Soetomo.
+Panduan visual untuk animasi yang telah ditambahkan ke website KKG dr. Soetomo.
 
 ## 📍 Lokasi Setiap Animasi
 

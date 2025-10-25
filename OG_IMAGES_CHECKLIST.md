@@ -32,7 +32,7 @@
 ## Features Implemented
 
 ### 1. List Page OG Images
-- [x] Homepage dengan gradient purple & KKG Soetomo branding
+- [x] Homepage dengan gradient purple & KKG dr. Soetomo branding
 - [x] Artikel list dengan icon 📰
 - [x] Galeri list dengan icon 📷
 - [x] Anggota list dengan icon 👥
@@ -44,14 +44,14 @@
   - [x] Overlay gelap untuk readability
   - [x] Kategori + judul + excerpt
   - [x] Tanggal publish
-  - [x] Branding KKG Soetomo
+  - [x] Branding KKG dr. Soetomo
 
 - [x] Galeri detail dengan:
   - [x] Background thumbnail
   - [x] Overlay gelap
   - [x] Judul + jumlah foto
   - [x] Tanggal event
-  - [x] Branding KKG Soetomo
+  - [x] Branding KKG dr. Soetomo
 
 ### 3. Metadata Generation
 - [x] Dynamic title dari Sanity data

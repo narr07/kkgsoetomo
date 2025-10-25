@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'nodejs'
 
-export const alt = 'KKG Soetomo'
+export const alt = 'KKG dr. Soetomo'
 export const size = {
   width: 1200,
   height: 630,
@@ -30,7 +30,7 @@ export default async function Image() {
       >
         <div style={{ fontSize: '80px' }}>🎓</div>
         <div style={{ textAlign: 'center', fontSize: '64px' }}>
-          KKG Soetomo
+          KKG dr. Soetomo
         </div>
         <div style={{ fontSize: '32px', opacity: 0.9 }}>
           Kelompok Kerja Guru - Wadah Kolaborasi Pendidik

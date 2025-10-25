@@ -2,7 +2,7 @@
 
 ## Overview
 
-Komponen `Logo` adalah reusable React component yang menampilkan brand logo KKG Soetomo dalam format SVG yang scalable dan responsive.
+Komponen `Logo` adalah reusable React component yang menampilkan brand logo KKG dr. Soetomo dalam format SVG yang scalable dan responsive.
 
 **Status**: ✅ Production Ready | **Zero Errors** | **Tested**
 
@@ -38,7 +38,7 @@ interface LogoProps {
   size?: 'sm' | 'md' | 'lg';        // Default: 'md'
   href?: string;                     // Default: '/'
   className?: string;                // Custom CSS classes
-  showText?: boolean;                // Display "KKG Soetomo" text
+  showText?: boolean;                // Display "KKG dr. Soetomo" text
 }
 ```
 
@@ -49,7 +49,7 @@ interface LogoProps {
 
 ### 5. **Accessibility**
 - SVG role attribute: `role="img"`
-- Aria label: `aria-label="KKG Soetomo Logo"`
+- Aria label: `aria-label="KKG dr. Soetomo Logo"`
 - Proper semantic HTML
 
 ---
@@ -80,7 +80,7 @@ export default function Page() {
 
 ### With Text (Branding)
 ```tsx
-<Logo showText size="md" />  {/* Shows logo + "KKG Soetomo" text */}
+<Logo showText size="md" />  {/* Shows logo + "KKG dr. Soetomo" text */}
 ```
 
 ### With Custom Classes
