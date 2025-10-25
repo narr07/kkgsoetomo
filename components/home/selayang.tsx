@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image'
-import React, { useState, useEffect } from 'react'
-import { selayangPandangQuery } from '@/sanity/lib/queries'
-import { client } from '@/sanity/lib/client'
+import React from 'react'
+import useSWR from 'swr'
 import { urlFor } from '@/sanity/lib/image'
 
 import {
@@ -41,25 +40,20 @@ interface SelayangPandang {
   ketua_gugus: Leader;
 }
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function Selayang() {
-  const [data, setData] = useState<SelayangPandang | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const result = await client.fetch(selayangPandangQuery);
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching selayang pandang:', error);
-      } finally {
-        setLoading(false);
-      }
+  const { data, isLoading } = useSWR<SelayangPandang>(
+    '/api/selayang-pandang',
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000,
+      focusThrottleInterval: 300000,
     }
-    fetchData();
-  }, []);
+  );
 
-  if (loading) {
+  if (isLoading) {
     return (
       <section className="bg-[#f6f7de] py-16 px-4 transition-colors dark:bg-[#181f25]">
         <div className="mx-auto flex max-w-5xl flex-col gap-12">

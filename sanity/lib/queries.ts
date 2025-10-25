@@ -59,7 +59,19 @@ const memberFields = groq`
   slug,
   role,
   school,
-  image
+  image {
+    asset -> {
+      _id,
+      url,
+      metadata {
+        lqip,
+        dimensions
+      }
+    },
+    alt,
+    crop,
+    hotspot
+  }
 `
 
 export const allMembersQuery = groq`

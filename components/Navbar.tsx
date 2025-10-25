@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { DarkMode } from './DarkMode';
+import Logo from './Logo';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,14 +23,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#f8ef25] transition-transform hover:scale-110">
-              <span className="text-lg font-bold text-[#293466]">KKG</span>
-            </div>
-            <span className="hidden font-bold text-[#f6f7de] dark:text-[#f6f7de] sm:inline">
-              KKG Soetomo
-            </span>
-          </Link>
+          <Logo size="md" href="/" className="md:hidden lg:block" />
 
           {/* Desktop Menu */}
           <div className="hidden items-center gap-8 md:flex">

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import PageTransition from '@/components/PageTransition';
 import { articleBySlugQuery, relatedArticlesQuery } from '@/sanity/lib/queries';
 import { client } from '@/sanity/lib/client';
@@ -162,10 +163,12 @@ export default function ArtikelDetailPage() {
             <div className="flex flex-col md:flex-row md:items-center gap-4 text-gray-600 dark:text-gray-400">
               <div className="flex items-center gap-3">
                 {article.author?.image && (
-                  <img
+                  <Image
                     src={urlFor(article.author.image).width(40).height(40).url()}
                     alt={article.author.name}
-                    className="w-10 h-10 rounded-full object-cover"
+                    width={40}
+                    height={40}
+                    className="rounded-full object-cover"
                   />
                 )}
                 <div>
@@ -193,11 +196,13 @@ export default function ArtikelDetailPage() {
           </div>
 
           {/* Featured Image */}
-          <div className="mb-8 rounded-lg overflow-hidden h-96 md:h-[500px] hover:shadow-lg transition-shadow">
-            <img
+          <div className="mb-8 rounded-lg overflow-hidden h-96 md:h-[500px] hover:shadow-lg transition-shadow relative w-full">
+            <Image
               src={urlFor(article.image).width(800).height(500).url()}
               alt={article.image.alt || article.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
           </div>
 
@@ -228,13 +233,19 @@ export default function ArtikelDetailPage() {
                   value={article.content}
                   components={{
                     types: {
-                      image: ({ value }) => (
-                        <img
-                          src={urlFor(value).width(800).url()}
-                          alt={value.alt || 'Article image'}
-                          className="rounded-lg my-6 hover:shadow-lg transition-shadow"
-                        />
-                      ),
+                      image: ({ value }) => {
+                        const imageUrl = urlFor(value).width(800).url();
+                        return (
+                          <div className="relative w-full h-96 rounded-lg my-6 overflow-hidden hover:shadow-lg transition-shadow">
+                            <Image
+                              src={imageUrl}
+                              alt={value.alt || 'Article image'}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        );
+                      },
                     },
                     block: {
                       h2: ({ children }) => (
@@ -281,17 +292,18 @@ export default function ArtikelDetailPage() {
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {relatedArticles.map((related, index) => (
+                {relatedArticles.map((related) => (
                   <Link key={related._id} href={`/artikel/${related.slug.current}`}>
                     <div
                       className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden bg-white dark:bg-gray-900 h-full cursor-pointer hover:shadow-lg hover:border-blue-400 dark:hover:border-blue-600 transition-all"
                     >
                       {related.image && (
-                        <div className="h-40 overflow-hidden bg-gray-200 dark:bg-gray-800">
-                          <img
+                        <div className="h-40 overflow-hidden bg-gray-200 dark:bg-gray-800 relative w-full">
+                          <Image
                             src={urlFor(related.image).width(300).height(160).url()}
                             alt={related.image.alt || related.title}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                           />
                         </div>
                       )}

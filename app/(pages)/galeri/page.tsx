@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import PageTransition from '@/components/PageTransition';
-import { allGalleriesQuery } from '@/sanity/lib/queries';
-import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
+import useSWR from 'swr';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface SanityImage {
@@ -35,29 +34,27 @@ interface Gallery {
   images: SanityImage[];
 }
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function GaleriPage() {
-  const [galleries, setGalleries] = useState<Gallery[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    async function fetchGalleries() {
-      try {
-        const data = await client.fetch(allGalleriesQuery);
-        setGalleries(data || []);
-      } catch (error) {
-        console.error('Error fetching galleries:', error);
-        setGalleries([]);
-      } finally {
-        setLoading(false);
-      }
+  const { data: galleries, isLoading, error } = useSWR<Gallery[]>(
+    '/api/galleries',
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000, // 1 minute
+      focusThrottleInterval: 300000, // 5 minutes
     }
-    fetchGalleries();
-  }, []);
+  );
 
-  const filteredGalleries = galleries.filter((gallery) =>
-    gallery.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    gallery.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredGalleries = useMemo(
+    () =>
+      (galleries || []).filter((gallery) =>
+        gallery.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        gallery.description.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [galleries, searchQuery]
   );
 
   return (
@@ -85,15 +82,23 @@ export default function GaleriPage() {
             />
           </div>
 
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400">
+              <p className="font-semibold mb-1">Gagal memuat data galeri</p>
+              <p className="text-sm">Silakan coba refresh halaman</p>
+            </div>
+          )}
+
           {/* Stats Bar */}
-          {!loading && (
+          {!isLoading && (
             <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-              Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredGalleries.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{galleries.length}</span> galeri
+              Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredGalleries.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(galleries || []).length}</span> galeri
             </div>
           )}
 
           {/* Loading State */}
-          {loading && (
+          {isLoading && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <Card key={i} className="h-full overflow-hidden border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 animate-pulse">
@@ -111,7 +116,7 @@ export default function GaleriPage() {
           )}
 
           {/* Gallery Grid */}
-          {!loading && (
+          {!isLoading && !error && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredGalleries.length > 0 ? (
                 filteredGalleries.map((gallery) => (

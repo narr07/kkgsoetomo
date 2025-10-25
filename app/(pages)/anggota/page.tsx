@@ -1,17 +1,26 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
+import useSWR from 'swr';
 import PageTransition from '@/components/PageTransition';
-import { client } from '@/sanity/lib/client';
-import { allMembersQuery } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 
 interface SanityImage {
   asset?: {
     _ref?: string;
     url?: string;
+    metadata?: {
+      lqip?: string;
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+    };
   };
+  alt?: string;
+  crop?: Record<string, unknown>;
+  hotspot?: Record<string, unknown>;
 }
 
 interface Member {
@@ -23,40 +32,43 @@ interface Member {
   slug: { current: string };
 }
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function AnggotaPage() {
-  const [members, setMembers] = useState<Member[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    async function fetchMembers() {
-      try {
-        const data = await client.fetch(allMembersQuery);
-        setMembers(data || []);
-      } catch (error) {
-        console.error('Error fetching members:', error);
-        setMembers([]);
-      } finally {
-        setLoading(false);
-      }
+  const { data: members, isLoading, error } = useSWR<Member[]>(
+    '/api/members',
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000, // 1 minute
+      focusThrottleInterval: 300000, // 5 minutes
     }
-    fetchMembers();
-  }, []);
+  );
 
-  const filteredMembers = members.filter(
-    (member) =>
-      member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.school.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.role.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredMembers = useMemo(
+    () =>
+      (members || []).filter(
+        (member) =>
+          member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          member.school.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          member.role.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [members, searchQuery]
   );
 
   const getImageUrl = (image: SanityImage | undefined) => {
     if (!image) return null;
     try {
-      return urlFor(image).width(400).height(400).url();
+      return urlFor(image).width(300).height(400).url();
     } catch {
       return null;
     }
+  };
+
+  const getBlurPlaceholder = (image: SanityImage | undefined) => {
+    if (!image?.asset?.metadata?.lqip) return undefined;
+    return image.asset.metadata.lqip;
   };
 
   return (
@@ -85,50 +97,67 @@ export default function AnggotaPage() {
           </div>
 
           {/* Loading State */}
-          {loading && (
-            <div className="text-center py-12">
-              <div className="inline-block">
-                <div className="w-12 h-12 border-4 border-gray-300 dark:border-gray-700 border-t-blue-500 rounded-full animate-spin"></div>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mt-4">
-                Memuat data anggota...
-              </p>
+          {isLoading && (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {[...Array(10)].map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden animate-pulse"
+                >
+                  <div className="w-full aspect-3/4 bg-gray-200 dark:bg-gray-800" />
+                  <div className="p-3 space-y-2">
+                    <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded w-2/3" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400">
+              <p className="font-semibold mb-1">Gagal memuat data anggota</p>
+              <p className="text-sm">Silakan coba refresh halaman</p>
             </div>
           )}
 
           {/* Members Grid */}
-          {!loading && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {!isLoading && !error && (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredMembers.map((member) => (
                 <div
                   key={member._id}
-                  className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden cursor-pointer hover:shadow-lg hover:-translate-y-2 transition-all"
+                  className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all"
                 >
-                  {/* Avatar/Image */}
-                  <div className="relative h-40 bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center overflow-hidden">
+                  {/* Avatar/Image - Portrait */}
+                  <div className="relative w-full aspect-3/4 bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center overflow-hidden">
                     {member.image && getImageUrl(member.image) ? (
                       <Image
                         src={getImageUrl(member.image)!}
                         alt={member.name}
                         fill
                         className="object-cover"
+                        placeholder="blur"
+                        blurDataURL={getBlurPlaceholder(member.image)}
                       />
                     ) : (
-                      <span className="text-6xl text-white font-bold">
+                      <span className="text-5xl text-white font-bold">
                         {member.name.charAt(0).toUpperCase()}
                       </span>
                     )}
                   </div>
 
                   {/* Member Info */}
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-2">
+                  <div className="p-3">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-2">
                       {member.name}
                     </h3>
-                    <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mb-2">
+                    <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-1 line-clamp-1">
                       {member.role}
                     </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
                       {member.school}
                     </p>
                   </div>
@@ -138,7 +167,7 @@ export default function AnggotaPage() {
           )}
 
           {/* Empty State */}
-          {!loading && filteredMembers.length === 0 && (
+          {!isLoading && filteredMembers.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 dark:text-gray-400 text-lg">
                 {searchQuery
@@ -149,10 +178,10 @@ export default function AnggotaPage() {
           )}
 
           {/* Statistics */}
-          {!loading && filteredMembers.length > 0 && (
+          {!isLoading && filteredMembers.length > 0 && (
             <div className="mt-8 text-center">
               <p className="text-gray-600 dark:text-gray-400">
-                Menampilkan {filteredMembers.length} dari {members.length} anggota
+                Menampilkan {filteredMembers.length} dari {(members || []).length} anggota
               </p>
             </div>
           )}

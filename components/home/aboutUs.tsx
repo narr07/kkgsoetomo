@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { aboutUsQuery } from '@/sanity/lib/queries';
-import { client } from '@/sanity/lib/client';
+import React from 'react';
+import useSWR from 'swr';
 import AnimatedDiv from '@/components/AnimatedDiv';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -19,25 +18,20 @@ interface AboutUsData {
   items: Item[];
 }
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function AboutUs() {
-  const [data, setData] = useState<AboutUsData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const result = await client.fetch(aboutUsQuery);
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching about us:', error);
-      } finally {
-        setLoading(false);
-      }
+  const { data, isLoading } = useSWR<AboutUsData>(
+    '/api/about-us',
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000,
+      focusThrottleInterval: 300000,
     }
-    fetchData();
-  }, []);
+  );
 
-  if (loading) {
+  if (isLoading) {
     return (
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">

@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import AnimatedDiv from '@/components/AnimatedDiv';
 import PageTransition from '@/components/PageTransition';
-import { allArticlesQuery } from '@/sanity/lib/queries';
-import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
+import useSWR from 'swr';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface SanityImage {
@@ -37,31 +35,29 @@ interface Article {
   views?: number;
 }
 
-export default function ArtikelPage() {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-  useEffect(() => {
-    async function fetchArticles() {
-      try {
-        const data = await client.fetch(allArticlesQuery);
-        setArticles(data || []);
-      } catch (error) {
-        console.error('Error fetching articles:', error);
-        setArticles([]);
-      } finally {
-        setLoading(false);
-      }
+export default function ArtikelPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const { data: articles, isLoading, error } = useSWR<Article[]>(
+    '/api/articles',
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000, // 1 minute
+      focusThrottleInterval: 300000, // 5 minutes
     }
-    fetchArticles();
-  }, []);
+  );
 
   // Filter articles based on search query
-  const filteredArticles = articles.filter((article) =>
-    article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.category?.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredArticles = useMemo(
+    () =>
+      (articles || []).filter((article) =>
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.category?.title.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [articles, searchQuery]
   );
 
   return (
@@ -90,14 +86,22 @@ export default function ArtikelPage() {
           </div>
 
           {/* Stats Bar */}
-          {!loading && (
+          {!isLoading && (
             <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-              Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredArticles.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{articles.length}</span> artikel
+              Menampilkan <span className="font-semibold text-gray-900 dark:text-white">{filteredArticles.length}</span> dari <span className="font-semibold text-gray-900 dark:text-white">{(articles || []).length}</span> artikel
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400">
+              <p className="font-semibold mb-1">Gagal memuat data artikel</p>
+              <p className="text-sm">Silakan coba refresh halaman</p>
             </div>
           )}
 
           {/* Loading State */}
-          {loading && (
+          {isLoading && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[1, 2, 3, 4].map((i) => (
                 <Card key={i} className="h-full overflow-hidden border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 animate-pulse">
@@ -119,7 +123,7 @@ export default function ArtikelPage() {
           )}
 
           {/* Articles Grid */}
-          {!loading && (
+          {!isLoading && !error && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredArticles.length > 0 ? (
                 filteredArticles.map((article) => (
