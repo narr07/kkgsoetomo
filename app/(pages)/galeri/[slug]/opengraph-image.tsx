@@ -18,10 +18,22 @@ type Props = {
 }
 
 export default async function Image({ params }: Props) {
-  const { slug } = await params
-  
   try {
-    const gallery = await client.fetch(galleryBySlugQuery, { slug })
+    const { slug } = await params
+    
+    if (!slug) {
+      return createOGImage(
+        'Galeri Kegiatan',
+        'KKG dr. Soetomo'
+      )
+    }
+
+    let gallery = null
+    try {
+      gallery = await client.fetch(galleryBySlugQuery, { slug })
+    } catch (fetchError) {
+      console.error('Sanity fetch error:', fetchError)
+    }
     
     if (!gallery) {
       return createOGImage(
@@ -30,9 +42,14 @@ export default async function Image({ params }: Props) {
       )
     }
 
-    const imageUrl = gallery.thumbnail 
-      ? urlFor(gallery.thumbnail).width(1200).height(630).url()
-      : undefined
+    let imageUrl: string | undefined = undefined
+    try {
+      if (gallery.thumbnail) {
+        imageUrl = urlFor(gallery.thumbnail).width(1200).height(630).url()
+      }
+    } catch (imageError) {
+      console.error('Image URL generation error:', imageError)
+    }
 
     const subtitle = gallery.images 
       ? `📷 ${gallery.images.length} foto - Dokumentasi Kegiatan KKG`

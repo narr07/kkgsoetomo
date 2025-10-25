@@ -18,10 +18,22 @@ type Props = {
 }
 
 export default async function Image({ params }: Props) {
-  const { slug } = await params
-  
   try {
-    const article = await client.fetch(articleBySlugQuery, { slug })
+    const { slug } = await params
+    
+    if (!slug) {
+      return createOGImage(
+        'Artikel',
+        'KKG dr. Soetomo'
+      )
+    }
+
+    let article = null
+    try {
+      article = await client.fetch(articleBySlugQuery, { slug })
+    } catch (fetchError) {
+      console.error('Sanity fetch error:', fetchError)
+    }
     
     if (!article) {
       return createOGImage(
@@ -30,9 +42,14 @@ export default async function Image({ params }: Props) {
       )
     }
 
-    const imageUrl = article.image 
-      ? urlFor(article.image).width(1200).height(630).url()
-      : undefined
+    let imageUrl: string | undefined = undefined
+    try {
+      if (article.image) {
+        imageUrl = urlFor(article.image).width(1200).height(630).url()
+      }
+    } catch (imageError) {
+      console.error('Image URL generation error:', imageError)
+    }
 
     return createOGImage(
       article.title || 'Artikel',
