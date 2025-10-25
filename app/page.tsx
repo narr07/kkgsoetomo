@@ -1,10 +1,35 @@
-"use client";
-
-import React from 'react';
+import type { Metadata } from 'next';
 import PageTransition from '@/components/PageTransition';
 import Hero from '@/components/home/hero';
 import Selayang from '@/components/home/selayang';
 import AboutUs from '@/components/home/aboutUs';
+
+export const metadata: Metadata = {
+  title: 'KKG dr. Soetomo - Kecamatan Rajagaluh',
+  description: 'Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    url: '/',
+    title: 'KKG dr. Soetomo - Kecamatan Rajagaluh-Majalengka',
+    description: 'Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan',
+    images: [
+      {
+        url: `/api/og?title=${encodeURIComponent('KKG dr. Soetomo')}&description=${encodeURIComponent('Kelompok Kerja Guru untuk kolaborasi dan inovasi')}`,
+        width: 1200,
+        height: 630,
+        alt: 'KKG dr. Soetomo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'KKG dr Soetomo - Kec. Rajagaluh',
+    description: 'Platform Kelompok Kerja Guru untuk kolaborasi, edukasi, dan inovasi dalam pendidikan',
+    images: [`/api/og?title=${encodeURIComponent('KKG dr. Soetomo')}&description=${encodeURIComponent('Kelompok Kerja Guru untuk kolaborasi dan inovasi')}`],
+  },
+};
 
 export default function HomePage() {
   return (
