@@ -489,19 +489,122 @@ export const relatedProductsQuery = groq`
 export const homepageDataQuery = groq`
   {
     featuredArticles: *[_type == "article" && featured == true] | order(publishedAt desc)[0..2] {
-      ${articleFields}
+      _id,
+      title,
+      slug,
+      excerpt,
+      image,
+      author-> {
+        _id,
+        name,
+        slug,
+        image,
+        role
+      },
+      category-> {
+        _id,
+        title,
+        slug,
+        color
+      },
+      tags,
+      content,
+      publishedAt,
+      updatedAt,
+      featured,
+      views
     },
     recentArticles: *[_type == "article"] | order(publishedAt desc)[0..5] {
-      ${articleFields}
+      _id,
+      title,
+      slug,
+      excerpt,
+      image,
+      author-> {
+        _id,
+        name,
+        slug,
+        image,
+        role
+      },
+      category-> {
+        _id,
+        title,
+        slug,
+        color
+      },
+      tags,
+      content,
+      publishedAt,
+      updatedAt,
+      featured,
+      views
     },
     featuredProducts: *[_type == "product" && featured == true] | order(publishedAt desc)[0..3] {
-      ${productFields}
+      _id,
+      name,
+      slug,
+      description,
+      image,
+      price,
+      discount,
+      stock,
+      features,
+      specifications,
+      content,
+      category-> {
+        _id,
+        title,
+        slug,
+        icon
+      },
+      tags,
+      publishedAt,
+      featured,
+      sales
     },
     bestsellingProducts: *[_type == "product"] | order(sales desc)[0..3] {
-      ${productFields}
+      _id,
+      name,
+      slug,
+      description,
+      image,
+      price,
+      discount,
+      stock,
+      features,
+      specifications,
+      content,
+      category-> {
+        _id,
+        title,
+        slug,
+        icon
+      },
+      tags,
+      publishedAt,
+      featured,
+      sales
     },
     topMembers: *[_type == "member" && role in ["Kepala KKG", "Wakil Kepala"]] | order(name asc) {
-      ${memberFields}
+      _id,
+      name,
+      slug,
+      role,
+      school,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            dimensions
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      }
     }
   }
 `
