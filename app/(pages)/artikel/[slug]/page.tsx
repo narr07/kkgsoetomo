@@ -9,6 +9,7 @@ import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { PortableText, PortableTextBlock } from 'next-sanity';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface SanityImage {
   _type?: string;
@@ -59,20 +60,21 @@ interface RelatedArticle {
   category?: { title: string };
 }
 
+
+
 export default function ArtikelDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
 
   const [article, setArticle] = useState<Article | null>(null);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchArticle() {
       try {
         const data = await client.fetch(articleBySlugQuery, { slug });
         if (!data) {
-          setError('Artikel tidak ditemukan');
           setArticle(null);
         } else {
           setArticle(data);
@@ -88,20 +90,81 @@ export default function ArtikelDetailPage() {
         }
       } catch (err) {
         console.error('Error fetching article:', err);
-        setError('Gagal memuat artikel');
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchArticle();
   }, [slug]);
 
-  if (error || !article) {
+  if (isLoading) {
+    return (
+      <PageTransition>
+        <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+          <div className="max-w-3xl mx-auto">
+            {/* Back Button Skeleton */}
+            <Skeleton className="w-32 h-6 mb-8" />
+
+            {/* Header Skeleton */}
+            <div className="mb-8">
+              <Skeleton className="w-24 h-6 mb-4" />
+              <Skeleton className="w-full h-12 mb-4" />
+              <Skeleton className="w-full h-20 mb-4" />
+            </div>
+
+            {/* Featured Image Skeleton */}
+            <Skeleton className="w-full h-96 md:h-[500px] mb-8 rounded-lg" />
+
+            {/* Excerpt Skeleton */}
+            <Skeleton className="w-full h-24 mb-8" />
+
+            {/* Tags Skeleton */}
+            <div className="flex gap-2 mb-8">
+              {[1, 2, 3].map((i) => (
+                <Skeleton key={i} className="w-20 h-6 rounded-full" />
+              ))}
+            </div>
+
+            {/* Content Skeleton */}
+            <div className="space-y-4 mb-12">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Skeleton key={i} className="w-full h-4" />
+              ))}
+            </div>
+
+            {/* Divider */}
+            <Skeleton className="w-full h-0.5 my-12" />
+
+            {/* Related Articles Skeleton */}
+            <div>
+              <Skeleton className="w-48 h-8 mb-8" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[1, 2].map((i) => (
+                  <div key={i} className="border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
+                    <Skeleton className="w-full h-40" />
+                    <div className="p-4">
+                      <Skeleton className="w-full h-5 mb-2" />
+                      <Skeleton className="w-full h-4 mb-3" />
+                      <Skeleton className="w-24 h-3" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </PageTransition>
+    );
+  }
+
+  if (!article) {
     return (
       <PageTransition>
         <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {error || 'Artikel tidak ditemukan'}
+              Artikel tidak ditemukan
             </h1>
             <Link href="/artikel">
               <button className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-700 dark:hover:text-blue-300 transition-colors">

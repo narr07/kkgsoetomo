@@ -1,7 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/og';
 import { client } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
 import { ogImageQuery } from '@/sanity/lib/queries';
 import { notFound } from 'next/navigation';
 
@@ -58,7 +56,6 @@ export async function GET(request: Request) {
 
     let title = titleParam || 'KKG dr. Soetomo';
     let description = descriptionParam || 'Kelompok Kerja Guru dr. Soetomo';
-    let imageUrl: string | null = null;
     let vibrantBackground = '#3B82F6';
     let darkVibrantBackground = '#1F2937';
 
@@ -74,11 +71,8 @@ export async function GET(request: Request) {
       title = data.title || data.name || 'KKG dr. Soetomo';
       description = data.excerpt || data.description || 'Kelompok Kerja Guru dr. Soetomo';
 
-      // Get image and colors
+      // Extract vibrant colors from image metadata (if available)
       if (data.image) {
-        imageUrl = data.image.url ? urlFor(data.image).width(500).height(630).url() : null;
-
-        // Extract vibrant colors from image metadata
         vibrantBackground =
           data.image.metadata?.palette?.vibrant?.background ?? '#3B82F6';
         darkVibrantBackground =
@@ -99,40 +93,14 @@ export async function GET(request: Request) {
           }}
         >
           {/* Content container */}
-          <div tw="flex flex-row w-full h-full relative">
+          <div tw="flex flex-col w-full h-full items-center justify-center px-16 py-16">
             {/* Text content */}
-            <div tw="flex-1 flex flex-col items-start justify-center px-16 py-16">
-              <h1 tw="text-7xl tracking-tight leading-none text-white font-bold mb-6 max-w-2xl break-words">
-                {truncatedTitle}
-              </h1>
-              <p tw="text-3xl tracking-tight leading-tight text-gray-100 max-w-2xl break-words">
-                {truncatedDescription}
-              </p>
-            </div>
-
-            {/* Image container */}
-            {imageUrl && (
-              <div tw="flex w-[500px] h-[630px] overflow-hidden flex-shrink-0">
-                <img
-                  src={imageUrl}
-                  alt=""
-                  tw="w-full h-full object-cover"
-                />
-              </div>
-            )}
-
-            {/* Fallback Logo (if no image) */}
-            {!imageUrl && (
-              <div tw="flex w-[500px] h-[630px] overflow-hidden flex-shrink-0 items-center justify-center opacity-10">
-                <img
-                  alt="Logo"
-                  height={300}
-                  src="data:image/svg+xml,%3Csvg width='116' height='100' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M57.5 0L115 100H0L57.5 0z' /%3E%3C/svg%3E"
-                  width={360}
-                  tw="object-contain"
-                />
-              </div>
-            )}
+            <h1 tw="text-7xl tracking-tight leading-none text-white font-bold mb-6 max-w-3xl text-center break-words">
+              {truncatedTitle}
+            </h1>
+            <p tw="text-3xl tracking-tight leading-tight text-gray-100 max-w-3xl text-center break-words">
+              {truncatedDescription}
+            </p>
           </div>
         </div>
       ),

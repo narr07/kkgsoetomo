@@ -8,6 +8,7 @@ import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface SanityImage {
   _type?: string;
@@ -40,7 +41,7 @@ export default function GaleriDetailPage() {
   const slug = params.slug as string;
 
   const [gallery, setGallery] = useState<Gallery | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -50,14 +51,14 @@ export default function GaleriDetailPage() {
       try {
         const data = await client.fetch(galleryBySlugQuery, { slug });
         if (!data) {
-          setError('Galeri tidak ditemukan');
           setGallery(null);
         } else {
           setGallery(data);
         }
       } catch (err) {
         console.error('Error fetching gallery:', err);
-        setError('Gagal memuat galeri');
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -99,13 +100,46 @@ export default function GaleriDetailPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isLightboxOpen, handleNext, handlePrevious]);
 
-  if (error || !gallery) {
+  if (isLoading) {
+    return (
+      <PageTransition>
+        <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
+          <div className="max-w-6xl mx-auto">
+            {/* Back Button Skeleton */}
+            <Skeleton className="w-32 h-6 mb-8" />
+
+            {/* Header Skeleton */}
+            <div className="mb-12">
+              <Skeleton className="w-full h-12 mb-4" />
+              <div className="flex flex-col md:flex-row md:items-center gap-4">
+                <Skeleton className="w-full md:flex-1 h-6" />
+                <Skeleton className="w-40 h-6" />
+                <Skeleton className="w-40 h-6" />
+              </div>
+            </div>
+
+            {/* Main Image Skeleton */}
+            <Skeleton className="w-full h-96 md:h-[600px] mb-8 rounded-lg" />
+
+            {/* Thumbnails Skeleton */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <Skeleton key={i} className="w-full h-24 rounded-lg" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </PageTransition>
+    );
+  }
+
+  if (!gallery) {
     return (
       <PageTransition>
         <div className="min-h-screen bg-white dark:bg-black py-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {error || 'Galeri tidak ditemukan'}
+              Galeri tidak ditemukan
             </h1>
             <Link href="/galeri">
               <button className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-700 dark:hover:text-blue-300 transition-colors">

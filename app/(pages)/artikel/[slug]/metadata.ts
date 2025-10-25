@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { articleBySlugQuery } from '@/sanity/lib/queries'
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -22,13 +21,8 @@ export async function generateMetadata(
       }
     }
 
-    // Use OG API with Sanity document ID (primary)
-    // Fall back to static image if available
-    const ogImageUrl = article._id
-      ? `/api/og?id=${article._id}`
-      : (article.image
-          ? urlFor(article.image).width(1200).height(630).url()
-          : undefined)
+    // Use OG API with query params (title + excerpt)
+    const ogImageUrl = `/api/og?title=${encodeURIComponent(article.title)}&description=${encodeURIComponent(article.excerpt || 'Baca artikel dari KKG dr. Soetomo')}`
 
     return {
       title: article.title,
@@ -42,16 +36,14 @@ export async function generateMetadata(
         url: `/artikel/${article.slug.current}`,
         title: article.title,
         description: article.excerpt || 'Baca artikel dari KKG dr. Soetomo',
-        images: ogImageUrl
-          ? [
-              {
-                url: ogImageUrl,
-                width: 1200,
-                height: 630,
-                alt: article.title,
-              },
-            ]
-          : [],
+        images: [
+          {
+            url: ogImageUrl,
+            width: 1200,
+            height: 630,
+            alt: article.title,
+          },
+        ],
         publishedTime: article.publishedAt,
         modifiedTime: article.updatedAt,
         authors: article.author ? [article.author.name] : [],
@@ -61,7 +53,7 @@ export async function generateMetadata(
         card: 'summary_large_image',
         title: article.title,
         description: article.excerpt || 'Baca artikel dari KKG dr. Soetomo',
-        images: ogImageUrl ? [ogImageUrl] : [],
+        images: [ogImageUrl],
       },
     }
   } catch (error) {

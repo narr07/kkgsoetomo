@@ -619,24 +619,50 @@ export const ogImageQuery = groq`
     _type,
     title,
     name,
-    "image": mainImage.asset-> {
-      url,
-      metadata {
-        palette {
-          vibrant {
-            background
+    excerpt,
+    description,
+    "image": select(
+      _type == "article" => mainImage.asset-> {
+        url,
+        metadata {
+          palette {
+            vibrant {
+              background
+            },
+            darkVibrant {
+              background
+            }
           }
-          darkVibrant {
-            background
+        }
+      },
+      _type == "product" => mainImage.asset-> {
+        url,
+        metadata {
+          palette {
+            vibrant {
+              background
+            },
+            darkVibrant {
+              background
+            }
+          }
+        }
+      },
+      _type == "gallery" => thumbnail.asset-> {
+        url,
+        metadata {
+          palette {
+            vibrant {
+              background
+            },
+            darkVibrant {
+              background
+            }
           }
         }
       }
-    } | select(_type == "article" || _type == "product"),
-    excerpt,
-    description,
-    "imageUrl": image.asset->url | select(_type == "gallery"),
-    publishedAt,
-    date
+    ),
+    publishedAt
   }
 `
 

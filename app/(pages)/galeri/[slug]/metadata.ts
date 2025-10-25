@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { galleryBySlugQuery } from '@/sanity/lib/queries'
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -23,11 +22,6 @@ export async function generateMetadata(
     }
 
     const imageCount = gallery.images?.length || 0
-    const ogImageUrl = gallery._id
-      ? `/api/og?id=${gallery._id}`
-      : gallery.thumbnail
-        ? urlFor(gallery.thumbnail).width(1200).height(630).url()
-        : undefined
 
     return {
       title: `${gallery.title} - Galeri KKG dr. Soetomo`,
@@ -39,22 +33,20 @@ export async function generateMetadata(
         url: `/galeri/${gallery.slug.current}`,
         title: `${gallery.title} - Galeri KKG dr. Soetomo`,
         description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
-        images: ogImageUrl
-          ? [
-              {
-                url: ogImageUrl,
-                width: 1200,
-                height: 630,
-                alt: gallery.title,
-              },
-            ]
-          : [],
+        images: [
+          {
+            url: `/api/og?title=${encodeURIComponent(gallery.title)}&description=${encodeURIComponent(`Lihat ${imageCount} foto dari kegiatan ${gallery.title}`)}`,
+            width: 1200,
+            height: 630,
+            alt: gallery.title,
+          },
+        ],
       },
       twitter: {
         card: 'summary_large_image',
         title: `${gallery.title} - Galeri KKG dr. Soetomo`,
         description: `Lihat ${imageCount} foto dari kegiatan ${gallery.title}`,
-        images: ogImageUrl ? [ogImageUrl] : [],
+        images: [`/api/og?title=${encodeURIComponent(gallery.title)}&description=${encodeURIComponent(`Lihat ${imageCount} foto dari kegiatan ${gallery.title}`)}`],
       },
     }
   } catch (error) {
