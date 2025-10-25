@@ -41,6 +41,17 @@ export const memberType = defineType({
       name: 'school',
       title: 'Sekolah',
       type: 'string',
+      options: {
+        list: [
+          { title: 'SDN Pajajar I', value: 'SDN Pajajar I' },
+          { title: 'SDN Pajajar II', value: 'SDN Pajajar II' },
+          { title: 'SDN Teja I', value: 'SDN Teja I' },
+          { title: 'SDN Teja II', value: 'SDN Teja II' },
+          { title: 'SDN Payung I', value: 'SDN Payung I' },
+          { title: 'SDN Payung II', value: 'SDN Payung II' },
+          { title: 'SDN Payung III', value: 'SDN Payung III' },
+        ],
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({

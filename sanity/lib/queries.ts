@@ -10,6 +10,46 @@ import { groq } from 'next-sanity'
  */
 
 // ================================================
+// SINGLETON QUERIES
+// ================================================
+
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    title,
+    description,
+    logo,
+    email,
+    phone,
+    address
+  }
+`
+
+export const selayangPandangQuery = groq`
+  *[_type == "selayangPandang"][0] {
+    title,
+    ketua_kkg {
+      name,
+      message,
+      photo
+    },
+    ketua_gugus {
+      name,
+      message,
+      photo
+    }
+  }
+`
+
+export const aboutUsQuery = groq`
+  *[_type == "aboutUs"][0] {
+    title,
+    subtitle,
+    description,
+    items
+  }
+`
+
+// ================================================
 // MEMBER (ANGGOTA KKG) QUERIES
 // ================================================
 
@@ -194,6 +234,46 @@ export const productCategoryBySlugQuery = groq`
 `
 
 // ================================================
+// GALLERY QUERIES
+// ================================================
+
+const galleryFields = groq`
+  _id,
+  title,
+  slug,
+  description,
+  date,
+  thumbnail,
+  images
+`
+
+export const allGalleriesQuery = groq`
+  *[_type == "gallery"] | order(date desc) {
+    ${galleryFields}
+  }
+`
+
+export const galleryBySlugQuery = groq`
+  *[_type == "gallery" && slug.current == $slug][0] {
+    ${galleryFields}
+  }
+`
+
+export const recentGalleriesQuery = groq`
+  *[_type == "gallery"] | order(date desc)[0..5] {
+    ${galleryFields}
+  }
+`
+
+export const galleryCountQuery = groq`
+  count(*[_type == "gallery"])
+`
+
+// ================================================
+// PRODUCT CATEGORY QUERIES
+// ================================================
+
+// ================================================
 // PRODUCT QUERIES
 // ================================================
 
@@ -287,8 +367,6 @@ export const productStockQuery = groq`
 `
 
 // ================================================
-// SEARCH QUERIES
-// ================================================
 
 export const searchMembersQuery = groq`
   *[_type == "member" && (name match $query || school match $query)] | order(name asc) {
@@ -381,7 +459,7 @@ export const membersPaginatedQuery = groq`
 // ================================================
 
 export const relatedArticlesQuery = groq`
-  *[_type == "article" && category._ref == $categoryId && slug.current != $slug] | order(publishedAt desc)[0..3] {
+  *[_type == "article" && category._ref == $categoryId && _id != $articleId] | order(publishedAt desc)[0..3] {
     ${articleFields}
   }
 `

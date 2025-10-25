@@ -9,6 +9,10 @@ import { articleType } from './articleType'
 import { articleCategoryType } from './articleCategoryType'
 import { productType } from './productType'
 import { productCategoryType } from './productCategoryType'
+import { galleryType } from './galleryType'
+import { siteSettingsType } from './siteSettingsType'
+import { selayangPandangType } from './selayangPandangType'
+import { aboutUsType } from './aboutUsType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,5 +25,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     articleCategoryType,
     productType,
     productCategoryType,
+    galleryType,
+    siteSettingsType,
+    selayangPandangType,
+    aboutUsType,
   ],
 }

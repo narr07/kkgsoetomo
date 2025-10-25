@@ -33,24 +33,40 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('productCategory').title('Kategori Produk'),
             ])
         ),
+
+            // Galeri Kegiatan
+      S.documentTypeListItem('gallery').title('📸 Galeri Kegiatan'),
       
       S.divider(),
 
-      // Blog Section
+      // Singleton Documents
       S.listItem()
-        .title('📰 Blog')
+        .title('⚙️ Pengaturan Website')
         .child(
-          S.list()
-            .title('Blog')
-            .items([
-              S.documentTypeListItem('post').title('Posts'),
-              S.divider(),
-              S.documentTypeListItem('category').title('Categories'),
-              S.divider(),
-              S.documentTypeListItem('author').title('Authors'),
-            ])
+          S.document()
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
+            .title('Pengaturan Website')
         ),
 
+      S.listItem()
+        .title('ℹ️ Selayang Pandang')
+        .child(
+          S.document()
+            .schemaType('selayangPandang')
+            .documentId('selayangPandang')
+            .title('Selayang Pandang')
+        ),
+
+      S.listItem()
+        .title('📄 Tentang Kami')
+        .child(
+          S.document()
+            .schemaType('aboutUs')
+            .documentId('aboutUs')
+            .title('Tentang Kami')
+        ),
+     
       // Other document types
       ...S.documentTypeListItems().filter(
         (item) => item.getId() && ![
@@ -59,6 +75,10 @@ export const structure: StructureResolver = (S) =>
           'articleCategory',
           'product',
           'productCategory',
+          'gallery',
+          'siteSettings',
+          'selayangPandang',
+          'aboutUs',
           'post',
           'category',
           'author'

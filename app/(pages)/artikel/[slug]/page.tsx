@@ -81,7 +81,7 @@ export default function ArtikelDetailPage() {
           if (data.category?._id) {
             const related = await client.fetch(relatedArticlesQuery, {
               categoryId: data.category._id,
-              currentId: data._id,
+              articleId: data._id,
             });
             setRelatedArticles(related || []);
           }
