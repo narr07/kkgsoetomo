@@ -2,6 +2,8 @@
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { urlFor } from '@/sanity/lib/image'
+import { sanityFetch } from '@/sanity/lib/client'
+import { selayangPandangQuery } from '@/sanity/lib/queries'
 import {
   Card,
   CardDescription,
@@ -40,11 +42,11 @@ export default function Selayang() {
     const fetchSelayang = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('/api/selayang-pandang');
-        if (response.ok) {
-          const selayangData = await response.json();
-          setData(selayangData);
-        }
+        const selayangData = await sanityFetch({
+          query: selayangPandangQuery,
+          revalidate: 60,
+        });
+        setData(selayangData);
       } catch (error) {
         console.error('Error fetching selayang pandang data:', error);
       } finally {

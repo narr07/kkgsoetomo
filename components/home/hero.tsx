@@ -2,6 +2,8 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import DotGrid from '../DotGrid';
 import LogoLoop from '../LogoLoop';
+import { sanityFetch } from '@/sanity/lib/client'
+import { schoolListQuery, heroQuery } from '@/sanity/lib/queries'
 
 interface SchoolItem {
   logo: {
@@ -36,20 +38,19 @@ export default function Hero() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [schoolRes, heroRes] = await Promise.all([
-          fetch('/api/school-list'),
-          fetch('/api/hero')
+        const [schoolData, heroDataResponse] = await Promise.all([
+          sanityFetch({
+            query: schoolListQuery,
+            revalidate: 60,
+          }),
+          sanityFetch({
+            query: heroQuery,
+            revalidate: 60,
+          })
         ]);
 
-        if (schoolRes.ok) {
-          const schoolData = await schoolRes.json();
-          setSchoolList(schoolData);
-        }
-
-        if (heroRes.ok) {
-          const heroDataResponse = await heroRes.json();
-          setHeroData(heroDataResponse);
-        }
+        setSchoolList(schoolData);
+        setHeroData(heroDataResponse);
       } catch (error) {
         console.error('Error fetching hero data:', error);
       }
