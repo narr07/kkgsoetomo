@@ -23,8 +23,10 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Logo size="md" href="/" className="md:hidden lg:block" />
-
+          <div className='flex flex-row items-center'>
+          <Logo size="md" href="/" className="md:hidden mr-2 lg:block" />
+<span>KKG dr. Soetomo</span>
+          </div>
           {/* Desktop Menu */}
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
@@ -34,7 +36,7 @@ export default function Navbar() {
                 className={`font-medium transition-colors ${
                   pathname === link.href
                     ? 'text-secondary-400'
-                    : 'text-[#f6f7de] hover:text-secondary-400'
+                    : 'text-secondary-50 hover:text-secondary-400'
                 }`}
               >
                 {link.label}
@@ -49,15 +51,15 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="flex flex-col gap-1.5 rounded p-2 transition hover:bg-[#1f2743] dark:hover:bg-[#232a36]"
             >
-              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#d4c93b] ${isOpen ? 'translate-y-2 rotate-45' : ''}`} />
-              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#d4c93b] ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
-              <span className={`h-0.5 w-6 bg-[#f6f7de] transition-all dark:bg-[#d4c93b] ${isOpen ? '-translate-y-2 -rotate-45' : ''}`} />
+              <span className={`h-0.5 w-6 bg-secondary-50 transition-all dark:bg-secondary-400 ${isOpen ? 'translate-y-2 rotate-45' : ''}`} />
+              <span className={`h-0.5 w-6 bg-secondary-50 transition-all dark:bg-secondary-400 ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`h-0.5 w-6 bg-secondary-50 transition-all dark:bg-secondary-400 ${isOpen ? '-translate-y-2 -rotate-45' : ''}`} />
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        <div className={`overflow-hidden transition-all duration-300 md:hidden ${isOpen ? 'max-h-56' : 'max-h-0'}`}>
+        <div className={`overflow-hidden transition-all duration-300 md:hidden ${isOpen ? 'max-h-60' : 'max-h-0'}`}>
           <div className="space-y-2 pb-4">
             {navLinks.map((link) => (
               <Link
@@ -66,7 +68,7 @@ export default function Navbar() {
                 className={`block rounded px-4 py-2 transition-colors ${
                   pathname === link.href
                     ? 'bg-[#1f2743] text-secondary-400 dark:bg-[#232a36]'
-                    : 'text-[#f6f7de] hover:bg-[#1f2743] dark:hover:bg-[#232a36]'
+                    : 'text-secondary-50 hover:bg-[#1f2743] dark:hover:bg-[#232a36]'
                 }`}
                 onClick={() => setIsOpen(false)}
               >

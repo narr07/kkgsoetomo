@@ -1,14 +1,8 @@
-'use client';
 import Image from 'next/image'
-import React, { useState, useEffect } from 'react'
 import { urlFor } from '@/sanity/lib/image'
 import { sanityFetch } from '@/sanity/lib/client'
 import { selayangPandangQuery } from '@/sanity/lib/queries'
-import {
-  Card,
-  CardDescription,
-  CardTitle,
-} from '@/components/ui/card'
+
 interface SanityImage {
   _type?: string;
   asset?: {
@@ -22,51 +16,36 @@ interface SanityImage {
   crop?: Record<string, unknown>;
   alt?: string;
 }
+
 interface Leader {
   name: string;
   message: string;
   photo: SanityImage;
 }
+
 interface SelayangPandang {
   title: string;
   ketua_kkg: Leader;
   ketua_gugus: Leader;
 }
 
-export default function Selayang() {
-  const [data, setData] = useState<SelayangPandang | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export default async function Selayang() {
+  let data: SelayangPandang | null = null;
 
-  useEffect(() => {
-    const fetchSelayang = async () => {
-      try {
-        setIsLoading(true);
-        const selayangData = await sanityFetch({
-          query: selayangPandangQuery,
-          revalidate: 60,
-        });
-        setData(selayangData);
-      } catch (error) {
-        console.error('Error fetching selayang pandang data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchSelayang();
-  }, []);
-  if (isLoading) {
-    return (
-      <section className="bg-secondary-50 py-16 px-4 transition-colors dark:bg-primary-900">
-        <div className="mx-auto flex max-w-5xl flex-col gap-12">
-          <div className="h-40 animate-pulse" />
-        </div>
-      </section>
-    );
+  try {
+    data = await sanityFetch({
+      query: selayangPandangQuery,
+      revalidate: 60,
+    });
+  } catch (error) {
+    console.error('Error fetching selayang pandang data:', error);
+    return null;
   }
+
   if (!data) {
     return null;
   }
+
   const leaders = [
     {
       name: data.ketua_gugus.name,
@@ -80,10 +59,9 @@ export default function Selayang() {
       message: data.ketua_kkg.message,
       photo: data.ketua_kkg.photo,
     },
-
   ];
   return (
-    <section className=" py-16 px-4 transition-colors   ">
+    <section className="py-16 px-4 transition-colors">
       <div className="mx-auto flex max-w-5xl flex-col gap-12">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-900 dark:text-secondary-400">
@@ -96,38 +74,46 @@ export default function Selayang() {
             Pesan hangat dari para pemimpin kami untuk seluruh anggota komunitas.
           </p>
         </div>
+        
         <div className="grid gap-8 md:grid-cols-2">
           {leaders.map((leader) => (
-            <Card
+            <div
               key={leader.role}
-              className="flex flex-col overflow-hidden"
+              className="rounded-xl bg-white dark:bg-primary-700 p-8 shadow-xl border border-primary-700 dark:border-secondary-50"
             >
-              <div className="flex gap-6 px-6">
-                <div className="relative h-44 w-32 shrink-0 overflow-hidden rounded-lg shadow-lg">
+              {/* Quote Section */}
+              <div className="mb-8">
+                <p className="text-primary-800 dark:text-gray-400 text-base leading-relaxed italic">
+                  &quot;{leader.message}&quot;
+                </p>
+              </div>
+
+              {/* Leader Info Section */}
+              <div className="flex items-center gap-4">
+                {/* Photo */}
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-2 ring-blue-500">
                   <Image
-                    src={urlFor(leader.photo).width(128).height(168).url()}
+                    src={urlFor(leader.photo).width(64).height(64).url()}
                     alt={leader.name}
                     fill
-                    sizes="128px"
+                    sizes="64px"
                     className="object-cover"
                     placeholder={leader.photo.asset?.metadata?.lqip ? 'blur' : 'empty'}
                     blurDataURL={leader.photo.asset?.metadata?.lqip}
                   />
                 </div>
-                <div className="flex flex-col justify-start flex-1">
-                  <CardTitle className="text-xl font-black text-inherit">
+
+                {/* Name & Role */}
+                <div>
+                  <p className="font-bold   text-base">
                     {leader.name}
-                  </CardTitle>
-                  <CardDescription className="mt-2 uppercase tracking-wide text-[#293466] dark:text-secondary-400">
+                  </p>
+                  <p className="text-sm text-gray-400 uppercase tracking-wide">
                     {leader.role}
-                  </CardDescription>
-                  <p className="mt-8 text-[#293466] dark:text-secondary-50">
-                    &quot;{leader.message}&quot;
                   </p>
                 </div>
               </div>
-
-            </Card>
+            </div>
           ))}
         </div>
       </div>

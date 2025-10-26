@@ -83,7 +83,7 @@ export default function GaleriClient({ galleries }: GaleriClientProps) {
             {filteredGalleries.length > 0 ? (
               filteredGalleries.map((gallery) => (
                 <Link key={gallery._id} href={`/galeri/${gallery.slug.current}`}>
-                  <Card className="h-full overflow-hidden cursor-pointer hover:shadow-lg transition-shadow border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 flex flex-col">
+                  <Card className="h-full pt-0 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 flex flex-col">
                     {/* Thumbnail */}
                     <div className="relative w-full h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
                       <Image

@@ -5,6 +5,7 @@
 
 html {
   overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 @theme inline {
@@ -78,7 +79,7 @@ html {
   --radius: 0.625rem;
   --background: #f6f7de;
   --foreground: #141b38;
-  --card: #f6f7de;
+  --card: #ffffff;
   --bcard: #ebeb9d;
   --card-foreground: #141b38;
   --popover: #f6f7de;
@@ -150,7 +151,7 @@ html {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-slate-50 dark:bg-primary-900 text-foreground font-sans;
+    @apply bg-secondary-50 dark:bg-primary-900 text-foreground font-sans;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply text-4xl md:text-5xl font-bold font-heading leading-relaxed tracking-wide;
