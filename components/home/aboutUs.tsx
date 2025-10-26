@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import useSWR from 'swr';
+import React, { useState, useEffect } from 'react';
 import AnimatedDiv from '@/components/AnimatedDiv';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -18,18 +17,28 @@ interface AboutUsData {
   items: Item[];
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function AboutUs() {
-  const { data, isLoading } = useSWR<AboutUsData>(
-    '/api/about-us',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000,
-      focusThrottleInterval: 300000,
-    }
-  );
+  const [data, setData] = useState<AboutUsData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAboutUs = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/about-us');
+        if (response.ok) {
+          const aboutUsData = await response.json();
+          setData(aboutUsData);
+        }
+      } catch (error) {
+        console.error('Error fetching about us data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAboutUs();
+  }, []);
 
   if (isLoading) {
     return (

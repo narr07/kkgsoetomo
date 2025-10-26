@@ -5,7 +5,6 @@ import Image from 'next/image';
 import PageTransition from '@/components/PageTransition';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
-import useSWR from 'swr';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface SanityImage {
@@ -35,19 +34,29 @@ interface Article {
   views?: number;
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function ArtikelPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { data: articles, error } = useSWR<Article[]>(
-    '/api/articles',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000, // 1 minute
-      focusThrottleInterval: 300000, // 5 minutes
-    }
-  );
+  const [articles, setArticles] = React.useState<Article[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch('/api/articles');
+        if (!response.ok) {
+          throw new Error('Failed to fetch articles');
+        }
+        const data = await response.json();
+        setArticles(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching articles:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load articles');
+      }
+    };
+
+    fetchArticles();
+  }, []);
 
   // Filter articles based on search query
   const filteredArticles = useMemo(

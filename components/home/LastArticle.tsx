@@ -1,8 +1,7 @@
 'use client';
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import useSWR from 'swr'
 import { urlFor } from '@/sanity/lib/image'
 import {
   Carousel,
@@ -34,18 +33,28 @@ interface Article {
   publishedAt: string
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function LastArticle() {
-  const { data: articles, isLoading } = useSWR<Article[]>(
-    '/api/articles',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000,
-      focusThrottleInterval: 300000,
-    }
-  );
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/articles');
+        if (response.ok) {
+          const data = await response.json();
+          setArticles(data);
+        }
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
 
   if (isLoading) {
     return (

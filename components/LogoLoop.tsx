@@ -337,7 +337,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           >
             {content}
             {showLabel && (item as any).title && (
-              <span className="text-xs text-center font-medium max-w-20 line-clamp-2">
+              <span className="text-xs text-center font-medium max-w-32 line-clamp-2">
                 {(item as any).title}
               </span>
             )}
@@ -346,7 +346,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           <div className="inline-flex flex-col items-center gap-2">
             {content}
             {showLabel && (item as any).title && (
-              <span className="text-xs text-center font-medium max-w-20 line-clamp-2">
+              <span className="text-xs text-center font-medium max-w-32 line-clamp-2">
                 {(item as any).title}
               </span>
             )}

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import PageTransition from '@/components/PageTransition';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
-import useSWR from 'swr';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface SanityImage {
@@ -34,19 +33,29 @@ interface Gallery {
   images: SanityImage[];
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function GaleriPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { data: galleries, error } = useSWR<Gallery[]>(
-    '/api/galleries',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000, // 1 minute
-      focusThrottleInterval: 300000, // 5 minutes
-    }
-  );
+  const [galleries, setGalleries] = React.useState<Gallery[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchGalleries = async () => {
+      try {
+        const response = await fetch('/api/galleries');
+        if (!response.ok) {
+          throw new Error('Failed to fetch galleries');
+        }
+        const data = await response.json();
+        setGalleries(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching galleries:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load galleries');
+      }
+    };
+
+    fetchGalleries();
+  }, []);
 
   const filteredGalleries = useMemo(
     () =>

@@ -4,7 +4,6 @@ import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import PageTransition from '@/components/PageTransition';
 import { urlFor } from '@/sanity/lib/image';
-import useSWR from 'swr';
 
 interface SanityImage {
   asset?: {
@@ -30,8 +29,6 @@ interface Product {
   featured?: boolean;
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 const handleOrderWhatsApp = (productName: string) => {
   const phoneNumber = '6285721340777';
   const message = `Halo  😊, Saya ingin membeli ${productName}`;
@@ -43,16 +40,27 @@ const handleOrderWhatsApp = (productName: string) => {
 export default function ProdukPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
 
-  const { data: products, error } = useSWR<Product[]>(
-    '/api/products',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000,
-      focusThrottleInterval: 300000,
-    }
-  );
+  React.useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        setProducts(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load products');
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Get unique categories
   const categories = useMemo(() => {

@@ -1,6 +1,5 @@
 "use client"
 import React, { useMemo, useState, useEffect } from 'react'
-import useSWR from 'swr'
 import DotGrid from '../DotGrid';
 import LogoLoop from '../LogoLoop';
 
@@ -27,22 +26,37 @@ interface HeroData {
   ctaLink?: string
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
 export default function Hero() {
   const [isDark, setIsDark] = useState(false)
   const [windowWidth, setWindowWidth] = useState<number>(0)
+  const [schoolList, setSchoolList] = useState<SchoolList | null>(null)
+  const [heroData, setHeroData] = useState<HeroData | null>(null)
   
-  const { data: schoolList, isLoading: schoolLoading } = useSWR<SchoolList>('/api/school-list', fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: true,
-  })
+  // Fetch school list and hero data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [schoolRes, heroRes] = await Promise.all([
+          fetch('/api/school-list'),
+          fetch('/api/hero')
+        ]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: heroData, isLoading: heroLoading } = useSWR<HeroData>('/api/hero', fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: true,
-  })
+        if (schoolRes.ok) {
+          const schoolData = await schoolRes.json();
+          setSchoolList(schoolData);
+        }
+
+        if (heroRes.ok) {
+          const heroDataResponse = await heroRes.json();
+          setHeroData(heroDataResponse);
+        }
+      } catch (error) {
+        console.error('Error fetching hero data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Track window width for responsive logo size
   useEffect(() => {
@@ -146,7 +160,7 @@ export default function Hero() {
       </div>
 
       <div className="mt-12 w-3xl text-secondary-400">
-        {!schoolLoading && schoolLogos.length > 0 && (
+        {schoolLogos.length > 0 && (
        
           <LogoLoop
            

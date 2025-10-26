@@ -1,7 +1,6 @@
 'use client';
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import useSWR from 'swr'
 import { urlFor } from '@/sanity/lib/image'
 import {
   Carousel,
@@ -30,18 +29,28 @@ interface Gallery {
   images: GalleryImage[]
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function LastGaleri() {
-  const { data: galleries, isLoading } = useSWR<Gallery[]>(
-    '/api/galleries',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000,
-      focusThrottleInterval: 300000,
-    }
-  );
+  const [galleries, setGalleries] = useState<Gallery[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGalleries = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/galleries');
+        if (response.ok) {
+          const data = await response.json();
+          setGalleries(data);
+        }
+      } catch (error) {
+        console.error('Error fetching galleries:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchGalleries();
+  }, []);
 
   if (isLoading) {
     return (
@@ -110,8 +119,12 @@ export default function LastGaleri() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          
+          {/* Navigation buttons at bottom - INSIDE Carousel */}
+          <div className="flex justify-center gap-4 mt-6">
+            <CarouselPrevious className="relative inset-auto h-10 w-10" />
+            <CarouselNext className="relative inset-auto h-10 w-10" />
+          </div>
         </Carousel>
       </div>
     </section>

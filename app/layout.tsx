@@ -6,7 +6,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme-provider"
-import { SWRProvider } from "@/components/swr-provider"
 import { MotionProvider } from "@/components/motion-provider"
 
 const boldOnse = Boldonse({
@@ -69,13 +68,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-          <SWRProvider>
-            <MotionProvider>
-              <Navbar />
-              {children}
-              <Footer />
-            </MotionProvider>
-          </SWRProvider>
+          <MotionProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>

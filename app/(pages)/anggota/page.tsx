@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import useSWR from 'swr';
 import PageTransition from '@/components/PageTransition';
 import { urlFor } from '@/sanity/lib/image';
 
@@ -23,7 +22,7 @@ interface SanityImage {
   hotspot?: Record<string, unknown>;
 }
 
-interface Member {
+interface MemberData {
   _id: string;
   name: string;
   role: string;
@@ -32,19 +31,29 @@ interface Member {
   slug: { current: string };
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function AnggotaPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { data: members, error } = useSWR<Member[]>(
-    '/api/members',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000, // 1 minute
-      focusThrottleInterval: 300000, // 5 minutes
-    }
-  );
+  const [members, setMembers] = React.useState<MemberData[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const response = await fetch('/api/members');
+        if (!response.ok) {
+          throw new Error('Failed to fetch members');
+        }
+        const data = await response.json();
+        setMembers(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching members:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load members');
+      }
+    };
+
+    fetchMembers();
+  }, []);
 
   const filteredMembers = useMemo(
     () =>

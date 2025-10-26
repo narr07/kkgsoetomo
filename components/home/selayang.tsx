@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image'
-import React from 'react'
-import useSWR from 'swr'
+import React, { useState, useEffect } from 'react'
 import { urlFor } from '@/sanity/lib/image'
 import {
   Card,
@@ -32,17 +31,29 @@ interface SelayangPandang {
   ketua_kkg: Leader;
   ketua_gugus: Leader;
 }
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export default function Selayang() {
-  const { data, isLoading } = useSWR<SelayangPandang>(
-    '/api/selayang-pandang',
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000,
-      focusThrottleInterval: 300000,
-    }
-  );
+  const [data, setData] = useState<SelayangPandang | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSelayang = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/selayang-pandang');
+        if (response.ok) {
+          const selayangData = await response.json();
+          setData(selayangData);
+        }
+      } catch (error) {
+        console.error('Error fetching selayang pandang data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSelayang();
+  }, []);
   if (isLoading) {
     return (
       <section className="bg-secondary-50 py-16 px-4 transition-colors dark:bg-primary-900">
