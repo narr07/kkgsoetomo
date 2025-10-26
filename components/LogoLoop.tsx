@@ -27,11 +27,14 @@ export interface LogoLoopProps {
   direction?: 'left' | 'right';
   width?: number | string;
   logoHeight?: number;
+  logoHeightMobile?: number;
+  logoHeightTablet?: number;
   gap?: number;
   pauseOnHover?: boolean;
   fadeOut?: boolean;
   fadeOutColor?: string;
   scaleOnHover?: boolean;
+  showLabel?: boolean;
   ariaLabel?: string;
   className?: string;
   style?: React.CSSProperties;
@@ -193,11 +196,14 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     direction = 'left',
     width = '100%',
     logoHeight = 28,
+    logoHeightMobile = 24,
+    logoHeightTablet = 32,
     gap = 32,
     pauseOnHover = true,
     fadeOut = false,
     fadeOutColor,
     scaleOnHover = false,
+    showLabel = false,
     ariaLabel = 'Partner logos',
     className,
     style
@@ -228,9 +234,9 @@ export const LogoLoop = React.memo<LogoLoopProps>(
       }
     }, []);
 
-    useResizeObserver(updateDimensions, [containerRef, seqRef], [logos, gap, logoHeight]);
+    useResizeObserver(updateDimensions, [containerRef, seqRef], [logos, gap, logoHeight, logoHeightMobile, logoHeightTablet]);
 
-    useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight]);
+    useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, logoHeightMobile, logoHeightTablet]);
 
     useAnimationLoop(trackRef, targetVelocity, seqWidth, isHovered, pauseOnHover);
 
@@ -239,9 +245,11 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         ({
           '--logoloop-gap': `${gap}px`,
           '--logoloop-logoHeight': `${logoHeight}px`,
+          '--logoloop-logoHeightMobile': `${logoHeightMobile}px`,
+          '--logoloop-logoHeightTablet': `${logoHeightTablet}px`,
           ...(fadeOutColor && { '--logoloop-fadeColor': fadeOutColor })
         }) as React.CSSProperties,
-      [gap, logoHeight, fadeOutColor]
+      [gap, logoHeight, logoHeightMobile, logoHeightTablet, fadeOutColor]
     );
 
     const rootClasses = useMemo(
@@ -250,8 +258,13 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           'relative overflow-x-hidden group',
           '[--logoloop-gap:32px]',
           '[--logoloop-logoHeight:28px]',
+          '[--logoloop-logoHeightMobile:24px]',
+          '[--logoloop-logoHeightTablet:32px]',
           '[--logoloop-fadeColorAuto:#ffffff]',
           'dark:[--logoloop-fadeColorAuto:#0b0b0b]',
+          'sm:[--logoloop-logoHeight:var(--logoloop-logoHeightMobile)]',
+          'md:[--logoloop-logoHeight:var(--logoloop-logoHeightTablet)]',
+          'lg:[--logoloop-logoHeight:28px]',
           scaleOnHover && 'py-[calc(var(--logoloop-logoHeight)*0.1)]',
           className
         ),
@@ -312,7 +325,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         const inner = (item as any).href ? (
           <a
             className={cx(
-              'inline-flex items-center no-underline rounded',
+              'inline-flex flex-col items-center no-underline rounded gap-2',
               'transition-opacity duration-200 ease-linear',
               'hover:opacity-80',
               'focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2'
@@ -323,9 +336,21 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             rel="noreferrer noopener"
           >
             {content}
+            {showLabel && (item as any).title && (
+              <span className="text-xs text-center font-medium max-w-20 line-clamp-2">
+                {(item as any).title}
+              </span>
+            )}
           </a>
         ) : (
-          content
+          <div className="inline-flex flex-col items-center gap-2">
+            {content}
+            {showLabel && (item as any).title && (
+              <span className="text-xs text-center font-medium max-w-20 line-clamp-2">
+                {(item as any).title}
+              </span>
+            )}
+          </div>
         );
 
         return (
@@ -341,7 +366,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
           </li>
         );
       },
-      [scaleOnHover]
+      [scaleOnHover, showLabel]
     );
 
     const logoLists = useMemo(
@@ -394,7 +419,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               className={cx(
                 'pointer-events-none absolute inset-y-0 right-0 z-1',
                 'w-[clamp(24px,8%,120px)]',
-                'bg-[linear-gradient(to_left,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
+                 'bg-[linear-gradient(to_left,var(--logoloop-fadeColor,var(--logoloop-fadeColorAuto))_0%,rgba(0,0,0,0)_100%)]'
               )}
             />
           </>

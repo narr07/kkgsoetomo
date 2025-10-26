@@ -41,6 +41,15 @@ export const structure: StructureResolver = (S) =>
 
       // Singleton Documents
       S.listItem()
+        .title('🏠 Hero Section')
+        .child(
+          S.document()
+            .schemaType('hero')
+            .documentId('hero')
+            .title('Hero Section')
+        ),
+
+      S.listItem()
         .title('⚙️ Pengaturan Website')
         .child(
           S.document()
@@ -66,6 +75,15 @@ export const structure: StructureResolver = (S) =>
             .documentId('aboutUs')
             .title('Tentang Kami')
         ),
+
+      S.listItem()
+        .title('🏫 Daftar Sekolah')
+        .child(
+          S.document()
+            .schemaType('schoolList')
+            .documentId('schoolList')
+            .title('Daftar Sekolah')
+        ),
      
       // Other document types
       ...S.documentTypeListItems().filter(
@@ -79,6 +97,8 @@ export const structure: StructureResolver = (S) =>
           'siteSettings',
           'selayangPandang',
           'aboutUs',
+          'schoolList',
+          'hero',
           'post',
           'category',
           'author'

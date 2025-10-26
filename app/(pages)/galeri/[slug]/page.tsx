@@ -103,7 +103,7 @@ export default function GaleriDetailPage() {
   if (isLoading) {
     return (
       <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
+        <div className="min-h-screen  py-12 px-4">
           <div className="max-w-6xl mx-auto">
             {/* Back Button Skeleton */}
             <Skeleton className="w-32 h-6 mb-8" />
@@ -136,7 +136,7 @@ export default function GaleriDetailPage() {
   if (!gallery) {
     return (
       <PageTransition>
-        <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
+        <div className="min-h-screen  py-12 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Galeri tidak ditemukan
@@ -156,7 +156,7 @@ export default function GaleriDetailPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-white dark:bg-slate-950 py-12 px-4">
+      <div className="min-h-screen  py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Back Button */}
           <Link href="/galeri">

@@ -13,6 +13,8 @@ import { galleryType } from './galleryType'
 import { siteSettingsType } from './siteSettingsType'
 import { selayangPandangType } from './selayangPandangType'
 import { aboutUsType } from './aboutUsType'
+import { schoolListType } from './schoolListType'
+import { heroType } from './heroType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -29,5 +31,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     siteSettingsType,
     selayangPandangType,
     aboutUsType,
+    schoolListType,
+    heroType,
   ],
 }

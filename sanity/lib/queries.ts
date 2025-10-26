@@ -24,6 +24,41 @@ export const siteSettingsQuery = groq`
   }
 `
 
+export const heroQuery = groq`
+  *[_type == "hero"][0] {
+    title,
+    subtitle,
+    showCTA,
+    ctaText,
+    ctaLink
+  }
+`
+
+export const schoolListQuery = groq`
+  *[_type == "schoolList"][0] {
+    title,
+    description,
+    schools[] | order(order asc) {
+      name,
+      link,
+      logo {
+        asset -> {
+          _id,
+          url
+        },
+        alt
+      },
+      logos[] {
+        asset -> {
+          _id,
+          url
+        },
+        alt
+      }
+    }
+  }
+`
+
 export const selayangPandangQuery = groq`
   *[_type == "selayangPandang"][0] {
     title,

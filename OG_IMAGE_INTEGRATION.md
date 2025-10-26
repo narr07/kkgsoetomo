@@ -52,7 +52,7 @@ export default function HomePage() {
   return (
     <PageTransition>
       <main>
-        <div className="min-h-screen bg-white dark:bg-slate-950">
+        <div className="min-h-screen ">
           {/* Hero Section */}
           <Hero />
           <Selayang />
