@@ -13,7 +13,6 @@ interface SanityImage {
     url: string;
     metadata?: {
       lqip?: string;
-      blurHash?: string;
     };
   };
   hotspot?: Record<string, unknown>;
@@ -128,6 +127,8 @@ export default function GaleriDetailClient({ gallery }: GaleriDetailClientProps)
                   className={`object-contain ${isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
                   sizes="(max-width: 768px) 100vw, 90vw"
                   onClick={() => setIsZoomed(!isZoomed)}
+                  placeholder={currentImage.asset?.metadata?.lqip ? 'blur' : 'empty'}
+                  blurDataURL={currentImage.asset?.metadata?.lqip}
                   priority
                 />
               </div>
@@ -254,6 +255,8 @@ export default function GaleriDetailClient({ gallery }: GaleriDetailClientProps)
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 16vw"
+                    placeholder={image.asset?.metadata?.lqip ? 'blur' : 'empty'}
+                    blurDataURL={image.asset?.metadata?.lqip}
                   />
                   {selectedIndex === index && (
                     <div className="absolute inset-0 bg-blue-500/20" />

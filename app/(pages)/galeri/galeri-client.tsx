@@ -14,7 +14,6 @@ interface SanityImage {
     url: string;
     metadata?: {
       lqip?: string;
-      blurHash?: string;
     };
   };
   hotspot?: Record<string, unknown>;

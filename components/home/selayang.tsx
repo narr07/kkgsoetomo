@@ -16,7 +16,6 @@ interface SanityImage {
     url: string;
     metadata?: {
       lqip?: string;
-      blurHash?: string;
     };
   };
   hotspot?: Record<string, unknown>;
@@ -111,6 +110,8 @@ export default function Selayang() {
                     fill
                     sizes="128px"
                     className="object-cover"
+                    placeholder={leader.photo.asset?.metadata?.lqip ? 'blur' : 'empty'}
+                    blurDataURL={leader.photo.asset?.metadata?.lqip}
                   />
                 </div>
                 <div className="flex flex-col justify-start flex-1">

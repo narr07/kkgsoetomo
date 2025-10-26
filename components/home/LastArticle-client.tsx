@@ -24,7 +24,7 @@ interface Article {
   slug: { current: string }
   excerpt: string
   image: {
-    asset: { _id: string; url: string }
+    asset: { _id: string; url: string; metadata?: { lqip?: string } }
     alt?: string
   }
   author: { name: string }
@@ -76,6 +76,8 @@ export default function LastArticleClient({ articles }: LastArticleClientProps) 
                       alt={article.image.alt || article.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform"
+                      placeholder={article.image.asset?.metadata?.lqip ? 'blur' : 'empty'}
+                      blurDataURL={article.image.asset?.metadata?.lqip}
                     />
                   </div>
                   <CardHeader className="flex-1">
@@ -113,6 +115,8 @@ export default function LastArticleClient({ articles }: LastArticleClientProps) 
                           alt={article.image.alt || article.title}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform"
+                          placeholder={article.image.asset?.metadata?.lqip ? 'blur' : 'empty'}
+                          blurDataURL={article.image.asset?.metadata?.lqip}
                         />
                       </div>
                       <CardHeader className="flex-1">

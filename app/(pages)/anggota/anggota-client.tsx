@@ -103,7 +103,7 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
                       alt={member.name}
                       fill
                       className="object-cover"
-                      placeholder="blur"
+                      placeholder={getBlurPlaceholder(member.image) ? 'blur' : 'empty'}
                       blurDataURL={getBlurPlaceholder(member.image)}
                     />
                   ) : (

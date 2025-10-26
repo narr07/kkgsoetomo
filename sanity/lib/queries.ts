@@ -65,12 +65,34 @@ export const selayangPandangQuery = groq`
     ketua_kkg {
       name,
       message,
-      photo
+      photo {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      }
     },
     ketua_gugus {
       name,
       message,
-      photo
+      photo {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      }
     }
   }
 `
@@ -170,12 +192,34 @@ const articleFields = groq`
   title,
   slug,
   excerpt,
-  image,
+  image {
+    asset -> {
+      _id,
+      url,
+      metadata {
+        lqip
+      }
+    },
+    alt,
+    crop,
+    hotspot
+  },
   author-> {
     _id,
     name,
     slug,
-    image,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
     role
   },
   category-> {
@@ -290,8 +334,31 @@ const galleryFields = groq`
   slug,
   description,
   date,
-  thumbnail,
-  images
+  thumbnail {
+    asset -> {
+      _id,
+      url,
+      metadata {
+        lqip
+      }
+    },
+    alt,
+    crop,
+    hotspot
+  },
+  images[] {
+    asset -> {
+      _id,
+      url,
+      metadata {
+        lqip
+      }
+    },
+    alt,
+    crop,
+    hotspot,
+    caption
+  }
 `
 
 export const allGalleriesQuery = groq`
@@ -329,7 +396,18 @@ const productFields = groq`
   name,
   slug,
   description,
-  image,
+  image {
+    asset -> {
+      _id,
+      url,
+      metadata {
+        lqip
+      }
+    },
+    alt,
+    crop,
+    hotspot
+  },
   price,
   discount,
   stock,
@@ -524,122 +602,19 @@ export const relatedProductsQuery = groq`
 export const homepageDataQuery = groq`
   {
     featuredArticles: *[_type == "article" && featured == true] | order(publishedAt desc)[0..2] {
-      _id,
-      title,
-      slug,
-      excerpt,
-      image,
-      author-> {
-        _id,
-        name,
-        slug,
-        image,
-        role
-      },
-      category-> {
-        _id,
-        title,
-        slug,
-        color
-      },
-      tags,
-      content,
-      publishedAt,
-      updatedAt,
-      featured,
-      views
+      ${articleFields}
     },
     recentArticles: *[_type == "article"] | order(publishedAt desc)[0..5] {
-      _id,
-      title,
-      slug,
-      excerpt,
-      image,
-      author-> {
-        _id,
-        name,
-        slug,
-        image,
-        role
-      },
-      category-> {
-        _id,
-        title,
-        slug,
-        color
-      },
-      tags,
-      content,
-      publishedAt,
-      updatedAt,
-      featured,
-      views
+      ${articleFields}
     },
     featuredProducts: *[_type == "product" && featured == true] | order(publishedAt desc)[0..3] {
-      _id,
-      name,
-      slug,
-      description,
-      image,
-      price,
-      discount,
-      stock,
-      features,
-      specifications,
-      content,
-      category-> {
-        _id,
-        title,
-        slug,
-        icon
-      },
-      tags,
-      publishedAt,
-      featured,
-      sales
+      ${productFields}
     },
     bestsellingProducts: *[_type == "product"] | order(sales desc)[0..3] {
-      _id,
-      name,
-      slug,
-      description,
-      image,
-      price,
-      discount,
-      stock,
-      features,
-      specifications,
-      content,
-      category-> {
-        _id,
-        title,
-        slug,
-        icon
-      },
-      tags,
-      publishedAt,
-      featured,
-      sales
+      ${productFields}
     },
     topMembers: *[_type == "member" && role in ["Kepala KKG", "Wakil Kepala"]] | order(name asc) {
-      _id,
-      name,
-      slug,
-      role,
-      school,
-      image {
-        asset -> {
-          _id,
-          url,
-          metadata {
-            lqip,
-            dimensions
-          }
-        },
-        alt,
-        crop,
-        hotspot
-      }
+      ${memberFields}
     }
   }
 `

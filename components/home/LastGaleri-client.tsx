@@ -13,7 +13,7 @@ import {
 
 interface GalleryImage {
   _key: string
-  asset: { _id: string; url: string }
+  asset: { _id: string; url: string; metadata?: { lqip?: string } }
   alt?: string
   caption?: string
 }
@@ -24,7 +24,7 @@ interface Gallery {
   slug: { current: string }
   date: string
   thumbnail: {
-    asset: { _id: string; url: string }
+    asset: { _id: string; url: string; metadata?: { lqip?: string } }
     alt?: string
   }
   images: GalleryImage[]
@@ -81,6 +81,8 @@ export default function LastGaleriClient({ galleries }: LastGaleriClientProps) {
                     alt={image.alt || image.caption || 'Gallery image'}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-300"
+                    placeholder={image.asset?.metadata?.lqip ? 'blur' : 'empty'}
+                    blurDataURL={image.asset?.metadata?.lqip}
                   />
                   {image.caption && (
                     <div className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">

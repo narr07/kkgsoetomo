@@ -12,6 +12,7 @@ interface SanityImage {
   asset?: {
     _id: string;
     url: string;
+    metadata?: { lqip?: string };
   };
   hotspot?: Record<string, unknown>;
   crop?: Record<string, unknown>;
@@ -102,6 +103,8 @@ export default function ArtikelDetailClient({ article, relatedArticles }: Artike
                     width={40}
                     height={40}
                     className="rounded-full object-cover"
+                    placeholder={article.author.image.asset?.metadata?.lqip ? 'blur' : 'empty'}
+                    blurDataURL={article.author.image.asset?.metadata?.lqip}
                   />
                 )}
                 <div>
@@ -135,6 +138,8 @@ export default function ArtikelDetailClient({ article, relatedArticles }: Artike
               alt={article.image.alt || article.title}
               fill
               className="object-cover"
+              placeholder={article.image.asset?.metadata?.lqip ? 'blur' : 'empty'}
+              blurDataURL={article.image.asset?.metadata?.lqip}
               priority
             />
           </div>
