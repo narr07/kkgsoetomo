@@ -327,7 +327,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             className={cx(
               'inline-flex flex-col items-center no-underline rounded gap-2',
               'transition-opacity duration-200 ease-linear',
-              'hover:opacity-80',
+              
               'focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2'
             )}
             href={(item as any).href}

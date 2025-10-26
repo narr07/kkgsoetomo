@@ -79,6 +79,7 @@ html {
   --background: #f6f7de;
   --foreground: #141b38;
   --card: #f6f7de;
+  --bcard: #ebeb9d;
   --card-foreground: #141b38;
   --popover: #f6f7de;
   --popover-foreground: #141b38;
@@ -112,7 +113,8 @@ html {
 .dark {
   --background: #141b38;
   --foreground: #f6f7de;
-  --card: #293466;
+  --card: #273362;
+  --bcard: #4052a0;
   --card-foreground: #f6f7de;
   --popover: #293466;
   --popover-foreground: #f6f7de;
@@ -148,7 +150,7 @@ html {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-secondary-50 dark:bg-primary-900 text-foreground font-sans;
+    @apply bg-slate-50 dark:bg-primary-900 text-foreground font-sans;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply text-4xl md:text-5xl font-bold font-heading leading-relaxed tracking-wide;

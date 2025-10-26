@@ -1,18 +1,13 @@
 'use client';
-
 import Image from 'next/image'
 import React from 'react'
 import useSWR from 'swr'
 import { urlFor } from '@/sanity/lib/image'
-
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-
 interface SanityImage {
   _type?: string;
   asset?: {
@@ -27,21 +22,17 @@ interface SanityImage {
   crop?: Record<string, unknown>;
   alt?: string;
 }
-
 interface Leader {
   name: string;
   message: string;
   photo: SanityImage;
 }
-
 interface SelayangPandang {
   title: string;
   ketua_kkg: Leader;
   ketua_gugus: Leader;
 }
-
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export default function Selayang() {
   const { data, isLoading } = useSWR<SelayangPandang>(
     '/api/selayang-pandang',
@@ -52,81 +43,76 @@ export default function Selayang() {
       focusThrottleInterval: 300000,
     }
   );
-
   if (isLoading) {
     return (
-      <section className="bg-[#f6f7de] py-16 px-4 transition-colors dark:bg-[#141b38]">
+      <section className="bg-secondary-50 py-16 px-4 transition-colors dark:bg-primary-900">
         <div className="mx-auto flex max-w-5xl flex-col gap-12">
           <div className="h-40 animate-pulse" />
         </div>
       </section>
     );
   }
-
   if (!data) {
     return null;
   }
-
   const leaders = [
-    {
-      name: data.ketua_kkg.name,
-      role: 'Ketua KKG',
-      message: data.ketua_kkg.message,
-      photo: data.ketua_kkg.photo,
-    },
     {
       name: data.ketua_gugus.name,
       role: 'Ketua Gugus',
       message: data.ketua_gugus.message,
       photo: data.ketua_gugus.photo,
     },
-  ];
+    {
+      name: data.ketua_kkg.name,
+      role: 'Ketua KKG',
+      message: data.ketua_kkg.message,
+      photo: data.ketua_kkg.photo,
+    },
 
+  ];
   return (
-    <section className="bg-[#f6f7de] py-16 px-4 transition-colors dark:bg-[#141b38]">
+    <section className=" py-16 px-4 transition-colors   ">
       <div className="mx-auto flex max-w-5xl flex-col gap-12">
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#293466] dark:text-secondary-400">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-900 dark:text-secondary-400">
             Selayang Pandang
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-[#141b38] dark:text-[#f6f7de]">
+          <h2 className="mt-3 text-3xl font-bold text-primary-900 dark:text-secondary-50">
             Sambutan Pimpinan
           </h2>
-          <p className="mt-4 text-[#293466] dark:text-[#f6f7de]">
+          <p className="mt-4 text-primary-900 dark:text-secondary-50">
             Pesan hangat dari para pemimpin kami untuk seluruh anggota komunitas.
           </p>
         </div>
-
         <div className="grid gap-8 md:grid-cols-2">
           {leaders.map((leader) => (
             <Card
               key={leader.role}
-              className="border-[#d9dec2] bg-card text-card-foreground transition-colors dark:border-[#232a36]"
+              className="flex flex-col overflow-hidden"
             >
-              <CardHeader className="items-center gap-3 text-center">
-                <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-[#d4c93b] shadow-lg">
+              <div className="flex gap-6 px-6">
+                <div className="relative h-44 w-32 shrink-0 overflow-hidden rounded-lg shadow-lg">
                   <Image
-                    src={urlFor(leader.photo).width(112).height(112).url()}
+                    src={urlFor(leader.photo).width(128).height(168).url()}
                     alt={leader.name}
                     fill
-                    sizes="112px"
+                    sizes="128px"
                     className="object-cover"
                   />
                 </div>
-                <div>
-                  <CardTitle className="text-2xl text-inherit">
+                <div className="flex flex-col justify-start flex-1">
+                  <CardTitle className="text-xl font-black text-inherit">
                     {leader.name}
                   </CardTitle>
-                  <CardDescription className="mt-1 uppercase tracking-wide text-[#293466] dark:text-secondary-400">
+                  <CardDescription className="mt-2 uppercase tracking-wide text-[#293466] dark:text-secondary-400">
                     {leader.role}
                   </CardDescription>
+                  <p className="mt-8 text-[#293466] dark:text-secondary-50">
+                    &quot;{leader.message}&quot;
+                  </p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-[#293466] dark:text-[#f6f7de]">
-                  &quot;{leader.message}&quot;
-                </p>
-              </CardContent>
+              </div>
+
             </Card>
           ))}
         </div>

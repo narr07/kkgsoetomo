@@ -109,13 +109,13 @@ export default function Hero() {
   }, [schoolList])
 
   return (
-    <section className="relative h-screen overflow-hidden bg-primary-800 px-4 transition-colors flex flex-col items-center justify-center dark:bg-primary-900">
+    <section className="relative h-screen overflow-hidden bg-primary-700 px-4 transition-colors flex flex-col items-center justify-center dark:bg-primary-800">
       <div className="absolute inset-0 z-0">
         <DotGrid
           dotSize={5}
           gap={15}
           baseColor={isDark ? "#000305" : "#141b38"}
-          activeColor={isDark ? "#141b38" : "#000305"}
+          activeColor={isDark ? "#d4c93b" : "#d4c93b"}
           proximity={120}
           shockRadius={250}
           shockStrength={5}
@@ -158,7 +158,7 @@ export default function Hero() {
             pauseOnHover
             scaleOnHover
             fadeOut
-            fadeOutColor={isDark ? "#141b38" : "#1f274c"}
+            fadeOutColor={isDark ? "#1f274c" : "#273362"}
             showLabel={true}
             ariaLabel="Daftar Sekolah KKG"
           />

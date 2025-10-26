@@ -3,6 +3,8 @@ import PageTransition from '@/components/PageTransition';
 import Hero from '@/components/home/hero';
 import Selayang from '@/components/home/selayang';
 import AboutUs from '@/components/home/aboutUs';
+import LastArticle from '@/components/home/LastArticle';
+import LastGaleri from '@/components/home/LastGaleri';
 
 export const metadata: Metadata = {
   title: 'KKG dr. Soetomo - Kecamatan Rajagaluh',
@@ -39,10 +41,12 @@ export default function HomePage() {
           {/* Hero Section */}
           <Hero />
           <Selayang />
-          
+
           {/* About Us Section - From Sanity */}
           <AboutUs />
-
+          <LastGaleri />
+          {/* 3 Artikel Terbaru */}
+          <LastArticle />
           {/* CTA Section */}
           <section className="bg-gray-50 dark:bg-gray-900 py-16 px-4">
             <div className="max-w-2xl mx-auto text-center">
