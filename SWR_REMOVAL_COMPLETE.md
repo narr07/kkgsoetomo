@@ -206,10 +206,10 @@ export async function GET() {
 - `app/api/articles/route.ts` (revalidate: 60s)
 - `app/api/galleries/route.ts` (revalidate: 60s)
 - `app/api/products/route.ts` (revalidate: 60s)
-- `app/api/hero/route.ts` (revalidate: 3600s)
-- `app/api/school-list/route.ts` (revalidate: 3600s)
-- `app/api/about-us/route.ts` (revalidate: 3600s)
-- `app/api/selayang-pandang/route.ts` (revalidate: 3600s)
+- `app/api/hero/route.ts` (revalidate: 60s)
+- `app/api/school-list/route.ts` (revalidate: 60s)
+- `app/api/about-us/route.ts` (revalidate: 60s)
+- `app/api/selayang-pandang/route.ts` (revalidate: 60s)
 
 ---
 
