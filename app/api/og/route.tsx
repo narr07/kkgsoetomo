@@ -207,12 +207,13 @@ export async function GET(request: Request) {
           <div
             style={{
               display: 'flex',
-              fontSize: 30,
+              fontSize: 25,
               fontStyle: 'normal',
               color: '#f6f7de',
               marginTop: 10,
               lineHeight: 1.8,
               whiteSpace: 'pre-wrap',
+              fontWeight: '400',
             }}
           >
             <b>KKG dr. Soetomo Kec. Rajagaluh Kab. Majalengka</b>
@@ -223,13 +224,13 @@ export async function GET(request: Request) {
           <div
             style={{
               display: 'flex',
-              fontSize: 75,
+              fontSize: 50,
               fontStyle: 'normal',
                color: '#d4c93b',
               marginTop: 30,
-              lineHeight: 1.8,
+              lineHeight: 1.25,
               whiteSpace: 'pre-wrap',
-              fontWeight: 'bold',
+              fontWeight: '700',
               maxWidth: '1100px',
               textAlign: 'center',
               padding: '0 20px',
@@ -242,13 +243,13 @@ export async function GET(request: Request) {
           <div
             style={{
               display: 'flex',
-              fontSize: 30,
+              fontSize: 25,
               fontStyle: 'normal',
               color: '#f6f7de',
               marginTop: 25,
-              lineHeight: 1.8,
+              lineHeight: 1.25,
               whiteSpace: 'pre-wrap',
-              fontWeight: 'bold',
+              fontWeight: '400',
               maxWidth: '1100px',
               textAlign: 'center',
               padding: '0 20px',
@@ -265,14 +266,7 @@ export async function GET(request: Request) {
           {
             name: 'Inter',
             data: await loadGoogleFont('Inter', `${truncatedTitle} `),
-            style: 'normal',
-            weight: 700,
-          },
-          {
-            name: 'Inter',
-            data: await loadGoogleFont('Inter', `   ${truncatedDescription}`),
-            style: 'normal',
-            weight: 400,
+            style: 'normal', 
           },
         ],
       },
