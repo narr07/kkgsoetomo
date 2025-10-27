@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme-provider"
 import { MotionProvider } from "@/components/motion-provider"
+import GoogleTagManager from "@/components/GoogleTagManager"
+import GoogleAnalytics from "@/components/GoogleAnalytics"
 
 const boldOnse = Boldonse({
   weight: "400",
@@ -59,9 +61,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" suppressHydrationWarning>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body
         className={`${bricolageGrotesque.variable} ${ubuntu.variable} ${boldOnse.variable} antialiased`}
       >
+        <GoogleTagManager />
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
