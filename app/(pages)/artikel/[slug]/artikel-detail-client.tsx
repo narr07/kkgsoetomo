@@ -6,6 +6,7 @@ import PageTransition from '@/components/PageTransition';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
 import { PortableText, PortableTextBlock } from 'next-sanity';
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton, FacebookIcon, TwitterIcon, WhatsappIcon } from 'next-share';
 
 interface SanityImage {
   _type?: string;
@@ -162,6 +163,32 @@ export default function ArtikelDetailClient({ article, relatedArticles }: Artike
               ))}
             </div>
           )}
+
+          {/* Share Buttons */}
+          <div className="mb-8 flex items-center gap-4">
+            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Bagikan artikel:</span>
+            <div className="flex gap-3">
+              <FacebookShareButton
+                url={typeof window !== 'undefined' ? window.location.href : ''}
+                quote={article.title}
+                hashtag={article.tags && article.tags.length > 0 ? `#${article.tags[0]}` : ''}
+              >
+                <FacebookIcon size={40} round />
+              </FacebookShareButton>
+              <TwitterShareButton
+                url={typeof window !== 'undefined' ? window.location.href : ''}
+                title={article.title}
+              >
+                <TwitterIcon size={40} round />
+              </TwitterShareButton>
+              <WhatsappShareButton
+                url={typeof window !== 'undefined' ? window.location.href : ''}
+                title={article.title}
+              >
+                <WhatsappIcon size={40} round />
+              </WhatsappShareButton>
+            </div>
+          </div>
 
           {/* Content */}
           <div className="prose dark:prose-invert max-w-none mb-12">
