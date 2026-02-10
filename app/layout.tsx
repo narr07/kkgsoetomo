@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Boldonse, Bricolage_Grotesque, Ubuntu } from "next/font/google";
+import { Londrina_Solid, TikTok_Sans } from "next/font/google";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - allow importing global css without type declarations
 import "./globals.css";
@@ -10,22 +10,22 @@ import { MotionProvider } from "@/components/motion-provider"
 import GoogleTagManager from "@/components/GoogleTagManager"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
 
-const boldOnse = Boldonse({
-  weight: "400",
-  variable: "--font-boldonse",
-  subsets: ["latin"],
-});
 
-const ubuntu = Ubuntu({
+const tiktokSans = TikTok_Sans({
   weight: ["300", "400", "500", "700"],
-  variable: "--font-ubuntu",
-  subsets: ["latin"],
-});
-
-const bricolageGrotesque = Bricolage_Grotesque({
-  variable: "--font-bricolage-grotesque",
+  variable: "--font-tiktok-sans",
   subsets: ["latin"],
 })
+
+
+
+const londrinaSolid = Londrina_Solid({
+  weight: [ "300", "400", "900"],
+  variable: "--font-londrina-solid",
+  subsets: ["latin"],
+})
+
+
 
 export const metadata: Metadata = {
   title: "KKG dr. Soetomo - Kecamatan Rajagaluh",
@@ -65,7 +65,7 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body
-        className={`${bricolageGrotesque.variable} ${ubuntu.variable} ${boldOnse.variable} antialiased`}
+        className={` ${londrinaSolid.variable} ${tiktokSans.variable} antialiased`}
       >
         <GoogleTagManager />
         <ThemeProvider

@@ -4,7 +4,6 @@ import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import PageTransition from '@/components/PageTransition';
 import { urlFor } from '@/sanity/lib/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Select,
   SelectContent,
@@ -12,12 +11,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
 
 interface TeamCardProps {
   member: MemberData;
   onSelect: (member: MemberData) => void;
-  getImageUrl: (image: SanityImage | undefined) => string | null;
-  getBlurPlaceholder: (image: SanityImage | undefined) => string | undefined;
 }
 
 interface SanityImage {
@@ -55,19 +60,6 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
   const [selectedSchool, setSelectedSchool] = useState<string>('all');
   const [selectedMember, setSelectedMember] = useState<MemberData | null>(null);
 
-  // Disable scroll when modal is open
-  React.useEffect(() => {
-    if (selectedMember) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedMember]);
-
   // Get unique schools for filter
   const uniqueSchools = useMemo(() => {
     const schools = new Set((members || []).map((m) => m.school));
@@ -95,7 +87,7 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
   const getImageUrl = (image: SanityImage | undefined) => {
     if (!image) return null;
     try {
-      return urlFor(image).width(300).height(400).url();
+      return urlFor(image).width(400).height(400).url();
     } catch {
       return null;
     }
@@ -129,7 +121,7 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
             <div className="relative max-w-2xl  mx-auto">
               <input
                 type="text"
-                placeholder="Cari anggota..."
+                placeholder="Cari anggota... (Nama, Sekolah, Jabatan)"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className=" px-4 w-full py-3 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-secondary-50 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
@@ -167,8 +159,6 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
               <SelectContent
                 position="popper"
               >
-              
-            
                 <SelectItem value="all">Semua Sekolah</SelectItem>
                 {uniqueSchools.map((school) => (
                   <SelectItem key={school} value={school}>
@@ -181,14 +171,12 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
           </div>
 
           {/* Members Grid */}
-          <div className="grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {filteredMembers.map((member) => (
               <TeamCard
                 key={member._id}
                 member={member}
                 onSelect={setSelectedMember}
-                getImageUrl={getImageUrl}
-                getBlurPlaceholder={getBlurPlaceholder}
               />
             ))}
           </div>
@@ -215,351 +203,115 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
         </div>
       </div>
 
-      {/* Modal Detail Anggota */}
-      <AnimatePresence mode="wait">
-        {selectedMember && (
-          <MemberModal
-            key={selectedMember._id}
-            member={selectedMember}
-            onClose={() => setSelectedMember(null)}
-            getImageUrl={getImageUrl}
-            getBlurPlaceholder={getBlurPlaceholder}
-          />
-        )}
-      </AnimatePresence>
+      {/* Modal Detail Anggota using shadcn/ui Dialog */}
+      <Dialog open={!!selectedMember} onOpenChange={(open) => !open && setSelectedMember(null)}>
+        <DialogContent className="sm:max-w-md p-0 overflow-hidden border-none shadow-2xl flex flex-col max-h-[90vh]">
+          {selectedMember && (
+            <>
+              {/* Sticky Header with Name */}
+              <DialogHeader className="sticky top-0 z-20 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-6 py-4 shrink-0">
+                <DialogTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                  {selectedMember.name}
+                </DialogTitle>
+                <DialogDescription className="text-blue-600 dark:text-blue-400 font-semibold text-sm">
+                  {selectedMember.role}
+                </DialogDescription>
+              </DialogHeader>
+
+              {/* Scrollable Content Area */}
+              <div className="flex-1 overflow-y-auto">
+                {/* Photo Area - Small Portrait Centered */}
+                <div className="flex items-center justify-center py-6 bg-gray-50 dark:bg-gray-800/50">
+                  <div className="relative w-32 h-40 rounded-lg overflow-hidden shadow-xl bg-linear-to-br from-blue-400 to-blue-600">
+                    {getImageUrl(selectedMember.image) ? (
+                      <Image
+                        src={getImageUrl(selectedMember.image)!}
+                        alt={selectedMember.name}
+                        fill
+                        sizes="128px"
+                        className="object-cover object-top"
+                        placeholder={getBlurPlaceholder(selectedMember.image) ? 'blur' : 'empty'}
+                        blurDataURL={getBlurPlaceholder(selectedMember.image)}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-5xl text-white font-bold opacity-70">
+                          {selectedMember.name.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Info Section */}
+                <div className="p-6 pb-20">
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                        Sekolah
+                      </p>
+                      <p className="text-base text-gray-900 dark:text-gray-100 mt-1">
+                        {selectedMember.school}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sticky Footer */}
+              <DialogFooter className="sticky bottom-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 p-4 shrink-0">
+                <button
+                  onClick={() => setSelectedMember(null)}
+                  className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors shadow-lg shadow-blue-500/30"
+                >
+                  Tutup
+                </button>
+              </DialogFooter>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </PageTransition>
   );
 }
 
-// Team Card Component
+// Team Card Component - Redesigned to match horizontal layout without photos
 function TeamCard({
   member,
   onSelect,
-  getImageUrl,
-  getBlurPlaceholder,
 }: TeamCardProps) {
-  const imageUrl = getImageUrl(member.image);
+  const initials = member.name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .substring(0, 2);
 
   return (
-    <div className="w-full">
-      <div
-        onClick={() => onSelect(member)}
-        className="relative overflow-hidden rounded-lg cursor-pointer group"
-      >
-        {/* Image Container */}
-        <div className="relative w-full aspect-3/4 bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center overflow-hidden">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={member.name}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              placeholder={getBlurPlaceholder(member.image) ? 'blur' : 'empty'}
-              blurDataURL={getBlurPlaceholder(member.image)}
-            />
-          ) : (
-            <span className="text-5xl text-white font-bold opacity-70">
-              {member.name.charAt(0).toUpperCase()}
-            </span>
-          )}
-        </div>
+    <div
+      onClick={() => onSelect(member)}
+      className="group relative bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 transition-all duration-300 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-900/40 cursor-pointer overflow-hidden flex items-center gap-4"
+    >
+      {/* Decorative Background for Group Effect */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50/50 dark:bg-blue-900/10 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-500" />
 
-        {/* Info Overlay - Bottom */}
-        <div className="absolute bottom-0 left-0 w-full p-3 translate-y-0 group-hover:-translate-y-2 transition-transform duration-300">
-          <div className="relative overflow-hidden rounded-lg bg-white dark:bg-gray-800 px-3 py-3 shadow-lg">
-            {/* Background Decorative Elements */}
-            <div className="absolute bottom-0 left-0">
-              <svg
-                width="41"
-                height="20"
-                viewBox="0 0 61 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="16"
-                  cy="45"
-                  r="45"
-                  fill="#13C296"
-                  fillOpacity="0.11"
-                />
-              </svg>
-            </div>
-            <div className="absolute right-0 top-0">
-              <svg
-                width="14"
-                height="18"
-                viewBox="0 0 20 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="0.706257"
-                  cy="24.3533"
-                  r="0.646687"
-                  transform="rotate(-90 0.706257 24.3533)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="6.39669"
-                  cy="24.3533"
-                  r="0.646687"
-                  transform="rotate(-90 6.39669 24.3533)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="12.0881"
-                  cy="24.3533"
-                  r="0.646687"
-                  transform="rotate(-90 12.0881 24.3533)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="17.7785"
-                  cy="24.3533"
-                  r="0.646687"
-                  transform="rotate(-90 17.7785 24.3533)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="0.706257"
-                  cy="18.6624"
-                  r="0.646687"
-                  transform="rotate(-90 0.706257 18.6624)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="6.39669"
-                  cy="18.6624"
-                  r="0.646687"
-                  transform="rotate(-90 6.39669 18.6624)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="12.0881"
-                  cy="18.6624"
-                  r="0.646687"
-                  transform="rotate(-90 12.0881 18.6624)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="17.7785"
-                  cy="18.6624"
-                  r="0.646687"
-                  transform="rotate(-90 17.7785 18.6624)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="0.706257"
-                  cy="12.9717"
-                  r="0.646687"
-                  transform="rotate(-90 0.706257 12.9717)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="6.39669"
-                  cy="12.9717"
-                  r="0.646687"
-                  transform="rotate(-90 6.39669 12.9717)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="12.0881"
-                  cy="12.9717"
-                  r="0.646687"
-                  transform="rotate(-90 12.0881 12.9717)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="17.7785"
-                  cy="12.9717"
-                  r="0.646687"
-                  transform="rotate(-90 17.7785 12.9717)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="0.706257"
-                  cy="7.28077"
-                  r="0.646687"
-                  transform="rotate(-90 0.706257 7.28077)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="6.39669"
-                  cy="7.28077"
-                  r="0.646687"
-                  transform="rotate(-90 6.39669 7.28077)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="12.0881"
-                  cy="7.28077"
-                  r="0.646687"
-                  transform="rotate(-90 12.0881 7.28077)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="17.7785"
-                  cy="7.28077"
-                  r="0.646687"
-                  transform="rotate(-90 17.7785 7.28077)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="0.706257"
-                  cy="1.58989"
-                  r="0.646687"
-                  transform="rotate(-90 0.706257 1.58989)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="6.39669"
-                  cy="1.58989"
-                  r="0.646687"
-                  transform="rotate(-90 6.39669 1.58989)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="12.0881"
-                  cy="1.58989"
-                  r="0.646687"
-                  transform="rotate(-90 12.0881 1.58989)"
-                  fill="#3056D3"
-                />
-                <circle
-                  cx="17.7785"
-                  cy="1.58989"
-                  r="0.646687"
-                  transform="rotate(-90 17.7785 1.58989)"
-                  fill="#3056D3"
-                />
-              </svg>
-            </div>
+      {/* Avatar Placeholder (Circular) */}
+      <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-50 dark:bg-gray-700 border border-gray-100 dark:border-gray-600 flex items-center justify-center shrink-0">
+        <span className="text-xl sm:text-2xl font-bold text-gray-400 dark:text-gray-300">
+          {initials}
+        </span>
+      </div>
 
-            {/* Content */}
-            <div className="relative z-10">
-              <div className="relative">
-                <h3 className="text-[10px] sm:text-xs font-sans font-semibold text-gray-900 dark:text-white line-clamp-2 ">
-                  {member.name}
-                </h3>
-              </div>
-              <p className="text-[8px] sm:text-[10px]  text-blue-600 dark:text-blue-400 font-medium line-clamp-1 mt-1">
-                {member.role}
-              </p>
-            </div>
-          </div>
-                {/* School Badge - Absolute */}
-                <span className="absolute bottom-2 right-2 inline-block px-2 py-0.5 text-xs font-semibold text-[8px] sm:text-[10px]  text-white bg-blue-600 dark:bg-blue-500 rounded whitespace-nowrap">
-                  {member.school}
-                </span>
-        </div>
+      {/* Content Area */}
+      <div className="relative z-10 flex-1 min-w-0">
+        <h3 className="text-sm sm:text-base tracking-wider font-black text-gray-900 dark:text-white truncate group-hover:text-secondary-500 dark:group-hover:text-secondary-500 transition-colors">
+          {member.name}
+        </h3>
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">
+          {member.school}
+        </p>
       </div>
     </div>
   );
 }
 
-// Member Modal Component
-function MemberModal({
-  member,
-  onClose,
-  getImageUrl,
-  getBlurPlaceholder,
-}: {
-  member: MemberData;
-  onClose: () => void;
-  getImageUrl: (image: SanityImage | undefined) => string | null;
-  getBlurPlaceholder: (image: SanityImage | undefined) => string | undefined;
-}) {
-  const imageUrl = getImageUrl(member.image);
-
-  return (
-    <>
-      {/* Backdrop - Full screen clickable area */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-        className="fixed inset-0 bg-primary-900/80  z-1"
-        onClick={onClose}
-      />
-
-      {/* Modal Wrapper - Centers the modal and handles clicks */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ duration: 0.3, ease: 'easeOut' }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        onClick={onClose}
-      >
-        {/* Modal Content - Prevent click propagation only for card */}
-        <div
-          className="bg-white dark:bg-gray-900 rounded-lg max-w-md w-full max-h-[calc(100vh-32px)] overflow-y-auto shadow-2xl"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Image */}
-          <div className="relative w-full h-[400px] bg-linear-to-br from-blue-400 to-blue-600 flex items-start justify-center overflow-hidden">
-            {imageUrl ? (
-              <Image
-                src={imageUrl}
-                alt={member.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 512px"
-                className="object-cover object-top"
-                placeholder={getBlurPlaceholder(member.image) ? 'blur' : 'empty'}
-                blurDataURL={getBlurPlaceholder(member.image)}
-              />
-            ) : (
-              <span className="text-9xl text-white font-bold opacity-70">
-                {member.name.charAt(0).toUpperCase()}
-              </span>
-            )}
-            
-            {/* Close Button - Absolute on Image */}
-            <button
-              onClick={onClose}
-              className="absolute top-3 right-3 p-2 bg-white/90 hover:bg-white dark:bg-gray-800/90  dark:hover:bg-gray-800 rounded-full transition-colors z-10 shadow-lg"
-              aria-label="Close modal"
-            >
-              <svg
-                className="w-5 h-5 text-gray-900 dark:text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-
-          {/* Info */}
-          <div className="p-6">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              {member.name}
-            </h2>
-            <p className="text-blue-600 dark:text-blue-400 font-semibold mb-4">
-              {member.role}
-            </p>
-            <div className="space-y-3">
-              <div>
-                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Sekolah
-                </p>
-                <p className="text-gray-900 dark:text-gray-100 mt-1">
-                  {member.school}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </>
-  );
-}

@@ -110,48 +110,95 @@ export const aboutUsQuery = groq`
 // MEMBER (ANGGOTA KKG) QUERIES
 // ================================================
 
-const memberFields = groq`
-  _id,
-  name,
-  slug,
-  role,
-  school,
-  image {
-    asset -> {
-      _id,
-      url,
-      metadata {
-        lqip,
-        dimensions
-      }
-    },
-    alt,
-    crop,
-    hotspot
-  }
-`
-
 export const allMembersQuery = groq`
   *[_type == "member"] | order(name asc) {
-    ${memberFields}
+    _id,
+    name,
+    slug,
+    role,
+    school,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    }
   }
 `
 
 export const memberBySlugQuery = groq`
   *[_type == "member" && slug.current == $slug][0] {
-    ${memberFields}
+    _id,
+    name,
+    slug,
+    role,
+    school,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    }
   }
 `
 
 export const membersByRoleQuery = groq`
   *[_type == "member" && role == $role] | order(name asc) {
-    ${memberFields}
+    _id,
+    name,
+    slug,
+    role,
+    school,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    }
   }
 `
 
 export const membersBySchoolQuery = groq`
   *[_type == "member" && school == $school] | order(name asc) {
-    ${memberFields}
+    _id,
+    name,
+    slug,
+    role,
+    school,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    }
   }
 `
 
@@ -163,23 +210,23 @@ export const memberCountQuery = groq`
 // ARTICLE CATEGORY QUERIES
 // ================================================
 
-const articleCategoryFields = groq`
-  _id,
-  title,
-  slug,
-  description,
-  color
-`
-
 export const allArticleCategoriesQuery = groq`
   *[_type == "articleCategory"] | order(title asc) {
-    ${articleCategoryFields}
+    _id,
+    title,
+    slug,
+    description,
+    color
   }
 `
 
 export const articleCategoryBySlugQuery = groq`
   *[_type == "articleCategory" && slug.current == $slug][0] {
-    ${articleCategoryFields}
+    _id,
+    title,
+    slug,
+    description,
+    color
   }
 `
 
@@ -187,27 +234,12 @@ export const articleCategoryBySlugQuery = groq`
 // ARTICLE QUERIES
 // ================================================
 
-const articleFields = groq`
-  _id,
-  title,
-  slug,
-  excerpt,
-  image {
-    asset -> {
-      _id,
-      url,
-      metadata {
-        lqip
-      }
-    },
-    alt,
-    crop,
-    hotspot
-  },
-  author-> {
+export const allArticlesQuery = groq`
+  *[_type == "article"] | order(publishedAt desc) {
     _id,
-    name,
+    title,
     slug,
+    excerpt,
     image {
       asset -> {
         _id,
@@ -220,73 +252,444 @@ const articleFields = groq`
       crop,
       hotspot
     },
-    role
-  },
-  category-> {
-    _id,
-    title,
-    slug,
-    color
-  },
-  tags,
-  content,
-  publishedAt,
-  updatedAt,
-  featured,
-  views
-`
-
-export const allArticlesQuery = groq`
-  *[_type == "article"] | order(publishedAt desc) {
-    ${articleFields}
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const featuredArticlesQuery = groq`
   *[_type == "article" && featured == true] | order(publishedAt desc) {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const articleBySlugQuery = groq`
   *[_type == "article" && slug.current == $slug][0] {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const articlesByCategoryQuery = groq`
   *[_type == "article" && category._ref == $categoryId] | order(publishedAt desc) {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const articlesByCategorySlugQuery = groq`
   *[_type == "article" && category->slug.current == $slug] | order(publishedAt desc) {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const articlesByAuthorQuery = groq`
   *[_type == "article" && author._ref == $authorId] | order(publishedAt desc) {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const articlesByAuthorSlugQuery = groq`
   *[_type == "article" && author->slug.current == $slug] | order(publishedAt desc) {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const articlesByTagQuery = groq`
   *[_type == "article" && $tag in tags[]] | order(publishedAt desc) {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const recentArticlesQuery = groq`
   *[_type == "article"] | order(publishedAt desc)[0..5] {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
@@ -304,23 +707,23 @@ export const articleViewsQuery = groq`
 // PRODUCT CATEGORY QUERIES
 // ================================================
 
-const productCategoryFields = groq`
-  _id,
-  title,
-  slug,
-  description,
-  icon
-`
-
 export const allProductCategoriesQuery = groq`
   *[_type == "productCategory"] | order(title asc) {
-    ${productCategoryFields}
+    _id,
+    title,
+    slug,
+    description,
+    icon
   }
 `
 
 export const productCategoryBySlugQuery = groq`
   *[_type == "productCategory" && slug.current == $slug][0] {
-    ${productCategoryFields}
+    _id,
+    title,
+    slug,
+    description,
+    icon
   }
 `
 
@@ -328,54 +731,108 @@ export const productCategoryBySlugQuery = groq`
 // GALLERY QUERIES
 // ================================================
 
-const galleryFields = groq`
-  _id,
-  title,
-  slug,
-  description,
-  date,
-  thumbnail {
-    asset -> {
-      _id,
-      url,
-      metadata {
-        lqip
-      }
-    },
-    alt,
-    crop,
-    hotspot
-  },
-  images[] {
-    asset -> {
-      _id,
-      url,
-      metadata {
-        lqip
-      }
-    },
-    alt,
-    crop,
-    hotspot,
-    caption
-  }
-`
-
 export const allGalleriesQuery = groq`
   *[_type == "gallery"] | order(date desc) {
-    ${galleryFields}
+    _id,
+    title,
+    slug,
+    description,
+    date,
+    thumbnail {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    images[] {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot,
+      caption
+    }
   }
 `
 
 export const galleryBySlugQuery = groq`
   *[_type == "gallery" && slug.current == $slug][0] {
-    ${galleryFields}
+    _id,
+    title,
+    slug,
+    description,
+    date,
+    thumbnail {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    images[] {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot,
+      caption
+    }
   }
 `
 
 export const recentGalleriesQuery = groq`
   *[_type == "gallery"] | order(date desc)[0..5] {
-    ${galleryFields}
+    _id,
+    title,
+    slug,
+    description,
+    date,
+    thumbnail {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    images[] {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot,
+      caption
+    }
   }
 `
 
@@ -384,99 +841,339 @@ export const galleryCountQuery = groq`
 `
 
 // ================================================
-// PRODUCT CATEGORY QUERIES
-// ================================================
-
-// ================================================
 // PRODUCT QUERIES
 // ================================================
 
-const productFields = groq`
-  _id,
-  name,
-  slug,
-  description,
-  image {
-    asset -> {
-      _id,
-      url,
-      metadata {
-        lqip
-      }
-    },
-    alt,
-    crop,
-    hotspot
-  },
-  price,
-  discount,
-  stock,
-  features,
-  specifications,
-  content,
-  category-> {
-    _id,
-    title,
-    slug,
-    icon
-  },
-  tags,
-  publishedAt,
-  featured,
-  sales
-`
-
 export const allProductsQuery = groq`
   *[_type == "product"] | order(publishedAt desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const availableProductsQuery = groq`
   *[_type == "product" && stock > 0] | order(publishedAt desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const featuredProductsQuery = groq`
   *[_type == "product" && featured == true] | order(publishedAt desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const bestsellingProductsQuery = groq`
   *[_type == "product"] | order(sales desc)[0..9] {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const productBySlugQuery = groq`
   *[_type == "product" && slug.current == $slug][0] {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const productsByCategoryQuery = groq`
   *[_type == "product" && category._ref == $categoryId] | order(publishedAt desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const productsByCategorySlugQuery = groq`
   *[_type == "product" && category->slug.current == $slug] | order(publishedAt desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const productsByTagQuery = groq`
   *[_type == "product" && $tag in tags[]] | order(publishedAt desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const discountedProductsQuery = groq`
   *[_type == "product" && discount > 0] | order(discount desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
@@ -495,19 +1192,112 @@ export const productStockQuery = groq`
 
 export const searchMembersQuery = groq`
   *[_type == "member" && (name match $query || school match $query)] | order(name asc) {
-    ${memberFields}
+    _id,
+    name,
+    slug,
+    role,
+    school,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    }
   }
 `
 
 export const searchArticlesQuery = groq`
   *[_type == "article" && (title match $query || excerpt match $query || tags[] match $query)] | order(publishedAt desc) {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const searchProductsQuery = groq`
   *[_type == "product" && (name match $query || description match $query || tags[] match $query)] | order(publishedAt desc) {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
@@ -516,15 +1306,15 @@ export const searchProductsQuery = groq`
 // ================================================
 
 export const totalMembersQuery = groq`
-  { count: count(*[_type == "member"]) }
+  count(*[_type == "member"])
 `
 
 export const totalArticlesQuery = groq`
-  { count: count(*[_type == "article"]) }
+  count(*[_type == "article"])
 `
 
 export const totalProductsQuery = groq`
-  { count: count(*[_type == "product"]) }
+  count(*[_type == "product"])
 `
 
 export const topViewedArticlesQuery = groq`
@@ -550,8 +1340,8 @@ export const statsQuery = groq`
     members: count(*[_type == "member"]),
     articles: count(*[_type == "article"]),
     products: count(*[_type == "product"]),
-    featuredArticles: count(*[_type == "article" && featured == true]),
-    featuredProducts: count(*[_type == "product" && featured == true]),
+    featuredArticles: count(*[_type == "article" && featured]),
+    featuredProducts: count(*[_type == "product" && featured]),
     discountedProducts: count(*[_type == "product" && discount > 0]),
     outOfStockProducts: count(*[_type == "product" && stock == 0])
   }
@@ -562,20 +1352,113 @@ export const statsQuery = groq`
 // ================================================
 
 export const articlesPaginatedQuery = groq`
-  *[_type == "article"] | order(publishedAt desc)[$offset...$offset + $limit] {
-    ${articleFields}
+  *[_type == "article"] | order(publishedAt desc)[0..19] {
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const productsPaginatedQuery = groq`
-  *[_type == "product"] | order(publishedAt desc)[$offset...$offset + $limit] {
-    ${productFields}
+  *[_type == "product"] | order(publishedAt desc)[0..19] {
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
 export const membersPaginatedQuery = groq`
-  *[_type == "member"] | order(name asc)[$offset...$offset + $limit] {
-    ${memberFields}
+  *[_type == "member"] | order(name asc)[0..19] {
+    _id,
+    name,
+    slug,
+    role,
+    school,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    }
   }
 `
 
@@ -585,13 +1468,89 @@ export const membersPaginatedQuery = groq`
 
 export const relatedArticlesQuery = groq`
   *[_type == "article" && category._ref == $categoryId && _id != $articleId] | order(publishedAt desc)[0..3] {
-    ${articleFields}
+    _id,
+    title,
+    slug,
+    excerpt,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    author-> {
+      _id,
+      name,
+      slug,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      role
+    },
+    category-> {
+      _id,
+      title,
+      slug,
+      color
+    },
+    tags,
+    content,
+    publishedAt,
+    updatedAt,
+    featured,
+    views
   }
 `
 
 export const relatedProductsQuery = groq`
   *[_type == "product" && category._ref == $categoryId && slug.current != $slug] | order(publishedAt desc)[0..3] {
-    ${productFields}
+    _id,
+    name,
+    slug,
+    description,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
+    price,
+    discount,
+    stock,
+    features,
+    specifications,
+    content,
+    category-> {
+      _id,
+      title,
+      slug,
+      icon
+    },
+    tags,
+    publishedAt,
+    featured,
+    sales
   }
 `
 
@@ -601,20 +1560,189 @@ export const relatedProductsQuery = groq`
 
 export const homepageDataQuery = groq`
   {
-    featuredArticles: *[_type == "article" && featured == true] | order(publishedAt desc)[0..2] {
-      ${articleFields}
+    featuredArticles: *[_type == "article" && featured] | order(publishedAt desc)[0..2] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      author-> {
+        _id,
+        name,
+        slug,
+        image {
+          asset -> {
+            _id,
+            url,
+            metadata {
+              lqip
+            }
+          },
+          alt,
+          crop,
+          hotspot
+        },
+        role
+      },
+      category-> {
+        _id,
+        title,
+        slug,
+        color
+      },
+      tags,
+      content,
+      publishedAt,
+      updatedAt,
+      featured,
+      views
     },
     recentArticles: *[_type == "article"] | order(publishedAt desc)[0..5] {
-      ${articleFields}
+      _id,
+      title,
+      slug,
+      excerpt,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      author-> {
+        _id,
+        name,
+        slug,
+        image {
+          asset -> {
+            _id,
+            url,
+            metadata {
+              lqip
+            }
+          },
+          alt,
+          crop,
+          hotspot
+        },
+        role
+      },
+      category-> {
+        _id,
+        title,
+        slug,
+        color
+      },
+      tags,
+      content,
+      publishedAt,
+      updatedAt,
+      featured,
+      views
     },
-    featuredProducts: *[_type == "product" && featured == true] | order(publishedAt desc)[0..3] {
-      ${productFields}
+    featuredProducts: *[_type == "product" && featured] | order(publishedAt desc)[0..3] {
+      _id,
+      name,
+      slug,
+      description,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      price,
+      discount,
+      stock,
+      features,
+      specifications,
+      content,
+      category-> {
+        _id,
+        title,
+        slug,
+        icon
+      },
+      tags,
+      publishedAt,
+      featured,
+      sales
     },
     bestsellingProducts: *[_type == "product"] | order(sales desc)[0..3] {
-      ${productFields}
+      _id,
+      name,
+      slug,
+      description,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      },
+      price,
+      discount,
+      stock,
+      features,
+      specifications,
+      content,
+      category-> {
+        _id,
+        title,
+        slug,
+        icon
+      },
+      tags,
+      publishedAt,
+      featured,
+      sales
     },
     topMembers: *[_type == "member" && role in ["Kepala KKG", "Wakil Kepala"]] | order(name asc) {
-      ${memberFields}
+      _id,
+      name,
+      slug,
+      role,
+      school,
+      image {
+        asset -> {
+          _id,
+          url,
+          metadata {
+            lqip,
+            dimensions
+          }
+        },
+        alt,
+        crop,
+        hotspot
+      }
     }
   }
 `
@@ -678,7 +1806,24 @@ export const ogImageQuery = groq`
 
 export const membersWithArticlesQuery = groq`
   *[_type == "member"] | order(name asc) {
-    ${memberFields},
+    _id,
+    name,
+    slug,
+    role,
+    school,
+    image {
+      asset -> {
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      alt,
+      crop,
+      hotspot
+    },
     "articlesCount": count(*[_type == "article" && author._ref == ^._id]),
     "articles": *[_type == "article" && author._ref == ^._id] | order(publishedAt desc)[0..2] {
       title,
