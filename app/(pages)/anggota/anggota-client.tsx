@@ -290,21 +290,21 @@ function TeamCard({
   return (
     <div
       onClick={() => onSelect(member)}
-      className="group relative bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 transition-all duration-300 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-900/40 cursor-pointer overflow-hidden flex items-center gap-4"
+      className="group relative bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 p-4 transition-all duration-300 hover:shadow-xl hover:border-blue-200 dark:hover:border-blue-900/40 cursor-pointer overflow-hidden flex items-center gap-2"
     >
       {/* Decorative Background for Group Effect */}
       <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50/50 dark:bg-blue-900/10 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-500" />
 
       {/* Avatar Placeholder (Circular) */}
-      <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-50 dark:bg-gray-700 border border-gray-100 dark:border-gray-600 flex items-center justify-center shrink-0">
-        <span className="text-xl sm:text-2xl font-bold text-gray-400 dark:text-gray-300">
+      <div className="relative z-10 w-8 h-8  rounded-full bg-gray-50 dark:bg-gray-700 border border-gray-100 dark:border-gray-600 flex items-center justify-center shrink-0">
+        <span className="text-base  font-bold text-gray-400 dark:text-gray-300">
           {initials}
         </span>
       </div>
 
       {/* Content Area */}
       <div className="relative z-10 flex-1 min-w-0">
-        <h3 className="text-sm sm:text-base tracking-wider font-black text-gray-900 dark:text-white truncate group-hover:text-secondary-500 dark:group-hover:text-secondary-500 transition-colors">
+        <h3 className="text-sm  tracking-wide font-black text-gray-900 dark:text-white truncate group-hover:text-secondary-500 dark:group-hover:text-secondary-500 transition-colors">
           {member.name}
         </h3>
         <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">

@@ -28,6 +28,7 @@ export const memberType = defineType({
       type: 'string',
       options: {
         list: [
+          { title: 'Penasihat', value: 'Penasihat' },
           { title: 'Ketua KKG', value: 'Ketua KKG' },
           { title: 'Wakil Ketua', value: 'Wakil Ketua' },
           { title: 'Sekretaris', value: 'Sekretaris' },
@@ -35,6 +36,7 @@ export const memberType = defineType({
           { title: 'Anggota', value: 'Anggota' },
         ],
       },
+      initialValue: 'Anggota',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -61,13 +63,6 @@ export const memberType = defineType({
       options: {
         hotspot: true,
       },
-      fields: [
-        defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Teks Alternatif',
-        }),
-      ],
       validation: (Rule) => Rule.required(),
     }),
   ],
