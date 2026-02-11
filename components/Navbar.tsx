@@ -23,10 +23,10 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className='flex flex-row items-center'>
-          <Logo size="md" href="/" className="md:hidden mr-2 lg:block" />
-<span>KKG dr. Soetomo</span>
-          </div>
+          <Link href="/" className='flex flex-row items-center'>
+          <Logo size="md"  className="md:hidden mr-2 lg:block" />
+<span className='text-xl font-bold'>KKG dr. Soetomo</span>
+          </Link>
           {/* Desktop Menu */}
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (

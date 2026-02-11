@@ -153,10 +153,7 @@ html {
   body {
     @apply bg-secondary-50 dark:bg-primary-900 text-foreground font-sans;
   }
-  h1, h2 {
+  h1, h2,  h3, h4, h5, h6 {
     @apply text-4xl md:text-5xl font-bold font-heading leading-relaxed tracking-wide;
-  }
-   h3, h4, h5, h6{
-    @apply font-sans font-black tracking-wider leading-relaxed text-balance text-4xl md:text-5xl
   }
 }

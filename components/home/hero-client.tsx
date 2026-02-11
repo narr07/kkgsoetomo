@@ -104,7 +104,7 @@ export function HeroClient({ heroData, schoolList }: HeroClientProps) {
     <section className="relative h-screen overflow-hidden bg-primary-700 px-4 transition-colors flex flex-col items-center justify-center dark:bg-primary-800">
       <div className="absolute inset-0 z-0">
         <DotGrid
-          dotSize={5}
+          dotSize={3}
           gap={15}
           baseColor={isDark ? "#000305" : "#141b38"}
           activeColor={isDark ? "#d4c93b" : "#d4c93b"}
@@ -117,7 +117,7 @@ export function HeroClient({ heroData, schoolList }: HeroClientProps) {
         />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <h1 className="mb-6 text-4xl font-bold text-secondary-50 md:text-5xl">
+        <h1 className="mb-2 text-5xl lg:text-7xl  font-bold text-secondary-50">
           {heroData?.title || 'KKG dr. Soertomo'}
         </h1>
 
@@ -137,7 +137,7 @@ export function HeroClient({ heroData, schoolList }: HeroClientProps) {
         )}
       </div>
 
-      <div className="mt-12 w-3xl text-secondary-400">
+      <div className="mt-12 w-4xl text-secondary-400">
         {schoolLogos.length > 0 && (
           <LogoLoop
             logos={schoolLogos}
@@ -147,8 +147,7 @@ export function HeroClient({ heroData, schoolList }: HeroClientProps) {
             gap={40}
             pauseOnHover
             scaleOnHover
-            fadeOut
-            fadeOutColor={isDark ? "#1f274c" : "#273362"}
+
             showLabel={true}
             ariaLabel="Daftar Sekolah KKG"
           />

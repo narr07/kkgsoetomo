@@ -21,7 +21,7 @@ export default function Footer() {
     },
     {
       title: "Kontak",
-      items: ["📧 info@kkg.id", "📞 (021) 1234-5678", "📍 Jakarta, Indonesia"],
+      items: ["drsooetome@gmail.com", "📍 Majalengka, Indonesia"],
       type: "contact",
     },
   ];

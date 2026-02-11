@@ -114,9 +114,33 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
               Anggota-anggota profesional dan berdedikasi dari Kelompok Kerja Guru yang siap membantu pendidikan berkualitas.
             </p>
           </div>
-
+ {filteredMembers.length > 0 && (
+            <div className="my-12 text-center">
+              <p className="text-gray-600 dark:text-gray-400">
+                Total anggota {(members || []).length}
+              </p>
+            </div>
+          )}
+            {/* School Filter Select */}
+            <div className="max-w-xl mx-auto justify-center">
+            <Select value={selectedSchool} onValueChange={setSelectedSchool}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Pilih Sekolah" />
+              </SelectTrigger>
+              <SelectContent
+                position="popper"
+              >
+                <SelectItem value="all">Semua Sekolah</SelectItem>
+                {uniqueSchools.map((school) => (
+                  <SelectItem key={school} value={school}>
+                    {school}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            </div>
           {/* Filter/Search Section */}
-          <div className="mb-12 space-y-4">
+          <div className="my-12 sticky top-16 z-100 space-y-4">
             {/* Search Input with Clear Button */}
             <div className="relative max-w-2xl  mx-auto">
               <input
@@ -126,6 +150,7 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className=" px-4 w-full py-3 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-secondary-50 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
               />
+
               {/* Clear Button */}
               {searchQuery && (
                 <button
@@ -150,24 +175,7 @@ export default function AnggotaClient({ members }: AnggotaClientProps) {
               )}
             </div>
 
-            {/* School Filter Select */}
-            <div className="max-w-xl mx-auto justify-center">
-            <Select value={selectedSchool} onValueChange={setSelectedSchool}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Pilih Sekolah" />
-              </SelectTrigger>
-              <SelectContent
-                position="popper"
-              >
-                <SelectItem value="all">Semua Sekolah</SelectItem>
-                {uniqueSchools.map((school) => (
-                  <SelectItem key={school} value={school}>
-                    {school}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            </div>
+
           </div>
 
           {/* Members Grid */}
@@ -304,7 +312,7 @@ function TeamCard({
 
       {/* Content Area */}
       <div className="relative z-10 flex-1 min-w-0">
-        <h3 className="text-sm  tracking-wide font-black text-gray-900 dark:text-white truncate group-hover:text-secondary-500 dark:group-hover:text-secondary-500 transition-colors">
+        <h3 className="text-sm  tracking-wide font-black text-gray-900 dark:text-white font-sans truncate group-hover:text-secondary-500 dark:group-hover:text-secondary-500 transition-colors">
           {member.name}
         </h3>
         <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 truncate">

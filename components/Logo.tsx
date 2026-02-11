@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -18,7 +18,7 @@ const sizeMap = {
 
 export default function Logo({
   size = 'md',
-  href = '/',
+
   className = '',
   showText = false,
 }: LogoProps) {
@@ -144,14 +144,6 @@ export default function Logo({
       )}
     </div>
   );
-
-  if (href) {
-    return (
-      <Link href={href} className="inline-flex items-center hover:opacity-80 transition-opacity">
-        {logoContent}
-      </Link>
-    );
-  }
 
   return logoContent;
 }
